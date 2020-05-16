@@ -1,20 +1,43 @@
-.w80{
+.w80 {
     width: 80%;
 }
 
-.hamb{
+.w60{
+    width: 60%;
+}
+
+.hamb {
     height: 5px;
     width: 50px;
     border-radius: 30%;
     background-color: black;
 }
 
-.fontsize{
+.fontsize {
     font-size: 1.4em;
 }
 
-@media screen and (max-width: 720px){
-    .menu{
+.bg264d7efoot {
+    background-color: #264d7e;
+}
+
+@media screen and (max-width: 960px) {
+    .menu {
         display: none;
+    }
+    .text {
+        color: white !important;
+    }
+    .bg264d7e {
+        background-color: #264d7e;
+    }
+}
+
+@media screen and (min-width: 720px) {
+    .border264d7efixe{
+        border: solid 3px #264d7e;
+    }
+    .border264d7e {
+        border: solid 3px #264d7e;
     }
 }
