@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../../public/assets/css/main.css">
     <title>Accueil</title>
 </head>
+
 <body>
     <?php
     require_once('partial/header.php');
@@ -38,10 +39,137 @@
             </a>
         </div>
         <div class="mt-2 text-center w80 mx-auto">
-            <h2 class="titlesizemobile">GB Toiture, Professionnel de qualité</h2>
+            <h2 class="titlesizemobile titlecolor">GB Toiture, Professionnel de qualité</h2>
             <p class="fontsizemobile">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid facere optio doloribus consequatur deleniti, fugit eaque blanditiis at quod iste,</p>
             <p class="fontsizemobile">a nisi possimus ducimus cum minima ab. Laboriosam, totam excepturi?</p>
-            <h3 class="subtitle subtitlemobile">Découvrez nos domaines d'expertise</h3>
+            <h3 class="subtitle subtitlemobile titlecolor">Découvrez nos domaines d'expertise</h3>
+        </div>
+        <div class="prestation col-12 mt-5 mb-5 w80 mx-auto">
+            <div class="row p-0 m-0 m-3">
+                <div class="col-3 position-relative anim">
+                    <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
+                    <div class="pos-absolute anim-opa">
+                        <h4 class="title-presta">Couverture</h4>
+                    </div>
+                    <div class="pos-absolute2 anim-opa">
+                        <p class="bold text-danger">Tuile,</p>
+                        <p class="bold text-danger">Bac acier</p>
+                        <p class="bold text-danger">Étanchéité</p>
+                        <p class="bold text-danger">Neuve,</p>
+                        <p class="bold text-danger">Rénovation</p>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
+                    <div class="pos-absolute anim-opa">
+                        <h4 class="title-presta">Entretien</h4>
+                    </div>
+                    <div class="pos-absolute2 anim-opa">
+                        <p class="bold text-danger">Tuile,</p>
+                        <p class="bold text-danger">Bac acier</p>
+                        <p class="bold text-danger">Étanchéité</p>
+                        <p class="bold text-danger">Neuve,</p>
+                        <p class="bold text-danger">Rénovation</p>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
+                    <div class="pos-absolute anim-opa">
+                        <h4 class="title-presta">Chéneau</h4>
+                    </div>
+                    <div class="pos-absolute2 anim-opa">
+                        <p class="bold text-danger">Tuile,</p>
+                        <p class="bold text-danger">Bac acier</p>
+                        <p class="bold text-danger">Étanchéité</p>
+                        <p class="bold text-danger">Neuve,</p>
+                        <p class="bold text-danger">Rénovation</p>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
+                    <div class="pos-absolute anim-opa">
+                        <h4 class="title-presta">Isolation externe</h4>
+                    </div>
+                    <div class="pos-absolute2 anim-opa">
+                        <p class="bold text-danger">Tuile,</p>
+                        <p class="bold text-danger">Bac acier</p>
+                        <p class="bold text-danger">Étanchéité</p>
+                        <p class="bold text-danger">Neuve,</p>
+                        <p class="bold text-danger">Rénovation</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row p-0 m-0 m-3">
+                <div class="col-4">
+                    <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt="">
+                    <div class="pos-absolute anim-opa">
+                        <h4 class="title-presta">Zinguerie</h4>
+                    </div>
+                    <div class="pos-absolute2 anim-opa">
+                        <p class="bold text-danger">Tuile,</p>
+                        <p class="bold text-danger">Bac acier</p>
+                        <p class="bold text-danger">Étanchéité</p>
+                        <p class="bold text-danger">Neuve,</p>
+                        <p class="bold text-danger">Rénovation</p>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt="">
+                    <div class="pos-absolute anim-opa">
+                        <h4 class="title-presta">Gouttière</h4>
+                    </div>
+                    <div class="pos-absolute2 anim-opa">
+                        <p class="bold text-danger">Tuile,</p>
+                        <p class="bold text-danger">Bac acier</p>
+                        <p class="bold text-danger">Étanchéité</p>
+                        <p class="bold text-danger">Neuve,</p>
+                        <p class="bold text-danger">Rénovation</p>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt="">
+                    <div class="pos-absolute anim-opa">
+                        <h4 class="title-presta">Cheminée</h4>
+                    </div>
+                    <div class="pos-absolute2 anim-opa">
+                        <p class="bold text-danger">Tuile,</p>
+                        <p class="bold text-danger">Bac acier</p>
+                        <p class="bold text-danger">Étanchéité</p>
+                        <p class="bold text-danger">Neuve,</p>
+                        <p class="bold text-danger">Rénovation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="realistion col-12 w80 mx-auto mb-5">
+            <div class="text-center mb-5">
+                <h2 class="titlesizemobile titlecolor">Découvrez nos réalisations de tous nos domaines</h2>
+            </div>
+            <div class="row p-0 m-0 m-3">
+                <div class="col-3">
+                    <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
+                </div>
+                <div class="col-3">
+                    <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
+                </div>
+                <div class="col-3">
+                    <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
+                </div>
+                <div class="col-3">
+                    <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
+                </div>
+            </div>
+            <div class="row p-0 m-0 m-3">
+                <div class="col-4">
+                    <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt="">
+                </div>
+                <div class="col-4">
+                    <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt="">
+                </div>
+                <div class="col-4">
+                    <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt="">
+                </div>
+            </div>
         </div>
     </main>
     <?php

@@ -28,12 +28,61 @@
     background-color: #264d7e;
 }
 
-h4{
+.size-h4{
     font-size: 1.2em;
 }
 
 .subtitle{
     font-size: 1.5em;
+}
+
+.shadowed{
+    box-shadow: 5px 5px 5px #264d7e;
+}
+
+.titlecolor{
+    color: #264d7e;
+}
+
+.pos-absolute{
+    position: absolute;
+    top: 50px;
+    left: 129px;
+}
+
+.pos-absolute2{
+    position: absolute;
+    top: 70px;
+    left: 97px;
+    margin-top: 20px;
+}
+
+.bold{
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.title-presta{
+    font-size: 1.8em;
+}
+
+.opa{
+    opacity: 0.7;
+}
+
+.anim-opa {
+    /* animation-name: prestation; */
+    animation: prestation 4s;
+    opacity: 100;
+}
+
+@keyframes prestation {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 100;
+    }
 }
 
 @media screen and (max-width: 960px) {

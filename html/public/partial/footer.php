@@ -2,7 +2,7 @@
         <div class="col-12 mx-auto d-md-flex justify-content-around w-100 text-white">
             <div class="col-12 col-md-3 mt-2 child">
                 <div class="d-flex justify-content-between">
-                    <h4 class="mt-2">GB Toiture</h4>
+                    <h4 class="mt-2 size-h4">GB Toiture</h4>
                     <div class="col-2 d-lg-none mobilefoot mt-2">
                         <div class="hamb1 mb-2"></div>
                         <div class="hamb1 mb-2"></div>
@@ -17,7 +17,7 @@
             </div>
             <div class="col-12 col-md-3 mt-2 child">
                 <div class="d-flex justify-content-between">
-                    <h4 class="mt-2">Nos prestations</h4>
+                    <h4 class="mt-2 size-h4">Nos prestations</h4>
                     <div class="col-2 d-lg-none mobilefoot mt-2">
                         <div class="hamb1 mb-2"></div>
                         <div class="hamb1 mb-2"></div>
@@ -53,7 +53,7 @@
             </div>
             <div class="col-12 col-md-3 mt-2 child">
                 <div class="d-flex justify-content-between">
-                    <h4 class="mt-2 mb-2">Contact</h4>
+                    <h4 class="mt-2 mb-2 size-h4">Contact</h4>
                     <div class="col-2 d-lg-none mobilefoot mt-2 mb-2">
                         <div class="hamb1 mb-2"></div>
                         <div class="hamb1 mb-2"></div>

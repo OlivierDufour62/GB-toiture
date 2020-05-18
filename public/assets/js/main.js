@@ -12,4 +12,11 @@ $(document).ready(function () {
     }, function () {
         $(this).removeClass(`border264d7e`);
     });
+
+    $(".anim").hover(function() {
+        $(".anim-opa").css("animation-play-state", "running");
+    });
+    $(".anim").click(function() {
+        $(".display-anim").css("animation-play-state", "paused");
+    });
 });

@@ -1,5 +1,5 @@
-<header class="container-fluid w80 mx-auto p-0 m-0">
-        <div class="col-12 row">
+<header class="container-fluid mx-auto p-0 m-0 fixed-top bg-white opa">
+        <div class="col-12 row mx-auto w80">
             <div class="col-6 mt-4 d-lg-none mobilemenu">
                 <div class="hamb mb-2"></div>
                 <div class="hamb mb-2"></div>
