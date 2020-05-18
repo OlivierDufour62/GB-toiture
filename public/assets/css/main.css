@@ -32,6 +32,10 @@ h4{
     font-size: 1.2em;
 }
 
+.subtitle{
+    font-size: 1.5em;
+}
+
 @media screen and (max-width: 960px) {
     .menu {
         display: none;
@@ -48,12 +52,26 @@ h4{
     .bg264d7e {
         background-color: #264d7e;
     }
+
+    .titlesizemobile{
+        font-size: 1.2em;
+    }
+
+    .subtitlemobile{
+        font-size: 1.0em;
+    }
+
+    .fontsizemobile{
+        font-size: 0.8em;
+    }
 }
 
 @media screen and (min-width: 720px) {
+
     .border264d7efixe{
         border: solid 3px #264d7e;
     }
+
     .border264d7e {
         border: solid 3px #264d7e;
     }

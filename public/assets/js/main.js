@@ -4,7 +4,7 @@ $(document).ready(function () {
     });
 
     $(`.mobilefoot`).click(function () {
-        $(`div.child`).children().first().toggle(`slow`);
+        $(this).parent().parent().children('.footmobile').toggle('slow');
     });
 
     $(`.hov`).hover(function () {
