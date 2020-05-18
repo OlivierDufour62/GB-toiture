@@ -1,6 +1,10 @@
 $(document).ready(function () {
     $(`.mobilemenu`).click(function () {
-        $(`.mm`).toggle(`slow`);
+        $(`.mm`).slideToggle(`slow`);
+    });
+
+    $(`.mobilefoot`).click(function () {
+        $(`div.child`).children().first().toggle(`slow`);
     });
 
     $(`.hov`).hover(function () {
