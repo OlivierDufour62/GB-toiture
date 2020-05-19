@@ -13,10 +13,15 @@ $(document).ready(function () {
         $(this).removeClass(`border264d7e`);
     });
 
-    $(".anim").hover(function() {
-        $(".anim-opa").css("animation-play-state", "running");
+    $('.anim').mouseenter(function () {
+        console.log('coucou')
+        // $(this).children('.animjs').addClass('anim-opa');
+        $(this).children('.animjs').css('animation-name', 'prestation');
     });
-    $(".anim").click(function() {
-        $(".display-anim").css("animation-play-state", "paused");
+
+    $('.anim').mouseleave(function () {
+        console.log('coucou')
+        // $(this).children('.animjs').removeClass('anim-opa');
+        $(this).children('.animjs').css('animation-name', 'prestationleave');
     });
 });

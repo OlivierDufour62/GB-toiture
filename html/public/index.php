@@ -48,10 +48,10 @@
             <div class="row p-0 m-0 m-3">
                 <div class="col-3 position-relative anim">
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
-                    <div class="pos-absolute anim-opa">
+                    <div class="pos-absolute opa0 animjs">
                         <h4 class="title-presta">Couverture</h4>
                     </div>
-                    <div class="pos-absolute2 anim-opa">
+                    <div class="pos-absolute2 opa0 animjs">
                         <p class="bold text-danger">Tuile,</p>
                         <p class="bold text-danger">Bac acier</p>
                         <p class="bold text-danger">Étanchéité</p>
@@ -59,12 +59,12 @@
                         <p class="bold text-danger">Rénovation</p>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-3 anim">
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
-                    <div class="pos-absolute anim-opa">
+                    <div class="pos-absolute opa0 animjs">
                         <h4 class="title-presta">Entretien</h4>
                     </div>
-                    <div class="pos-absolute2 anim-opa">
+                    <div class="pos-absolute2 opa0 animjs">
                         <p class="bold text-danger">Tuile,</p>
                         <p class="bold text-danger">Bac acier</p>
                         <p class="bold text-danger">Étanchéité</p>
@@ -72,12 +72,12 @@
                         <p class="bold text-danger">Rénovation</p>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-3 anim">
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
-                    <div class="pos-absolute anim-opa">
+                    <div class="pos-absolute opa0 animjs">
                         <h4 class="title-presta">Chéneau</h4>
                     </div>
-                    <div class="pos-absolute2 anim-opa">
+                    <div class="pos-absolute2 opa0 animjs">
                         <p class="bold text-danger">Tuile,</p>
                         <p class="bold text-danger">Bac acier</p>
                         <p class="bold text-danger">Étanchéité</p>
@@ -85,12 +85,12 @@
                         <p class="bold text-danger">Rénovation</p>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-3 anim">
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
-                    <div class="pos-absolute anim-opa">
+                    <div class="pos-absolute opa0 animjs">
                         <h4 class="title-presta">Isolation externe</h4>
                     </div>
-                    <div class="pos-absolute2 anim-opa">
+                    <div class="pos-absolute2 opa0 animjs">
                         <p class="bold text-danger">Tuile,</p>
                         <p class="bold text-danger">Bac acier</p>
                         <p class="bold text-danger">Étanchéité</p>
@@ -100,12 +100,12 @@
                 </div>
             </div>
             <div class="row p-0 m-0 m-3">
-                <div class="col-4">
+                <div class="col-4 anim">
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt="">
-                    <div class="pos-absolute anim-opa">
+                    <div class="pos-absolute opa0 animjs">
                         <h4 class="title-presta">Zinguerie</h4>
                     </div>
-                    <div class="pos-absolute2 anim-opa">
+                    <div class="pos-absolute2 opa0 animjs">
                         <p class="bold text-danger">Tuile,</p>
                         <p class="bold text-danger">Bac acier</p>
                         <p class="bold text-danger">Étanchéité</p>
@@ -113,12 +113,12 @@
                         <p class="bold text-danger">Rénovation</p>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-4 anim">
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt="">
-                    <div class="pos-absolute anim-opa">
+                    <div class="pos-absolute opa0 animjs">
                         <h4 class="title-presta">Gouttière</h4>
                     </div>
-                    <div class="pos-absolute2 anim-opa">
+                    <div class="pos-absolute2 opa0 animjs">
                         <p class="bold text-danger">Tuile,</p>
                         <p class="bold text-danger">Bac acier</p>
                         <p class="bold text-danger">Étanchéité</p>
@@ -126,12 +126,12 @@
                         <p class="bold text-danger">Rénovation</p>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-4 anim">
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt="">
-                    <div class="pos-absolute anim-opa">
+                    <div class="pos-absolute opa0 animjs">
                         <h4 class="title-presta">Cheminée</h4>
                     </div>
-                    <div class="pos-absolute2 anim-opa">
+                    <div class="pos-absolute2 opa0 animjs">
                         <p class="bold text-danger">Tuile,</p>
                         <p class="bold text-danger">Bac acier</p>
                         <p class="bold text-danger">Étanchéité</p>
