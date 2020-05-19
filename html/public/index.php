@@ -47,96 +47,87 @@
         <div class="prestation col-12 mt-5 mb-5 w80 mx-auto">
             <div class="row p-0 m-0 m-3">
                 <div class="col-3 position-relative anim">
+                    <h4 class="title-presta titlecolor">Couverture</h4>
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
-                    <div class="pos-absolute opa0 animjs">
-                        <h4 class="title-presta">Couverture</h4>
+                    <div class="pos-absolute anim-opa zindex bg-opa">
+                        <h4 class="title-presta text-danger">Couverture</h4>
                     </div>
-                    <div class="pos-absolute2 opa0 animjs">
-                        <p class="bold text-danger">Tuile,</p>
-                        <p class="bold text-danger">Bac acier</p>
-                        <p class="bold text-danger">Étanchéité</p>
-                        <p class="bold text-danger">Neuve,</p>
-                        <p class="bold text-danger">Rénovation</p>
+                    <div class="pos-abslolute5 anim-opa w-100 bg-opa h-100">
+                        <p class="pos-absolute2 bold text-dark">Tuile,</p>
+                        <p class="pos-absolute0 bold text-dark">Bac acier</p>
+                        <p class="pos-absolute3 bold text-dark">Étanchéité</p>
+                        <p class="pos-absolute1 bold text-dark">Neuve,</p>
+                        <p class="pos-absolute6 bold text-dark">Rénovation</p>
                     </div>
                 </div>
-                <div class="col-3 anim">
+                <div class="col-3 position-relative anim">
+                    <h4 class="title-presta titlecolor">Entretien</h4>
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
-                    <div class="pos-absolute opa0 animjs">
-                        <h4 class="title-presta">Entretien</h4>
+                    <div class="pos-absolute anim-opa zindex bg-opa">
+                        <h4 class="title-presta text-danger">Entretien</h4>
                     </div>
-                    <div class="pos-absolute2 opa0 animjs">
-                        <p class="bold text-danger">Tuile,</p>
-                        <p class="bold text-danger">Bac acier</p>
-                        <p class="bold text-danger">Étanchéité</p>
-                        <p class="bold text-danger">Neuve,</p>
-                        <p class="bold text-danger">Rénovation</p>
+                    <div class="pos-abslolute5 anim-opa w-100 bg-opa h-100">
+                        <p class="pos-absolute2 bold text-dark">Démousage,</p>
+                        <p class="pos-absolute0 bold text-dark">Nettoyage Gouttère</p>
+                        <p class="pos-absolute3 bold text-dark">Nettoyage Chéneau</p>
                     </div>
                 </div>
-                <div class="col-3 anim">
+                <div class="col-3 position-relative anim">
+                    <h4 class="title-presta titlecolor">Chéneau</h4>
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
-                    <div class="pos-absolute opa0 animjs">
-                        <h4 class="title-presta">Chéneau</h4>
+                    <div class="pos-absolute anim-opa zindex bg-opa">
+                        <h4 class="title-presta text-danger">Chéneau</h4>
                     </div>
-                    <div class="pos-absolute2 opa0 animjs">
-                        <p class="bold text-danger">Tuile,</p>
-                        <p class="bold text-danger">Bac acier</p>
-                        <p class="bold text-danger">Étanchéité</p>
-                        <p class="bold text-danger">Neuve,</p>
-                        <p class="bold text-danger">Rénovation</p>
+                    <div class="pos-abslolute5 anim-opa w-100 bg-opa h-100">
+                        <p class="pos-absolute2 bold text-dark">Création,</p>
+                        <p class="pos-absolute0 bold text-dark">Remplacement</p>
                     </div>
                 </div>
-                <div class="col-3 anim">
+                <div class="col-3 position-relative anim">
+                    <h4 class="title-presta titlecolor">Isolation externe</h4>
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
-                    <div class="pos-absolute opa0 animjs">
-                        <h4 class="title-presta">Isolation externe</h4>
+                    <div class="pos-absolute-titlespec anim-opa zindex bg-opa">
+                        <h4 class="title-presta text-danger">Isolation externe</h4>
                     </div>
-                    <div class="pos-absolute2 opa0 animjs">
-                        <p class="bold text-danger">Tuile,</p>
-                        <p class="bold text-danger">Bac acier</p>
-                        <p class="bold text-danger">Étanchéité</p>
-                        <p class="bold text-danger">Neuve,</p>
-                        <p class="bold text-danger">Rénovation</p>
+                    <div class="pos-abslolute5 anim-opa w-100 bg-opa h-100">
+                        <p class="pos-absolute2 bold text-dark">Externe</p>
                     </div>
                 </div>
             </div>
             <div class="row p-0 m-0 m-3">
-                <div class="col-4 anim">
+                <div class="col-4 position-relative anim">
+                    <h4 class="title-presta titlecolor">Zinguerie</h4>
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt="">
-                    <div class="pos-absolute opa0 animjs">
-                        <h4 class="title-presta">Zinguerie</h4>
+                    <div class="pos-absolute anim-opa zindex bg-opa">
+                        <h4 class="title-presta text-danger">Zinguerie</h4>
                     </div>
-                    <div class="pos-absolute2 opa0 animjs">
-                        <p class="bold text-danger">Tuile,</p>
-                        <p class="bold text-danger">Bac acier</p>
-                        <p class="bold text-danger">Étanchéité</p>
-                        <p class="bold text-danger">Neuve,</p>
-                        <p class="bold text-danger">Rénovation</p>
+                    <div class="pos-abslolute5 anim-opa w-100 bg-opa h-100">
+                        <p class="pos-absolute2 bold text-dark">Terasse</p>
+                        <p class="pos-absolute0 bold text-dark">Chéneauu</p>
+                        <p class="pos-absolute3 bold text-dark">Gouttière</p>
+                        <p class="pos-absolute1 bold text-dark">Couvre mur</p>
                     </div>
                 </div>
-                <div class="col-4 anim">
+                <div class="col-4 position-relative anim">
+                    <h4 class="title-presta titlecolor">Gouttière</h4>
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt="">
-                    <div class="pos-absolute opa0 animjs">
-                        <h4 class="title-presta">Gouttière</h4>
+                    <div class="pos-absolute anim-opa zindex bg-opa">
+                        <h4 class="title-presta text-danger">Gouttière</h4>
                     </div>
-                    <div class="pos-absolute2 opa0 animjs">
-                        <p class="bold text-danger">Tuile,</p>
-                        <p class="bold text-danger">Bac acier</p>
-                        <p class="bold text-danger">Étanchéité</p>
-                        <p class="bold text-danger">Neuve,</p>
-                        <p class="bold text-danger">Rénovation</p>
+                    <div class="pos-abslolute5 anim-opa w-100 bg-opa h-100">
+                        <p class="pos-absolute2 bold text-dark">Zinc</p>
+                        <p class="pos-absolute0 bold text-dark">PVC</p>
                     </div>
                 </div>
-                <div class="col-4 anim">
+                <div class="col-4 position-relative anim">
+                    <h4 class="title-presta titlecolor">Cheminée</h4>
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt="">
-                    <div class="pos-absolute opa0 animjs">
-                        <h4 class="title-presta">Cheminée</h4>
+                    <div class="pos-absolute anim-opa zindex bg-opa">
+                        <h4 class="title-presta text-danger">Cheminée</h4>
                     </div>
-                    <div class="pos-absolute2 opa0 animjs">
-                        <p class="bold text-danger">Tuile,</p>
-                        <p class="bold text-danger">Bac acier</p>
-                        <p class="bold text-danger">Étanchéité</p>
-                        <p class="bold text-danger">Neuve,</p>
-                        <p class="bold text-danger">Rénovation</p>
+                    <div class="pos-abslolute5 anim-opa w-100 bg-opa h-100">
+                        <p class="pos-absolute2 bold text-dark">Joint</p>
+                        <p class="pos-absolute0 bold text-dark">Remplacement</p>
                     </div>
                 </div>
             </div>

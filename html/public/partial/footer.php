@@ -1,6 +1,6 @@
 <footer class="col-12 container-fluid bg264d7efoot">
-        <div class="col-12 mx-auto d-md-flex justify-content-around w-100 text-white">
-            <div class="col-12 col-md-3 mt-2 child">
+        <div class="col-12 d-md-flex justify-content-center w-100 text-white">
+            <div class="col-12 col-md-2 mt-2 mr-5 child">
                 <div class="d-flex justify-content-between">
                     <h4 class="mt-2 size-h4">GB Toiture</h4>
                     <div class="col-2 d-lg-none mobilefoot mt-2">
@@ -15,7 +15,7 @@
                         nemo tempore, explicabo distinctio quam ex?</p>
                 </div>
             </div>
-            <div class="col-12 col-md-3 mt-2 child">
+            <div class="col-12 col-md-2 mt-2 mr-5 child">
                 <div class="d-flex justify-content-between">
                     <h4 class="mt-2 size-h4">Nos prestations</h4>
                     <div class="col-2 d-lg-none mobilefoot mt-2">
@@ -25,33 +25,37 @@
                     </div>
                 </div>
                 <div  class="footmobile">
-                    <ul class="list-unstyled">
-                        <a href="">
-                            <li class="text-white">Couverture</li>
-                        </a>
-                        <a href="">
-                            <li class="text-white">Entretien</li>
-                        </a>
-                        <a href="">
-                            <li class="text-white">Chéneau</li>
-                        </a>
-                        <a href="">
-                            <li class="text-white">Isolation</li>
-                        </a>
-                        <a href="">
-                            <li class="text-white">Zinguerie</li>
-                        </a>
-                        <a href="">
-                            <li class="text-white">Gouttière</li>
-                        </a>
-                        <a href="">
-                            <li class="text-white">Cheminée</li>
-                        </a>
+                    <ul class="list-unstyled row">
+                        <div class="ml-3 mr-5">
+                            <a href="">
+                                <li class="text-white">Couverture</li>
+                            </a>
+                            <a href="">
+                                <li class="text-white">Entretien</li>
+                            </a>
+                            <a href="">
+                                <li class="text-white">Chéneau</li>
+                            </a>
+                            <a href="">
+                                <li class="text-white">Isolation</li>
+                            </a>
+                        </div>
+                        <div>
+                            <a href="">
+                                <li class="text-white">Zinguerie</li>
+                            </a>
+                            <a href="">
+                                <li class="text-white">Gouttière</li>
+                            </a>
+                            <a href="">
+                                <li class="text-white">Cheminée</li>
+                            </a>
+                        </div>
                     </ul>
                 </div>
                 
             </div>
-            <div class="col-12 col-md-3 mt-2 child">
+            <div class="col-12 col-md-2 mt-2 child">
                 <div class="d-flex justify-content-between">
                     <h4 class="mt-2 mb-2 size-h4">Contact</h4>
                     <div class="col-2 d-lg-none mobilefoot mt-2 mb-2">

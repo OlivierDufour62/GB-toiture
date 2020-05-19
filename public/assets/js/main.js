@@ -12,16 +12,12 @@ $(document).ready(function () {
     }, function () {
         $(this).removeClass(`border264d7e`);
     });
-
+//animate for index prestation and galery
     $('.anim').mouseenter(function () {
-        console.log('coucou')
-        // $(this).children('.animjs').addClass('anim-opa');
-        $(this).children('.animjs').css('animation-name', 'prestation');
+        $(this).children('.anim-opa').css('animation-name', 'prestation');
+        $(this).children('.bg-opa').css('animation-name', 'prestationbg');
     });
-
     $('.anim').mouseleave(function () {
-        console.log('coucou')
-        // $(this).children('.animjs').removeClass('anim-opa');
-        $(this).children('.animjs').css('animation-name', 'prestationleave');
+        $(this).children('.anim-opa').css('animation-name', 'prestationleave');
     });
 });

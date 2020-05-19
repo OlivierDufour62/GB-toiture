@@ -50,11 +50,60 @@
     left: 129px;
 }
 
+.pos-absolute0{
+    position: absolute;
+    top: 140px;
+    left: 97px;
+}
+
+.pos-absolute1{
+    position: absolute;
+    top: 240px;
+    left: 97px;
+}
+
 .pos-absolute2{
     position: absolute;
     top: 70px;
     left: 97px;
     margin-top: 20px;
+}
+
+.pos-absolute3{
+    position: absolute;
+    top: 190px;
+    left: 97px;
+}
+
+.pos-absolute4{
+    position: absolute;
+    top: 170px;
+    left: 83px;
+}
+
+/* div */
+
+.pos-abslolute5{
+    position: absolute;
+    top: 0px;
+}
+
+.pos-absolute-titlespec{
+    position: absolute;
+    top: 50px;
+    left: 73px;
+}
+
+.pos-absolute6{
+    position: absolute;
+    top: 290px;
+    left: 97px;
+}
+
+.pos-absolute10{
+    position: absolute;
+    top: 50px;
+    left: 83px;
 }
 
 .bold{
@@ -70,14 +119,31 @@
     opacity: 0.7;
 }
 
-.opa0{
+.zindex{
+    z-index: 800;
+}
+
+.anim-opa {
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
     opacity: 0;
 }
 
 .anim-opa {
-    animation-name: prestation; 
-    animation: prestation 2s;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    background-color: white;
     opacity: 0;
+}
+
+@keyframes prestationbg {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.6;
+        
+    }
 }
 
 @keyframes prestation {
@@ -86,10 +152,11 @@
     }
     to {
         opacity: 1;
+        
     }
 }
 
-@keyframes prestation {
+@keyframes prestationleave {
     from {
         opacity: 1;
     }
