@@ -38,21 +38,21 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
-        <div class="mt-2 text-center w80 mx-auto">
+        <div class="mt-2 text-center w100 w80 mx-auto">
             <h2 class="titlesizemobile titlecolor">GB Toiture, Professionnel de qualité</h2>
             <p class="fontsizemobile">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid facere optio doloribus consequatur deleniti, fugit eaque blanditiis at quod iste,</p>
             <p class="fontsizemobile">a nisi possimus ducimus cum minima ab. Laboriosam, totam excepturi?</p>
             <h3 class="subtitle subtitlemobile titlecolor">Découvrez nos domaines d'expertise</h3>
         </div>
-        <div class="prestation col-12 mt-5 mb-5 w80 mx-auto">
+        <div class="prestation col-12 mt-5 mb-5 w100 w80 mx-auto">
             <div class="row p-0 m-0 m-3">
-                <div class="col-3 position-relative anim">
-                    <h4 class="title-presta titlecolor">Couverture</h4>
+                <div class="col-6 col-lg-3 position-relative anim">
+                    <h4 class="subtitlemobile title-presta titlecolor mt-3">Couverture</h4>
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
-                    <div class="pos-absolute anim-opa zindex bg-opa">
+                    <div class="d-none d-lg-block pos-absolute anim-opa zindex bg-opa">
                         <h4 class="title-presta text-danger">Couverture</h4>
                     </div>
-                    <div class="pos-abslolute5 anim-opa w-100 bg-opa h-100">
+                    <div class="d-none d-lg-block pos-abslolute5 anim-opa w-100 bg-opa h-100">
                         <p class="pos-absolute2 bold text-dark">Tuile,</p>
                         <p class="pos-absolute0 bold text-dark">Bac acier</p>
                         <p class="pos-absolute3 bold text-dark">Étanchéité</p>
@@ -60,79 +60,90 @@
                         <p class="pos-absolute6 bold text-dark">Rénovation</p>
                     </div>
                 </div>
-                <div class="col-3 position-relative anim">
-                    <h4 class="title-presta titlecolor">Entretien</h4>
+                <div class="col-6 col-lg-3 position-relative anim">
+                    <h4 class="subtitlemobile title-presta titlecolor mt-3">Entretien</h4>
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
-                    <div class="pos-absolute anim-opa zindex bg-opa">
+                    <div class="d-none d-lg-block pos-absolute anim-opa zindex bg-opa">
                         <h4 class="title-presta text-danger">Entretien</h4>
                     </div>
-                    <div class="pos-abslolute5 anim-opa w-100 bg-opa h-100">
+                    <div class="d-none d-lg-block pos-abslolute5 anim-opa w-100 bg-opa h-100">
                         <p class="pos-absolute2 bold text-dark">Démousage,</p>
                         <p class="pos-absolute0 bold text-dark">Nettoyage Gouttère</p>
                         <p class="pos-absolute3 bold text-dark">Nettoyage Chéneau</p>
                     </div>
                 </div>
-                <div class="col-3 position-relative anim">
-                    <h4 class="title-presta titlecolor">Chéneau</h4>
+                <div class="col-6 col-lg-3 position-relative anim">
+                    <h4 class="subtitlemobile title-presta titlecolor mt-3">Chéneau</h4>
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
-                    <div class="pos-absolute anim-opa zindex bg-opa">
+                    <div class="d-none d-lg-block pos-absolute anim-opa zindex bg-opa">
                         <h4 class="title-presta text-danger">Chéneau</h4>
                     </div>
-                    <div class="pos-abslolute5 anim-opa w-100 bg-opa h-100">
+                    <div class="d-none d-lg-block pos-abslolute5 anim-opa w-100 bg-opa h-100">
                         <p class="pos-absolute2 bold text-dark">Création,</p>
                         <p class="pos-absolute0 bold text-dark">Remplacement</p>
                     </div>
                 </div>
-                <div class="col-3 position-relative anim">
-                    <h4 class="title-presta titlecolor">Isolation externe</h4>
+                <div class="col-6 col-lg-3 position-relative anim">
+                    <h4 class="subtitlemobile title-presta titlecolor mt-3">Isolation externe</h4>
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
-                    <div class="pos-absolute-titlespec anim-opa zindex bg-opa">
+                    <div class="d-none d-lg-block pos-absolute-titlespec anim-opa zindex bg-opa">
                         <h4 class="title-presta text-danger">Isolation externe</h4>
                     </div>
-                    <div class="pos-abslolute5 anim-opa w-100 bg-opa h-100">
+                    <div class="d-none d-lg-block pos-abslolute5 anim-opa w-100 bg-opa h-100">
                         <p class="pos-absolute2 bold text-dark">Externe</p>
                     </div>
                 </div>
             </div>
             <div class="row p-0 m-0 m-3">
-                <div class="col-4 position-relative anim">
-                    <h4 class="title-presta titlecolor">Zinguerie</h4>
+                <div class="col-6 col-lg-4 position-relative anim">
+                    <h4 class="subtitlemobile title-presta titlecolor mt-3">Zinguerie</h4>
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt="">
-                    <div class="pos-absolute anim-opa zindex bg-opa">
+                    <div class="d-none d-lg-block pos-absolute anim-opa zindex bg-opa">
                         <h4 class="title-presta text-danger">Zinguerie</h4>
                     </div>
-                    <div class="pos-abslolute5 anim-opa w-100 bg-opa h-100">
+                    <div class="d-none d-lg-block pos-abslolute5 anim-opa w-100 bg-opa h-100">
                         <p class="pos-absolute2 bold text-dark">Terasse</p>
                         <p class="pos-absolute0 bold text-dark">Chéneauu</p>
                         <p class="pos-absolute3 bold text-dark">Gouttière</p>
                         <p class="pos-absolute1 bold text-dark">Couvre mur</p>
                     </div>
                 </div>
-                <div class="col-4 position-relative anim">
-                    <h4 class="title-presta titlecolor">Gouttière</h4>
+                <div class="col-6 col-lg-4 position-relative anim">
+                    <h4 class="subtitlemobile title-presta titlecolor mt-3">Gouttière</h4>
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt="">
-                    <div class="pos-absolute anim-opa zindex bg-opa">
+                    <div class="d-none d-lg-block pos-absolute anim-opa zindex bg-opa">
                         <h4 class="title-presta text-danger">Gouttière</h4>
                     </div>
-                    <div class="pos-abslolute5 anim-opa w-100 bg-opa h-100">
+                    <div class="d-none d-lg-block pos-abslolute5 anim-opa w-100 bg-opa h-100">
                         <p class="pos-absolute2 bold text-dark">Zinc</p>
                         <p class="pos-absolute0 bold text-dark">PVC</p>
                     </div>
                 </div>
-                <div class="col-4 position-relative anim">
-                    <h4 class="title-presta titlecolor">Cheminée</h4>
+                <div class="col-6 col-lg-4 position-relative anim">
+                    <h4 class="subtitlemobile title-presta titlecolor mt-3">Cheminée</h4>
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt="">
-                    <div class="pos-absolute anim-opa zindex bg-opa">
+                    <div class="d-none d-lg-block pos-absolute anim-opa zindex bg-opa">
                         <h4 class="title-presta text-danger">Cheminée</h4>
                     </div>
-                    <div class="pos-abslolute5 anim-opa w-100 bg-opa h-100">
+                    <div class="d-none d-lg-block pos-abslolute5 anim-opa w-100 bg-opa h-100">
                         <p class="pos-absolute2 bold text-dark">Joint</p>
+                        <p class="pos-absolute0 bold text-dark">Remplacement</p>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-4 position-relative anim">
+                    <h4 class="subtitlemobile title-presta titlecolor mt-3">Fenêtre de toit</h4>
+                    <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt="">
+                    <div class="d-none d-lg-block pos-absolute anim-opa zindex bg-opa">
+                        <h4 class="title-presta text-danger">Fenêtre de toit</h4>
+                    </div>
+                    <div class="d-none d-lg-block pos-abslolute5 anim-opa w-100 bg-opa h-100">
+                        <p class="pos-absolute2 bold text-dark">Création</p>
                         <p class="pos-absolute0 bold text-dark">Remplacement</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="realistion col-12 w80 mx-auto mb-5">
+        <div class="realistion col-12 w100 w80 mx-auto mb-5">
             <div class="text-center mb-5">
                 <h2 class="titlesizemobile titlecolor">Découvrez nos réalisations de tous nos domaines</h2>
             </div>
