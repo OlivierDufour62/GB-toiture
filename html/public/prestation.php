@@ -22,7 +22,7 @@
                 <h1 class="titlepresta">Couverture</h1>
             </div>
             <div class="col-12 d-lg-none text-center">
-                <h2 class="h2sizemobile">Couverture</h>
+                <h2 class="h2sizemobile">Couverture</h2>
             </div>
             <div class="w80 mx-auto d-lg-flex justify-content-center mt-4 d-none">
                 <ul class="list-unstyled row">

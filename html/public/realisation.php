@@ -16,47 +16,50 @@
     require_once('partial/header.php');
     ?>
     <main class="container-fluid p-0 m-0">
-        <div class="col-12 p-0 m-0 position-relative">
+    <div class="col-12 p-0 m-0 position-relative">
             <img class="img-fluid col-12 p-0 m-0" src="../../public/assets/image/travaux.jpg" alt="">
-            <div class="w80 pos-absolute-presta">
+            <div class="w80 pos-absolute-presta d-none d-lg-block">
                 <h1 class="titlepresta">Réalisation</h1>
             </div>
+            <div class="col-12 d-lg-none text-center">
+                <h2 class="h2sizemobile">Réalisation</h2>
+            </div>
         </div>
-        <div class="prestation col-12 mt-5 mb-5 w100 w80 mx-auto">
+        <div class="prestation col-12 mt-3 mb-5 w100 w80 mx-auto">
             <div class="row p-0 m-0 m-3">
                 <div class="col-6 col-lg-3 position-relative">
                     <h4 class="subtitlemobile title-presta titlecolor mt-3">Couverture</h4>
-                    <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
+                    <a href="galery-couverture.php"><img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt=""></a>
                 </div>
                 <div class="col-6 col-lg-3 position-relative">
                     <h4 class="subtitlemobile title-presta titlecolor mt-3">Entretien</h4>
-                    <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
+                    <a href="galery-entretien.php"><img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt=""></a>
                 </div>
                 <div class="col-6 col-lg-3 position-relative ">
                     <h4 class="subtitlemobile title-presta titlecolor mt-3">Chéneau</h4>
-                    <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
+                    <a href="galery-cheneau.php"><img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt=""></a>
                 </div>
                 <div class="col-6 col-lg-3 position-relative ">
                     <h4 class="subtitlemobile title-presta titlecolor mt-3">Isolation externe</h4>
-                    <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
+                    <a href="galery-isolation.php"><img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt=""></a>
                 </div>
             </div>
             <div class="row p-0 m-0 m-3">
                 <div class="col-6 col-lg-4 position-relative ">
                     <h4 class="subtitlemobile title-presta titlecolor mt-3">Zinguerie</h4>
-                    <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt="">
+                    <a href="galery-zinguerie.php"><img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt=""></a>
                 </div>
                 <div class="col-6 col-lg-4 position-relative ">
                     <h4 class="subtitlemobile title-presta titlecolor mt-3">Gouttière</h4>
-                    <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt="">
+                    <a href="galery-gouttiere.php"><img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt=""></a>
                 </div>
                 <div class="col-6 col-lg-4 position-relative ">
                     <h4 class="subtitlemobile title-presta titlecolor mt-3">Cheminée</h4>
-                    <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt="">
+                    <a href="galery-cheminee.php"><img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt=""></a>
                 </div>
                 <div class="col-6 col-lg-4 position-relative ">
                     <h4 class="subtitlemobile title-presta titlecolor mt-3">Fenêtre de toit</h4>
-                    <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt="">
+                    <a href="galery-fenetre.php"><img class="w-100 img-fluid shadowed" src="../../public/assets/image/test3.jpg" alt=""></a>
                 </div>
             </div>
         </div>
