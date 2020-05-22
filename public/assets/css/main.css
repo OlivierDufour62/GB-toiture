@@ -187,6 +187,13 @@ text-decoration:none;
 .resize{
     resize: none;
 }
+/*end contact*/
+
+/*devis*/
+
+.div-cover{
+    display: none;
+}
 
 @keyframes prestationleave {
     from {

@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="../../public/assets/css/main.css">
     <title>Accueil</title>
 </head>
-
 <body>
     <?php
     require_once('partial/header.php');
@@ -75,7 +74,7 @@
                 </fieldset>
                 <fieldset class="border p-2 mb-2">
                     <legend class="color264d7e">Information du chantier</legend>
-                    <div class="form-check form-check-inline">
+                    <div class="form-check form-check-inline cover">
                         <input class="form-check-input" type="radio" name="info" id="roofing" value="Couverture">
                         <label class="form-check-label" for="roofing">Couverture</label>
                     </div>
@@ -107,7 +106,7 @@
                         <input class="form-check-input" type="radio" name="info" id="roofwindow" value="Fenêtre de toit">
                         <label class="form-check-label" for="roofwindow">Fenêtre de toit</label>
                     </div>
-                    <div class="form-row mt-2">
+                    <div class="form-row mt-2 div-cover">
                         <div class="form-group col-lg-2">
                             <input type="text" class="form-control shadow-none" id="surface" placeholder="Surface en m²">
                         </div>

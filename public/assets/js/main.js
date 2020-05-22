@@ -32,4 +32,9 @@ $(document).ready(function () {
             }
         });
     });
-});
+
+    if($('.cover').attr(checked)){
+        console.log('coucou')
+        $('.div-cover').toggle();                                                                                                                                   
+    }                                                                                                    
+});                                                                                                                      
