@@ -46,7 +46,7 @@
         </div>
         <div class="prestation col-12 mt-5 mb-5 w100 w80 mx-auto">
             <div class="row p-0 m-0 m-3">
-                <div class="col-6 col-lg-3 position-relative anim">
+                <div class=" coucou col-6 col-lg-3 position-relative anim">
                     <h4 class="subtitlemobile title-presta titlecolor mt-3">Couverture</h4>
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
                     <div class="d-none d-lg-block pos-absolute anim-opa zindex bg-opa">
@@ -178,6 +178,7 @@
     require_once('partial/footer.php');
     ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="../../public/assets/js/main.js"></script>

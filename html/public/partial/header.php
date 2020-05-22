@@ -24,6 +24,9 @@
                         <a class="cc" href="galery.php">
                             <li class="pl-lg-2 pr-lg-2 mr-5 text text-dark hov">Galerie</li>
                         </a>
+                        <a class="cc" href="devis.php">
+                            <li class="pl-lg-2 pr-lg-2 mr-5 text text-dark hov">Devis</li>
+                        </a>
                         <a class="cc" href="contact.php">
                             <li class="pl-lg-2 pr-lg-2 text text-dark hov">Contact</li>
                         </a>

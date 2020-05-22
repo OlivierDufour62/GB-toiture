@@ -23,6 +23,12 @@
 .fontsize {
     font-size: 1.4em;
 }
+
+a:link
+{
+text-decoration:none;
+}
+
 /* footer */
 .bg264d7efoot {
     background-color: #264d7e;
@@ -136,7 +142,6 @@
     color: #264d7e;
 }
 
-/*end prestation*/
 
 .anim-opa {
     animation-duration: 2s;
@@ -169,6 +174,18 @@
         opacity: 1;
         
     }
+}
+
+/*end prestation*/
+
+/*contact*/
+
+.color264d7e{
+    color: #264d7e;
+}
+
+.resize{
+    resize: none;
 }
 
 @keyframes prestationleave {
@@ -216,6 +233,11 @@
     .h2sizemobile{
         font-size: 2.0em;
         color: #264d7e;
+    }
+    
+    .galery-mobile{
+        display: flex !important;
+        flex-direction: column-reverse !important;
     }
 }
 

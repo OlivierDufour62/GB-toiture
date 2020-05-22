@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $(`.mobilemenu`).click(function () {
-        $(`.mm`).slideToggle(`slow`);
+        $(`.mm`).toggle(`fold`,1500);
     });
 
     $(`.mobilefoot`).click(function () {

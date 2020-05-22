@@ -27,37 +27,40 @@
             </div>
         </div>
         <div class="col-12 my-5">
-            <div class="col-6 col-lg-9 w80 mx-auto d-flex mb-3">
-                <div class="col-3">
+            <div class="col-12 col-lg-9 w100 w80 mx-auto d-lg-flex mb-3">
+                <div class="col-9 mx-auto col-lg-3">
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
                 </div>
-                <div class="col-9">
+                <div class="col-12 col-lg-9">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, reprehenderit explicabo labore optio amet voluptatem at incidunt quasi commodi aliquam facilis numquam tempore dolores, aut quod dignissimos quo quas vitae?</p>
                 </div>
             </div>
-            <div class="col-6 col-lg-9 w80 mx-auto d-flex mb-3">
-                <div class="col-9">
+            <div class="col-12 col-lg-9 w100 w80 mx-auto galery-mobile d-lg-flex mb-3">
+                <div class="col-12 col-lg-9">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, reprehenderit explicabo labore optio amet voluptatem at incidunt quasi commodi aliquam facilis numquam tempore dolores, aut quod dignissimos quo quas vitae?</p>
                 </div>
-                <div class="col-3">
+                <div class="col-9 mx-auto col-lg-3">
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
                 </div>
             </div>
-            <div class="col-6 col-lg-9 w80 mx-auto d-flex mb-3">
-                <div class="col-3">
+            <div class="col-12 col-lg-9 w100 w80 mx-auto d-lg-flex mb-3">
+                <div class="col-9 mx-auto col-lg-3">
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
                 </div>
-                <div class="col-9">
+                <div class="col-12 col-lg-9">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, reprehenderit explicabo labore optio amet voluptatem at incidunt quasi commodi aliquam facilis numquam tempore dolores, aut quod dignissimos quo quas vitae?</p>
                 </div>
             </div>
-            <div class="col-6 col-lg-9 w80 mx-auto d-flex mb-3">
-                <div class="col-9">
+            <div class="col-12 col-lg-9 w100 w80 mx-auto galery-mobile d-lg-flex mb-3">
+                <div class="col-12 col-lg-9">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, reprehenderit explicabo labore optio amet voluptatem at incidunt quasi commodi aliquam facilis numquam tempore dolores, aut quod dignissimos quo quas vitae?</p>
                 </div>
-                <div class="col-3">
+                <div class="col-9 mx-auto col-lg-3">
                     <img class="w-100 img-fluid shadowed" src="../../public/assets/image/test1rogner.png" alt="">
                 </div>
+            </div>
+            <div class="col-12 d-flex justify-content-center">
+                <a href="devis.php" class="btn text-white bg264d7efoot mb-5 mx-auto">Demande de devis</a>
             </div>
         </div>
     </main>
