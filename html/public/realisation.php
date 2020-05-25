@@ -16,7 +16,7 @@
     require_once('partial/header.php');
     ?>
     <main class="container-fluid p-0 m-0">
-    <div class="col-12 p-0 m-0 position-relative">
+        <div class="col-12 p-0 m-0 position-relative">
             <img class="img-fluid col-12 p-0 m-0" src="../../public/assets/image/travaux.jpg" alt="">
             <div class="w80 pos-absolute-presta d-none d-lg-block">
                 <h1 class="titlepresta">Réalisation</h1>
@@ -68,6 +68,7 @@
     require_once('partial/footer.php');
     ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="../../public/assets/js/main.js"></script>

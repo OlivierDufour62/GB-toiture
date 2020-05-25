@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../../public/assets/css/main.css">
     <title>Accueil</title>
 </head>
+
 <body>
     <?php
     require_once('partial/header.php');
@@ -74,44 +75,114 @@
                 </fieldset>
                 <fieldset class="border p-2 mb-2">
                     <legend class="color264d7e">Information du chantier</legend>
-                    <div class="form-check form-check-inline cover">
-                        <input class="form-check-input" type="radio" name="info" id="roofing" value="Couverture">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input rb" type="radio" name="info" id="roofing" value="couverture">
                         <label class="form-check-label" for="roofing">Couverture</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="info" id="roofermaintenance" value="Entretien">
+                        <input class="form-check-input rb" type="radio" name="info" id="roofermaintenance" value="entretien">
                         <label class="form-check-label" for="roofermaintenance">Entretien</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="info" id="cheneau" value="Chéneau">
+                        <input class="form-check-input rb" type="radio" name="info" id="cheneau" value="cheneau">
                         <label class="form-check-label" for="cheneau">Chéneau</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="info" id="externalinsulation" value="Isolation externe">
+                        <input class="form-check-input rb" type="radio" name="info" id="externalinsulation" value="Isolation externe">
                         <label class="form-check-label" for="externalinsulation">Isolation externe</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="info" id="zincworks" value="Zinguerie">
+                        <input class="form-check-input rb" type="radio" name="info" id="zincworks" value="zinguerie">
                         <label class="form-check-label" for="zincworks">Zinguerie</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="info" id="gutter" value="Gouttière">
+                        <input class="form-check-input rb" type="radio" name="info" id="gutter" value="gouttiere">
                         <label class="form-check-label" for="gutter">Gouttière</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="info" id="fireplace" value="Cheminée">
+                        <input class="form-check-input rb" type="radio" name="info" id="fireplace" value="cheminee">
                         <label class="form-check-label" for="fireplace">Cheminée</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="info" id="roofwindow" value="Fenêtre de toit">
+                        <input class="form-check-input rb" type="radio" name="info" id="roofwindow" value="fenetre">
                         <label class="form-check-label" for="roofwindow">Fenêtre de toit</label>
                     </div>
-                    <div class="form-row mt-2 div-cover">
-                        <div class="form-group col-lg-2">
-                            <input type="text" class="form-control shadow-none" id="surface" placeholder="Surface en m²">
+                    <div class="form-row mt-2 div-none div-hide couverture">
+                        <div class="d-flex">
+                            <div class="form-group col-lg-3">
+                                <input type="text" class="form-control shadow-none" id="surface" placeholder="Surface en m²">
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <input type="text" class="form-control shadow-none" id="etage" placeholder="Nombre d'étage">
+                            </div>
                         </div>
-                        <div class="form-group col-lg-2">
-                            <input type="text" class="form-control shadow-none" id="etage" placeholder="Nombre d'étage">
+                    </div>
+                    <div class="form-row mt-2 div-none div-hide entretien">
+                        <div class="d-flex">
+                            <div class="form-group col-lg-4">
+                                <input type="text" class="form-control shadow-none" id="surface" placeholder="Que souhaitez vous nettoyer ?">
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <input type="text" class="form-control shadow-none" id="etage" placeholder="Nombre d'étage">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row mt-2 div-none div-hide cheneau">
+                        <div class="d-flex">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input rb" type="radio" name="cheneau" id="news" value="creation">
+                                <label class="form-check-label" for="news">Création</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input rb" type="radio" name="cheneau" id="old" value="remplacement">
+                                <label class="form-check-label" for="old">Remplacement</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row mt-2 div-none div-hide zinguerie">
+                        <div class="d-flex">
+                            <fieldset>
+                                <legend class="color264d7e size-h4">Montrer nous ce que vous souhaitez</legend>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input rb" type="file" name="img-zinfg" id="old">
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="form-row mt-2 div-none div-hide gouttiere">
+                        <div class="d-flex">
+                            <fieldset>
+                                <legend class="color264d7e size-h4">Montrer nous votre gouttière</legend>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input rb" type="file" name="img-zinfg" id="old">
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="form-row mt-2 div-none div-hide cheminee">
+                        <div class="d-flex">
+                            <div class="form-group col-lg-4">
+                                <label for="">Joint, remplacement ?</label>
+                                <input type="text" class="form-control shadow-none" id="surface" placeholder="Que souhaitez vous nettoyer ?">
+                            </div>
+                            <fieldset>
+                                <legend class="color264d7e size-h4">Montrer nous votre gouttière</legend>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input rb" type="file" name="img-zinfg" id="old">
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="form-row mt-2 div-none div-hide fenetre">
+                        <div class="d-flex">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input rb" type="radio" name="cheneau" id="news" value="creation">
+                                <label class="form-check-label" for="news">Création</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input rb" type="radio" name="cheneau" id="old" value="remplacement">
+                                <label class="form-check-label" for="old">Remplacement</label>
+                            </div>
                         </div>
                     </div>
                 </fieldset>
@@ -145,6 +216,7 @@
     require_once('partial/footer.php');
     ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="../../public/assets/js/main.js"></script>

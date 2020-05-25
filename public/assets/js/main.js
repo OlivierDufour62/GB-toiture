@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $(`.mobilemenu`).click(function () {
-        $(`.mm`).toggle(`fold`,1500);
+        $(`.mm`).toggle(`fold`, 1500);
     });
 
     $(`.mobilefoot`).click(function () {
@@ -33,8 +33,9 @@ $(document).ready(function () {
         });
     });
 
-    if($('.cover').attr(checked)){
-        console.log('coucou')
-        $('.div-cover').toggle();                                                                                                                                   
-    }                                                                                                    
+    $(".rb").click(function () {
+        var div = $("." + this.value);
+        $('.div-hide').hide();
+        div.show("slow");
+    });
 });                                                                                                                      
