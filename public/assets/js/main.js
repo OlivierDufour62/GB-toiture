@@ -35,7 +35,12 @@ $(document).ready(function () {
 
     $(".rb").click(function () {
         var div = $("." + this.value);
-        $('.div-hide').hide();
+        $('.div-hide').hide('slow');
         div.show("slow");
+    });
+
+    $(".mobilemenuadmin").click(function () {
+        $(`.mm-admin`).addClass('m-admin');
+        $(`.mm-admin`).toggle(`fold`, 1500);
     });
 });                                                                                                                      

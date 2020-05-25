@@ -22,7 +22,7 @@
         <div class="col-12 col-lg-6 mx-auto">
             <form>
                 <fieldset class="border p-2 mb-2">
-                    <legend class="color264d7e">Vos coordonnées</legend>
+                    <legend class="titlesizemobile color264d7e">Vos coordonnées</legend>
                     <div class="form-row">
                         <div class="form-group col-6 col-lg-6">
                             <input type="text" class="form-control shadow-none" id="lastname" placeholder="Nom">
@@ -41,7 +41,7 @@
                     </div>
                 </fieldset>
                 <fieldset class="border p-2 mb-2">
-                    <legend class="color264d7e">Adresse du chantier</legend>
+                    <legend class="titlesizemobile color264d7e">Adresse du chantier</legend>
                     <div class="form-group">
                         <input type="text" class="form-control shadow-none" id="address" placeholder="Adresse">
                     </div>
@@ -55,7 +55,7 @@
                     </div>
                 </fieldset>
                 <fieldset class="border p-2 mb-2">
-                    <legend class="color264d7e">Type de batiment</legend>
+                    <legend class="titlesizemobile color264d7e">Type de batiment</legend>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="type-bat" id="house" value="house">
                         <label class="form-check-label" for="house">Maison</label>
@@ -74,7 +74,7 @@
                     </div>
                 </fieldset>
                 <fieldset class="border p-2 mb-2">
-                    <legend class="color264d7e">Information du chantier</legend>
+                    <legend class="titlesizemobile color264d7e">Information du chantier</legend>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input rb" type="radio" name="info" id="roofing" value="couverture">
                         <label class="form-check-label" for="roofing">Couverture</label>
@@ -110,7 +110,7 @@
                     <div class="form-row mt-2 div-none div-hide couverture">
                         <div class="d-flex">
                             <div class="form-group col-lg-3">
-                                <input type="text" class="form-control shadow-none" id="surface" placeholder="Surface en m²">
+                                <input type="text" class="form-control shadow-none" id="surface" placeholder="Surface en m² estimée">
                             </div>
                             <div class="form-group col-lg-3">
                                 <input type="text" class="form-control shadow-none" id="etage" placeholder="Nombre d'étage">
@@ -152,7 +152,7 @@
                     <div class="form-row mt-2 div-none div-hide gouttiere">
                         <div class="d-flex">
                             <fieldset>
-                                <legend class="color264d7e size-h4">Montrer nous votre gouttière</legend>
+                                <legend class="color264d7e titlesizemobile size-h4">Montrer nous votre gouttière</legend>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input rb" type="file" name="img-zinfg" id="old">
                                 </div>
@@ -161,12 +161,12 @@
                     </div>
                     <div class="form-row mt-2 div-none div-hide cheminee">
                         <div class="d-flex">
-                            <div class="form-group col-lg-4">
-                                <label for="">Joint, remplacement ?</label>
-                                <input type="text" class="form-control shadow-none" id="surface" placeholder="Que souhaitez vous nettoyer ?">
-                            </div>
                             <fieldset>
-                                <legend class="color264d7e size-h4">Montrer nous votre gouttière</legend>
+                                <legend class="color264d7e titlesizemobile size-h4">Montrer nous votre cheminée</legend>
+                                <div class="form-group col-lg-4">
+                                    <label for="">Joint, remplacement ?</label>
+                                    <input type="text" class="form-control shadow-none" id="surface" placeholder="Que souhaitez vous faire ?">
+                                </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input rb" type="file" name="img-zinfg" id="old">
                                 </div>
@@ -187,7 +187,7 @@
                     </div>
                 </fieldset>
                 <fieldset class="border p-2 mb-4">
-                    <legend class="color264d7e">Photo de votre toiture</legend>
+                    <legend class="titlesizemobile color264d7e">Photo de votre toiture</legend>
                     <div class="form-row mt-2">
                         <div class="form-group col-lg-4">
                             <label for="photo">Photo 1</label>

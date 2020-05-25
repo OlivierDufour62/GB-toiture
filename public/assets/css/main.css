@@ -195,6 +195,14 @@ text-decoration:none;
     display: none;
 }
 
+/*end devis*/
+
+/*admin*/
+
+.btn264d7e{
+    background-color: #264d7e;
+}
+
 @keyframes prestationleave {
     from {
         opacity: 1;
@@ -245,6 +253,11 @@ text-decoration:none;
     .galery-mobile{
         display: flex !important;
         flex-direction: column-reverse !important;
+    }
+
+    .m-admin{
+        display: flex;
+        justify-content: stretch;
     }
 }
 
