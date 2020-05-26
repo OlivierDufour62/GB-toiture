@@ -1,0 +1,42 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Ajout prestation
+{% endblock %}
+{% block h1 %}Ajouter une prestation
+{% endblock %}
+
+{% block content %}
+	{{ form_start(form, {'attr': {'class': 'col-6 mx-auto'}})}}
+	{# <form class="col-6 mx-auto"> #}
+	<div class="form-row">
+		<div class="form-group col-6 col-lg-6">
+			{# <input type="text" class="form-control shadow-none" id="name" placeholder="Nom"> #}
+			{{ form_widget(form.name, {'attr': {'class': 'form-control shadow-none','placeholder': 'Nom'}})}}
+		</div>
+		<div class="form-group col-6 col-lg-6">
+			{# <input type="text" class="form-control shadow-none" id="price" placeholder="Tarif"> #}
+			{{ form_widget(form.rate, {'attr': {'class': 'form-control shadow-none','placeholder': 'Tarif'}})}}
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="form-group col-12 col-lg-12">
+			{{ form_widget(form.category, {'attr': {'class': 'form-control col-12 col-lg-12'}})}}
+			{# <select class="form-control col-12 col-lg-12" name="categories" id="">
+				<option value="1">Couverture</option>
+				<option value="2">Entretien</option>
+				<option value="3">Chéneau</option>
+				<option value="4">Isolation externe</option>
+				<option value="5">Zinguerie</option>
+				<option value="6">Gouttière</option>
+				<option value="7">Cheminée</option>
+				<option value="7">Fenêtre de toit</option>
+			</select> #}
+		</div>
+	</div>
+	<div class="mx-auto d-flex justify-content-end">
+		<button type="submit" class="btn bg264d7efoot text-white mb-3 shadow-none">Enregistrer</button>
+	</div>
+	{# </form> #}
+	{{ form_end(form) }}
+
+{% endblock %}

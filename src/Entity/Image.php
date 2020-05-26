@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=ImageRepository::class)
@@ -23,12 +24,18 @@ class Image
     private $name;
 
     /**
-     * @ORM\Column(type="date")
-     */
+    * @var \DateTime $date_create
+    *
+    * @Gedmo\Timestampable(on="create")
+    * @ORM\Column(type="datetime")
+    */
     private $date_create;
 
     /**
-     * @ORM\Column(type="date")
+     * @var \DateTime $date_update
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
      */
     private $date_update;
 
@@ -41,6 +48,14 @@ class Image
      * @ORM\ManyToOne(targetEntity=ConstructionSite::class, inversedBy="images")
      */
     private $constructionSite;
+
+    private $isActive;
+    
+    public function __construct()
+    {
+        $this->setDateCreate(new \DateTime('now'));
+        $this->date_update = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -106,4 +121,17 @@ class Image
 
         return $this;
     }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
 }

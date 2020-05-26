@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ContactRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=ContactRepository::class)
@@ -38,12 +39,18 @@ class Contact
     private $phonenumber;
 
     /**
-     * @ORM\Column(type="date")
-     */
+    * @var \DateTime $date_create
+    *
+    * @Gedmo\Timestampable(on="create")
+    * @ORM\Column(type="datetime")
+    */
     private $date_create;
 
     /**
-     * @ORM\Column(type="date")
+     * @var \DateTime $date_update
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
      */
     private $date_update;
 
@@ -51,6 +58,14 @@ class Contact
      * @ORM\Column(type="date", nullable=true)
      */
     private $date_delete;
+
+    private $isActive;
+
+    public function __construct()
+    {
+        $this->setDateCreate(new \DateTime('now'));
+        $this->date_update = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -117,7 +132,7 @@ class Contact
         return $this;
     }
 
-    public function getDateUpdate(): ?string
+    public function getDateUpdate(): ?\DateTimeInterface
     {
         return $this->date_update;
     }
@@ -140,4 +155,17 @@ class Contact
 
         return $this;
     }
+    
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
 }

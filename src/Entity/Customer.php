@@ -6,6 +6,7 @@ use App\Repository\CustomerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=CustomerRepository::class)
@@ -70,12 +71,18 @@ class Customer
     private $role;
 
     /**
-     * @ORM\Column(type="date")
-     */
+    * @var \DateTime $date_create
+    *
+    * @Gedmo\Timestampable(on="create")
+    * @ORM\Column(type="datetime")
+    */
     private $date_create;
 
     /**
-     * @ORM\Column(type="date")
+     * @var \DateTime $date_update
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
      */
     private $date_update;
 
@@ -89,8 +96,15 @@ class Customer
      */
     private $documents;
 
+    private $isActive;
+
+    
+
+
     public function __construct()
     {
+        $this->setDateCreate(new \DateTime('now'));
+        $this->date_update = new \DateTime();
         $this->documents = new ArrayCollection();
     }
 
@@ -282,6 +296,18 @@ class Customer
                 $document->setClient(null);
             }
         }
+
+        return $this;
+    }
+    
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }

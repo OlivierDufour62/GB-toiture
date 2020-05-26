@@ -6,6 +6,7 @@ use App\Repository\ConstructionSiteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=ConstructionSiteRepository::class)
@@ -25,15 +26,20 @@ class ConstructionSite
     private $name;
 
     /**
-     * @ORM\Column(type="date")
-     */
+    * @var \DateTime $date_create
+    *
+    * @Gedmo\Timestampable(on="create")
+    * @ORM\Column(type="datetime")
+    */
     private $date_create;
 
     /**
-     * @ORM\Column(type="date")
+     * @var \DateTime $date_update
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
      */
     private $date_update;
-
     /**
      * @ORM\Column(type="date", nullable=true)
      */
@@ -43,10 +49,14 @@ class ConstructionSite
      * @ORM\OneToMany(targetEntity=Image::class, mappedBy="constructionSite")
      */
     private $images;
+    
+    private $isActive;
 
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->setDateCreate(new \DateTime('now'));
+        $this->date_update = new \DateTime();
     }
 
     public function getId(): ?int
@@ -132,4 +142,18 @@ class ConstructionSite
 
         return $this;
     }
+
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
 }

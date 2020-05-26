@@ -2,7 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
+use App\Entity\Service;
+use App\Form\ServiceType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends AbstractController
@@ -12,9 +17,8 @@ class AdminController extends AbstractController
      */
     public function index()
     {
-        return $this->render('admin/index.html.twig', [
-            'controller_name' => 'AdminController',
-        ]);
+        return $this->render('admin/index.html.twig'
+        );
     }
 
     /**
@@ -22,7 +26,7 @@ class AdminController extends AbstractController
      */
     public function customer()
     {
-        return $this->render('admin/index.html.twig', [
+        return $this->render('', [
             'controller_name' => 'AdminController',
         ]);
     }
@@ -32,7 +36,7 @@ class AdminController extends AbstractController
      */
     public function addCustomer()
     {
-        return $this->render('admin/index.html.twig', [
+        return $this->render('', [
             'controller_name' => 'AdminController',
         ]);
     }
@@ -42,7 +46,7 @@ class AdminController extends AbstractController
      */
     public function editCustomer()
     {
-        return $this->render('admin/index.html.twig', [
+        return $this->render('', [
             'controller_name' => 'AdminController',
         ]);
     }
@@ -52,7 +56,7 @@ class AdminController extends AbstractController
      */
     public function image()
     {
-        return $this->render('admin/index.html.twig', [
+        return $this->render('', [
             'controller_name' => 'AdminController',
         ]);
     }
@@ -62,7 +66,7 @@ class AdminController extends AbstractController
      */
     public function addImage()
     {
-        return $this->render('admin/index.html.twig', [
+        return $this->render('', [
             'controller_name' => 'AdminController',
         ]);
     }
@@ -72,18 +76,32 @@ class AdminController extends AbstractController
      */
     public function prestation()
     {
-        return $this->render('admin/index.html.twig', [
-            'controller_name' => 'AdminController',
+        $entityManager = $this->getDoctrine()->getManager();
+        $service = $entityManager->getRepository(Service::class)
+                                    ->findAll();
+        $category = $entityManager->getRepository(Category::class)
+                                    ->findAll();
+        return $this->render('admin/prestation.html.twig', [
+            'presta' => $service, 'category' => $category,
         ]);
     }
 
     /**
      * @Route("/admin/addprestation", name="admin_add_prestation")
      */
-    public function addPrestation()
+    public function addPrestation(Request $request)
     {
-        return $this->render('admin/index.html.twig', [
-            'controller_name' => 'AdminController',
+        $addPresta = new Service();
+        $form = $this->createForm(ServiceType::class, $addPresta);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($addPresta);
+            $entityManager->flush();
+            // return new JsonResponse(true);
+        }
+        return $this->render('admin/add_prestation.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 
@@ -92,7 +110,7 @@ class AdminController extends AbstractController
      */
     public function document()
     {
-        return $this->render('admin/index.html.twig', [
+        return $this->render('', [
             'controller_name' => 'AdminController',
         ]);
     }
@@ -102,7 +120,7 @@ class AdminController extends AbstractController
      */
     public function createDocument()
     {
-        return $this->render('admin/index.html.twig', [
+        return $this->render('', [
             'controller_name' => 'AdminController',
         ]);
     }
@@ -112,7 +130,7 @@ class AdminController extends AbstractController
      */
     public function editDocument()
     {
-        return $this->render('admin/index.html.twig', [
+        return $this->render('', [
             'controller_name' => 'AdminController',
         ]);
     }
@@ -122,7 +140,7 @@ class AdminController extends AbstractController
      */
     public function message()
     {
-        return $this->render('admin/index.html.twig', [
+        return $this->render('', [
             'controller_name' => 'AdminController',
         ]);
     }
@@ -132,7 +150,7 @@ class AdminController extends AbstractController
      */
     public function replyMessage()
     {
-        return $this->render('admin/index.html.twig', [
+        return $this->render('', [
             'controller_name' => 'AdminController',
         ]);
     }

@@ -6,6 +6,7 @@ use App\Repository\DocumentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=DocumentRepository::class)
@@ -25,12 +26,18 @@ class Document
     private $type;
 
     /**
-     * @ORM\Column(type="date")
-     */
+    * @var \DateTime $date_create
+    *
+    * @Gedmo\Timestampable(on="create")
+    * @ORM\Column(type="datetime")
+    */
     private $date_create;
 
     /**
-     * @ORM\Column(type="date")
+     * @var \DateTime $date_update
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
      */
     private $date_update;
 
@@ -50,10 +57,18 @@ class Document
      */
     private $serviceDocuments;
 
+    private $isActive;
+
+    
+
+
     public function __construct()
     {
         $this->serviceDocuments = new ArrayCollection();
+        $this->setDateCreate(new \DateTime('now'));
+        $this->date_update = new \DateTime();
     }
+    
 
     public function getId(): ?int
     {
@@ -147,6 +162,18 @@ class Document
                 $serviceDocument->setDocument(null);
             }
         }
+
+        return $this;
+    }
+    
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }
