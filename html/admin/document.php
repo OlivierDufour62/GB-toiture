@@ -51,7 +51,7 @@
                                 <td>Laslaa</td>
                                 <td>Mohammed</td>
                                 <td>Devis</td>
-                                <td><i class="ri-arrow-right-line"></i></td>
+                                <td><a href="edit-document.php"><i class="ri-arrow-right-line text-white"></i></a></td>
                                 <td>
                                     <div class="custom-control custom-switch">
                                         <input type="checkbox" class="custom-control-input providerswitches" clientswitches="{{provider.id}}" id="customSwitches{{client.id}}" {% if provider.isActive %} checked {% endif %}>
@@ -64,7 +64,7 @@
                                 <td>Devise</td>
                                 <td>Théo</td>
                                 <td>Facture</td>
-                                <td><i class="ri-arrow-right-line"></i></td>
+                                <td><a href="edit-document.php"><i class="ri-arrow-right-line text-white"></i></a></td>
                                 <td>
                                     <div class="custom-control custom-switch">
                                         <input type="checkbox" class="custom-control-input providerswitches" clientswitches="{{provider.id}}" id="customSwitches{{client.id}}" {% if provider.isActive %} checked {% endif %}>
@@ -77,7 +77,7 @@
                                 <td>Dufour</td>
                                 <td>Olivier</td>
                                 <td>Facture</td>
-                                <td><i class="ri-arrow-right-line"></i></td>
+                                <td><a href="edit-document.php"><i class="ri-arrow-right-line text-white"></i></a></td>
                                 <td>
                                     <div class="custom-control custom-switch">
                                         <input type="checkbox" class="custom-control-input providerswitches" clientswitches="{{provider.id}}" id="customSwitches{{client.id}}" {% if provider.isActive %} checked {% endif %}>
@@ -89,7 +89,7 @@
                     </table>
                 </div>
                 <div class="mx-auto d-flex justify-content-end">
-                    <button type="submit" class="btn bg264d7efoot text-white mb-3 shadow-none">Créer un devis</button>
+                <a class="btn text-white btn264d7e" href="create-document.php">Créer un document</a>
                 </div>
             </div>
         </div>
