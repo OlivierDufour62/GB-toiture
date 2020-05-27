@@ -46,7 +46,7 @@ class Customer
     private $addresOne;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $addressTwo;
 
@@ -61,21 +61,31 @@ class Customer
     private $city;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $zipcode2;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $city2;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $role;
 
     /**
-    * @var \DateTime $date_create
-    *
-    * @Gedmo\Timestampable(on="create")
-    * @ORM\Column(type="datetime")
-    */
+     * @var \DateTime $date_create
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
     private $date_create;
 
     /**
@@ -96,16 +106,17 @@ class Customer
      */
     private $documents;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
     private $isActive;
-
-    
-
 
     public function __construct()
     {
         $this->setDateCreate(new \DateTime('now'));
         $this->date_update = new \DateTime();
         $this->documents = new ArrayCollection();
+        $this->setIsActive(true);
     }
 
     public function getId(): ?int
@@ -209,6 +220,30 @@ class Customer
         return $this;
     }
 
+    public function getZipcode2(): ?string
+    {
+        return $this->zipcode2;
+    }
+
+    public function setZipcode2(string $zipcode2): self
+    {
+        $this->zipcode2 = $zipcode2;
+
+        return $this;
+    }
+
+    public function getCity2(): ?string
+    {
+        return $this->city2;
+    }
+
+    public function setCity2(string $city2): self
+    {
+        $this->city2 = $city2;
+
+        return $this;
+    }
+
     public function getPassword(): ?string
     {
         return $this->password;
@@ -299,7 +334,7 @@ class Customer
 
         return $this;
     }
-    
+
     public function getIsActive(): ?bool
     {
         return $this->isActive;

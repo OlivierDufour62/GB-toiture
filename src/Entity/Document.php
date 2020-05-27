@@ -57,6 +57,9 @@ class Document
      */
     private $serviceDocuments;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
     private $isActive;
 
     
@@ -67,6 +70,7 @@ class Document
         $this->serviceDocuments = new ArrayCollection();
         $this->setDateCreate(new \DateTime('now'));
         $this->date_update = new \DateTime();
+        $this->setIsActive(true);
     }
     
 

@@ -51,6 +51,9 @@ class Category
      */
     private $services;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
     private $isActive;
 
     public function __construct()
@@ -58,6 +61,7 @@ class Category
         $this->setDateCreate(new \DateTime('now'));
         $this->date_update = new \DateTime();
         $this->services = new ArrayCollection();
+        $this->setIsActive(true);
     }
 
     public function getId(): ?int

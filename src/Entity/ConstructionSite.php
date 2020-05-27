@@ -50,12 +50,16 @@ class ConstructionSite
      */
     private $images;
     
+    /**
+     * @ORM\Column(type="boolean")
+     */
     private $isActive;
 
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->setDateCreate(new \DateTime('now'));
+        $this->setIsActive(true);
         $this->date_update = new \DateTime();
     }
 

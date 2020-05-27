@@ -49,12 +49,16 @@ class Image
      */
     private $constructionSite;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
     private $isActive;
     
     public function __construct()
     {
         $this->setDateCreate(new \DateTime('now'));
         $this->date_update = new \DateTime();
+        $this->setIsActive(true);
     }
 
     public function getId(): ?int

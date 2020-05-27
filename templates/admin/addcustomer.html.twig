@@ -1,0 +1,58 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Ajout client
+{% endblock %}
+{% block h1 %}Ajouter un client
+{% endblock %}
+
+{% block content %}
+	<div class="col-6 mx-auto bg text-white successsend d-none bg-success">
+		<p>Client enregistrer</p>
+	</div>
+	<div class="col-10 mt-5">
+		{{ form_start(form, {'attr': {'class': 'col-6 mx-auto ajaxaddcustomer'}})}}
+		<div class="form-row">
+			<div class="form-group col-6 col-lg-6">
+				{{ form_widget(form.lastname, {'attr': {'class': 'form-control shadow-none','placeholder': 'Nom'}})}}
+			</div>
+			<div class="form-group col-6 col-lg-6">
+				{{ form_widget(form.firstname, {'attr': {'class': 'form-control shadow-none','placeholder': 'Prénom'}})}}
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-6 col-lg-6">
+				{{ form_widget(form.email, {'attr': {'class': 'form-control shadow-none','placeholder': 'Email'}})}}
+			</div>
+			<div class="form-group col-6 col-lg-6">
+				{{ form_widget(form.phonenumber, {'attr': {'class': 'form-control shadow-none','placeholder': 'Téléphone'}})}}
+			</div>
+		</div>
+		<div class="form-group">
+			{{ form_widget(form.addresOne, {'attr': {'class': 'form-control shadow-none','placeholder': 'Adresse'}})}}
+		</div>
+		<div class="form-row">
+			<div class="form-group col-lg-4">
+			{{ form_widget(form.zipcode, {'attr': {'class': 'form-control shadow-none','placeholder': 'Code postal'}})}}
+			</div>
+			<div class="form-group col-lg-8">
+			{{ form_widget(form.city, {'attr': {'class': 'form-control shadow-none','placeholder': 'Ville'}})}}
+			</div>
+		</div>
+		<div class="form-group">
+			{{ form_widget(form.addressTwo, {'attr': {'class': 'form-control shadow-none','placeholder': 'Adresse secondaire'}})}}
+		</div>
+		<div class="form-row">
+			<div class="form-group col-lg-4">
+			{{ form_widget(form.zipcode2, {'attr': {'class': 'form-control shadow-none','placeholder': 'Code postal secondaire'}})}}
+			</div>
+			<div class="form-group col-lg-8">
+			{{ form_widget(form.city2, {'attr': {'class': 'form-control shadow-none','placeholder': 'Ville secondaire'}})}}
+			</div>
+		</div>
+		<div class="mx-auto d-flex justify-content-center">
+			<button id="addcustomer" type="submit" class="btn bg264d7efoot text-white mb-3 shadow-none">Enregistrer</button>
+		</div>
+		{{ form_end(form) }}
+
+	</div>
+{% endblock %}

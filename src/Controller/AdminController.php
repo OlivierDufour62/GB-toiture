@@ -3,7 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Customer;
+use App\Entity\Image;
 use App\Entity\Service;
+use App\Form\CategoryType;
+use App\Form\CustomerType;
 use App\Form\ServiceType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,7 +21,8 @@ class AdminController extends AbstractController
      */
     public function index()
     {
-        return $this->render('admin/index.html.twig'
+        return $this->render(
+            'admin/index.html.twig'
         );
     }
 
@@ -26,28 +31,54 @@ class AdminController extends AbstractController
      */
     public function customer()
     {
-        return $this->render('', [
-            'controller_name' => 'AdminController',
+        $entityManager = $this->getDoctrine()->getManager();
+        $customer = $entityManager->getRepository(Customer::class)
+            ->findAll();
+        return $this->render('admin/customer.html.twig', [
+            'customer' => $customer,
         ]);
     }
 
     /**
      * @Route("/admin/addcustomer", name="admin_add_customer")
      */
-    public function addCustomer()
+    public function addCustomer(Request $request)
     {
-        return $this->render('', [
-            'controller_name' => 'AdminController',
+        $entityManager = $this->getDoctrine()->getManager();
+        $addCustomer = new Customer();
+        $form = $this->createForm(CustomerType::class, $addCustomer);
+        $form->remove('password');
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($addCustomer);
+            $entityManager->flush();
+            return new JsonResponse(true);                          
+        }
+        return $this->render('admin/addcustomer.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/admin/editcustomer", name="admin_edit_customer")
+     * @Route("/admin/editcustomer/{id}", name="admin_edit_customer")
      */
-    public function editCustomer()
+    public function editCustomer(Request $request, $id)
     {
-        return $this->render('', [
-            'controller_name' => 'AdminController',
+        $entityManager = $this->getDoctrine()->getManager();
+        $editCustomer = $entityManager->getRepository(Customer::class)
+            ->find($id);
+        $form = $this->createForm(CustomerType::class, $editCustomer);
+        $form->remove('password');
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($editCustomer);
+            $entityManager->flush();
+            return new JsonResponse(true);
+        }
+        return $this->render('admin/editcustomer.html.twig', [
+            'customer' => $editCustomer, 'form' => $form->createView(),
         ]);
     }
 
@@ -56,8 +87,11 @@ class AdminController extends AbstractController
      */
     public function image()
     {
-        return $this->render('', [
-            'controller_name' => 'AdminController',
+        $entityManager = $this->getDoctrine()->getManager();
+        $image = $entityManager->getRepository(Image::class)
+            ->findAll();
+        return $this->render('admin/image.html.twig', [
+            'image' => $image,
         ]);
     }
 
@@ -66,7 +100,8 @@ class AdminController extends AbstractController
      */
     public function addImage()
     {
-        return $this->render('', [
+        
+        return $this->render('admin/addimage.html.twig', [
             'controller_name' => 'AdminController',
         ]);
     }
@@ -74,15 +109,24 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/prestation", name="admin_prestation")
      */
-    public function prestation()
+    public function prestation(Request $request)
     {
         $entityManager = $this->getDoctrine()->getManager();
         $service = $entityManager->getRepository(Service::class)
-                                    ->findAll();
+            ->findAll();
+        $cat = new Category();
+        $form = $this->createForm(CategoryType::class, $cat);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($cat);
+            $entityManager->flush();
+            return new JsonResponse(true);
+        }
         $category = $entityManager->getRepository(Category::class)
-                                    ->findAll();
+        ->findAll();
         return $this->render('admin/prestation.html.twig', [
-            'presta' => $service, 'category' => $category,
+            'service' => $service, 'category' => $category, 'form' => $form->createView(),
         ]);
     }
 
@@ -102,6 +146,28 @@ class AdminController extends AbstractController
         }
         return $this->render('admin/add_prestation.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/editcategory/{id}", name="admin_edit_category")
+     */
+    public function editPrestation(Request $request, $id)
+    {
+        $addPresta = new Service();
+        $entityManager = $this->getDoctrine()->getManager();
+        $category = $entityManager->getRepository(Category::class)
+            ->findBy(['id' => $id]);
+        $form = $this->createForm(CategoryType::class, $addPresta);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($addPresta);
+            $entityManager->flush();
+            // return new JsonResponse(true);
+        }
+        return $this->render('admin/prestation.html.twig', [
+            'form' => $form->createView(), 'category' => $category
         ]);
     }
 

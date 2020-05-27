@@ -24,14 +24,13 @@
 				</div>
 				<div class="col-lg-8 d-lg-flex align-items-center justify-content-center d-none">
                 <h1 class="text-white text-center">{% block h1 %}{% endblock %}</h1> 
-					{# <h1 class="text-white text-center">GB-Toiture</h1> #}
 				</div>
 			</div>
 		</header>
 		<main class="container-fluid p-0 m-0">
-			<div class="col-12 row p-0 m-0">
+			<div class="col-12 w100 row p-0 m-0">
 				{% include './admin/partial/menu.html.twig' %}
-				<div class="col-8 mt-5 mx-auto">
+				<div class="col-10 mt-5 mx-auto">
                 {% block content %}{% endblock %}
                 </div>
 			</div>

@@ -276,4 +276,14 @@ text-decoration:none;
     .border264d7e {
         border: solid 3px #264d7e;
     }
+    
+}
+
+
+@media screen and (min-width: 1024px) {
+
+    .menu-fixed{
+        position: fixed;
+    }
+
 }

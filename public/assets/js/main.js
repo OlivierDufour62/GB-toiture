@@ -43,4 +43,78 @@ $(document).ready(function () {
         $(`.mm-admin`).addClass('m-admin');
         $(`.mm-admin`).toggle(`fold`, 1500);
     });
+
+    $('.addcat').click(function(){
+        $('.div-none').toggle(`fold`, 1500);
+    })
+
+    $('#addcategory').on('click', function(e){
+        e.preventDefault();
+        let data = {};
+        $('.ajaxaddcategory')
+            .serializeArray()
+            .forEach((object) => {
+                data[object.name] = object.value
+            });
+        $.ajax({
+            type: 'POST',
+            url: `/admin/prestation`,
+            data: data,
+            success: function (data) {
+                if (data === true) {
+                    $(".successsend").removeClass("d-none");
+                    setTimeout(function () {
+                        $(".successsend").addClass("d-none");
+                    }, 1500);
+                }
+            }
+        });
+    });
+
+    $('#addcustomer').on('click', function(e){
+        e.preventDefault();
+        let data = {};
+        $('.ajaxaddcustomer')
+            .serializeArray()
+            .forEach((object) => {
+                data[object.name] = object.value
+            });
+        $.ajax({
+            type: 'POST',
+            url: `/admin/addcustomer`,
+            data: data,
+            success: function (data) {
+                if (data === true) {
+                    $(".successsend").removeClass("d-none");
+                    setTimeout(function () {
+                        $(".successsend").addClass("d-none");
+                    }, 1500);
+                }
+            }
+        });
+    });
+
+    $('#editcustomer').on('click', function(e){
+        e.preventDefault();
+        let data = {};
+        const id = $('.ajaxeditcustomer').attr('customerid');
+        $('.ajaxeditcustomer')
+            .serializeArray()
+            .forEach((object) => {
+                data[object.name] = object.value
+            });
+        $.ajax({
+            type: 'POST',
+            url: `/admin/editcustomer/${id}`,
+            data: data,
+            success: function (data) {
+                if (data === true) {
+                    $(".successsend").removeClass("d-none");
+                    setTimeout(function () {
+                        $(".successsend").addClass("d-none");
+                    }, 1500);
+                }
+            }
+        });
+    });
 });                                                                                                                      
