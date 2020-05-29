@@ -111,12 +111,18 @@ class Customer
      */
     private $isActive;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ConstructionSite::class, mappedBy="customer")
+     */
+    private $constructionSites;
+
     public function __construct()
     {
         $this->setDateCreate(new \DateTime('now'));
         $this->date_update = new \DateTime();
         $this->documents = new ArrayCollection();
         $this->setIsActive(true);
+        $this->constructionSites = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -343,6 +349,37 @@ class Customer
     public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ConstructionSite[]
+     */
+    public function getConstructionSites(): Collection
+    {
+        return $this->constructionSites;
+    }
+
+    public function addConstructionSite(ConstructionSite $constructionSite): self
+    {
+        if (!$this->constructionSites->contains($constructionSite)) {
+            $this->constructionSites[] = $constructionSite;
+            $constructionSite->setCustomer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConstructionSite(ConstructionSite $constructionSite): self
+    {
+        if ($this->constructionSites->contains($constructionSite)) {
+            $this->constructionSites->removeElement($constructionSite);
+            // set the owning side to null (unless already changed)
+            if ($constructionSite->getCustomer() === $this) {
+                $constructionSite->setCustomer(null);
+            }
+        }
 
         return $this;
     }

@@ -45,7 +45,7 @@ class Image
     private $date_delete;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ConstructionSite::class, inversedBy="images")
+     * @ORM\ManyToOne(targetEntity=ConstructionSite::class, inversedBy="images",cascade={"persist"})
      */
     private $constructionSite;
 
@@ -53,6 +53,16 @@ class Image
      * @ORM\Column(type="boolean")
      */
     private $isActive;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Document::class, inversedBy="images")
+     */
+    private $document;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Service::class, inversedBy="images")
+     */
+    private $service;
     
     public function __construct()
     {
@@ -134,6 +144,30 @@ class Image
     public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function getDocument(): ?Document
+    {
+        return $this->document;
+    }
+
+    public function setDocument(?Document $document): self
+    {
+        $this->document = $document;
+
+        return $this;
+    }
+
+    public function getService(): ?Service
+    {
+        return $this->service;
+    }
+
+    public function setService(?Service $service): self
+    {
+        $this->service = $service;
 
         return $this;
     }

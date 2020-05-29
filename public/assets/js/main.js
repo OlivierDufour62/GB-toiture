@@ -117,4 +117,21 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('#search').on('click', function (e) {
+        e.preventDefault()
+        let email = $('.searchbar').val()
+        $.ajax({
+            type: 'GET',
+            url: `/admin/searchcustomer`,
+            data: { email: email },
+            success: function (data) {
+                $('#image_constructionSite_customer_lastname').val(data.lastname);
+                $('#image_constructionSite_customer_email').val(data.email);
+                $('#image_constructionSite_customer_addresOne').val(data.addresOne);
+                $('#image_constructionSite_customer_zipcode').val(data.zipcode);
+                $('#image_constructionSite_customer_city').val(data.city);
+            }
+        });
+    });
 });                                                                                                                      

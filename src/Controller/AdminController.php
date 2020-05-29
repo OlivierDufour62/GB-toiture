@@ -3,19 +3,29 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\ConstructionSite;
 use App\Entity\Customer;
 use App\Entity\Image;
 use App\Entity\Service;
 use App\Form\CategoryType;
 use App\Form\CustomerType;
+use App\Form\ImageType;
 use App\Form\ServiceType;
+use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 
 class AdminController extends AbstractController
 {
+
+    // public function __construct()
+    // {
+    //     $entityManager = $this->getDoctrine()->getManager();
+    // }
     /**
      * @Route("/admin/index", name="admin_index")
      */
@@ -53,7 +63,7 @@ class AdminController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($addCustomer);
             $entityManager->flush();
-            return new JsonResponse(true);                          
+            return new JsonResponse(true);
         }
         return $this->render('admin/addcustomer.html.twig', [
             'form' => $form->createView(),
@@ -98,12 +108,68 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/addimage", name="admin_add_image")
      */
-    public function addImage()
+    public function addImage(Request $request, FileUploader $fileUploader)
     {
-        
-        return $this->render('admin/addimage.html.twig', [
-            'controller_name' => 'AdminController',
+        $images = new Image();
+        $form = $this->createForm(ImageType::class, $images);
+        $form['constructionSite']['customer']->remove('password');
+        $form['constructionSite']['customer']->remove('firstname');
+        $form['constructionSite']['customer']->remove('phonenumber');
+        $form['constructionSite']['customer']->remove('addressTwo');
+        $form['constructionSite']['customer']->remove('zipcode2');
+        $form['constructionSite']['customer']->remove('city2');
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $construction = $entityManager->getRepository(ConstructionSite::class)
+                ->find(['id' => 1]);
+            /** @var UploadedFile $image */
+            $imagelist = $form['name']->getData();
+            // dd($imagelist);
+            foreach ($imagelist as $image) {
+                if ($image) {
+                    $imageFileName = $fileUploader->upload($image);
+                    $img = new Image();
+                    $img->setName($imageFileName);
+                    $img->setConstructionSite($construction);
+                    $email = $construction->getCustomer()->getEmail();
+                    $id = $construction->getCustomer()->getId();
+                    $construction->setCustomer($id);
+                    $customer = $entityManager->getRepository(Customer::class)
+                        ->findBy(['email' => $email])[0] ?? null;
+                    if ($customer !== null) {
+                        $tmpClient = $construction->getCustomer();
+                        $customer->setLastName($tmpClient->getLastname());
+                        $customer->setFirstName($tmpClient->getFirstname());
+                        $customer->setPhoneNumber($tmpClient->getPhoneNumber());
+                        $construction->setCustomer($customer);
+                    }
+                    $entityManager->persist($img);
+                    $entityManager->flush();
+                }
+            }
+            // return new JsonResponse(true);
+        }
+        return $this->render('admin/add_image.html.twig', [
+            'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/admin/searchcustomer", name="admin_search_customer")
+     */
+    public function searchCustomer(Request $request)
+    {
+        if ($request->isXmlHttpRequest() || $request->query->get('email') !== '') {
+            $email = $request->query->get('email');
+            $entityManager = $this->getDoctrine()->getManager();
+            $customer = $entityManager->getRepository(Customer::class)
+                ->findBy(['email' => $email])[0] ?? null;
+            $client = ['id' => $customer->getId(), 'lastname' => $customer->getLastname(), 'addresOne' => $customer->getAddresOne(), 'zipcode' => $customer->getZipcode(), 'city' => $customer->getCity()];
+            return new JsonResponse($client);
+        } else {
+            return new JsonResponse(false);
+        }
     }
 
     /**
@@ -124,7 +190,7 @@ class AdminController extends AbstractController
             return new JsonResponse(true);
         }
         $category = $entityManager->getRepository(Category::class)
-        ->findAll();
+            ->findAll();
         return $this->render('admin/prestation.html.twig', [
             'service' => $service, 'category' => $category, 'form' => $form->createView(),
         ]);

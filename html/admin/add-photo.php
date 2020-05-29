@@ -33,7 +33,7 @@
             require('partial/menu.php');
             ?>
             <div class="col-10 mt-5">
-            <form class="col-6 mx-auto">
+                <form class="col-6 mx-auto">
                     <div class="form-row">
                         <div class="form-group col-6 col-lg-6">
                             <input type="text" class="form-control shadow-none" id="lastname" placeholder="Nom du chantier">
@@ -52,9 +52,9 @@
                         <div class="form-group col-lg-10">
                             <input type="text" class="form-control shadow-none" id="city" placeholder="Ville">
                         </div>
-                    <div class="mx-auto d-flex justify-content-center">
-                        <button type="submit" class="btn bg264d7efoot text-white mb-3 shadow-none">Enregistrer</button>
-                    </div>
+                        <div class="mx-auto d-flex justify-content-center">
+                            <button type="submit" class="btn bg264d7efoot text-white mb-3 shadow-none">Enregistrer</button>
+                        </div>
                 </form>
             </div>
         </div>
