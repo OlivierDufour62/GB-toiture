@@ -8,43 +8,48 @@
 {% block content %}
 
 	{{ form_start(form, {'attr': {'class': 'col-6 mx-auto ajaxaddimage'}})}}
-	<div
-		class="form-group col-6 col-lg-6">
-		{# <input type="file" class="form-control-file shadow-none" id="image"> #}
-		{{ form_widget(form.name, {'attr': {'class': 'form-control-file shadow-none'}})}}
-	</div>
-	<div class="row mx-auto">
-		<input class="form-control mr-sm-2 mt-lg-4 col-6 col-lg-9 searchbar" name="email" type="text" placeholder="Recherche par email">
-		<div>
-			<a href="#" id="search" class="btn mt-lg-4 bg264d7efoot text-white my-lg-2 my-sm-0 ml-3">Valider</a>
+
+	<div class="form-row">
+		<div class="form-group col-6 col-lg-9">
+			<input class="form-control mr-sm-2 mt-lg-4 searchbar" name="email" type="text" placeholder="Recherche par email">
+		</div>
+		<div class="form-group d-flex justify-content-end col-4 col-lg-3">
+			<a href="#" id="search" class="btn mt-lg-4 bg264d7efoot text-white my-lg-2 my-sm-0 ml-3 col-lg-5">Valider</a>
 		</div>
 	</div>
-	{# {# <div class="form-row"> #}
-	<div
-		class="form-group col-6 col-lg-6">
-		{# <input type="text" class="form-control shadow-none" id="lastname" placeholder="Nom du chantier"> #}
-		{{ form_widget(form.constructionSite.name, {'attr': {'class': 'form-control shadow-none', 'placeholder':'Nom du chantier'}})}}
+	<div class="form-row">
+			<div class="form-group col-6 col-lg-6">
+				{{ form_widget(form.customer.lastname, {'attr': {'class': 'form-control shadow-none','placeholder': 'Nom'}})}}
+			</div>
+			<div class="form-group col-6 col-lg-6">
+				{{ form_widget(form.customer.email, {'attr': {'class': 'form-control shadow-none','placeholder': 'Prénom'}})}}
+			</div>
+		</div>
+		<div class="form-group">
+			{{ form_widget(form.customer.addresOne, {'attr': {'class': 'form-control shadow-none','placeholder': 'Adresse'}})}}
+		</div>
+		<div class="form-row">
+			<div class="form-group col-lg-4">
+			{{ form_widget(form.customer.zipcode, {'attr': {'class': 'form-control shadow-none','placeholder': 'Code postal'}})}}
+			</div>
+			<div class="form-group col-lg-8">
+			{{ form_widget(form.customer.city, {'attr': {'class': 'form-control shadow-none','placeholder': 'Ville'}})}}
+			</div>
+		</div>
+	
+	<div class="form-row">
+<div class="form-group col-12 col-lg-12">
+		{{ form_widget(form.name, {'attr': {'class': 'form-control shadow-none', 'placeholder': 'Nom du chantier'}})}}
 	</div>
-	{# <div class="form-group"> #}
-	{# <input type="text" class="form-control shadow-none" id="address" placeholder="Adresse"> #}
-	{# {{ form_widget(form.constructionSite.customer.addresOne, {'attr': {'class': 'form-control shadow-none', 'placeholder':'Adresse'}})}} #}
-
-	{# </div> #}
-	{# </div> #}
-	{# <div class="form-row"> #}
-	{# <div #}
-	{# class="form-group col-lg-2"> #}
-	{# <input type="text" class="form-control shadow-none" id="zipcode" placeholder="Code postal"> #}
-	{# {{ form_widget(form.constructionSite.customer.zipcode, {'attr': {'class': 'form-control shadow-none', 'placeholder':'Adresse'}})}} #}
-
-	{# </div> #}
-	{# <div #}
-	{# class="form-group col-lg-10"> #}
-	{# <input type="text" class="form-control shadow-none" id="city" placeholder="Ville"> #}
-	{# {{ form_widget(form.constructionSite.customer.city, {'attr': {'class': 'form-control shadow-none', 'placeholder':'Ville'}})}} #}
-
-	{# </div> #}
-		<div class="mx-auto d-flex justify-content-center"> <button type="submit" class="btn bg264d7efoot text-white mb-3 shadow-none">Enregistrer</button>
+		<div class="form-group col-12">
+			{{ form_widget(form.description, {'attr': {'class': 'form-control shadow-none resize', 'placeholder':'Description'}})}}
+		</div>
 	</div>
-	{{ form_end(form) }}
-{% endblock %}
+	<div class="form-group col-6 col-lg-6">
+		{{ form_widget(form.images, {'attr': {'class': 'form-control-file shadow-none'}})}}
+	</div>
+	<div class="mx-auto d-flex justify-content-center">
+		<button type="submit" class="btn bg264d7efoot text-white mb-3 shadow-none">Enregistrer</button>
+	</div>
+</div>
+{{ form_end(form) }}{% endblock %}

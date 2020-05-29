@@ -126,11 +126,13 @@ $(document).ready(function () {
             url: `/admin/searchcustomer`,
             data: { email: email },
             success: function (data) {
-                $('#image_constructionSite_customer_lastname').val(data.lastname);
-                $('#image_constructionSite_customer_email').val(data.email);
-                $('#image_constructionSite_customer_addresOne').val(data.addresOne);
-                $('#image_constructionSite_customer_zipcode').val(data.zipcode);
-                $('#image_constructionSite_customer_city').val(data.city);
+                $('#construction_customer_lastname').val(data.lastname);
+                $('#construction_customer_email').val(data.email);
+                $('#construction_customer_addresOne').val(data.addresOne);
+                $('#construction_customer_zipcode').val(data.zipcode);
+                $('#construction_customer_city').val(data.city);
+                $('#construction_name').val(data.lastname)
+                
             }
         });
     });

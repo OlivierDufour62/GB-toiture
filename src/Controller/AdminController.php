@@ -8,6 +8,7 @@ use App\Entity\Customer;
 use App\Entity\Image;
 use App\Entity\Service;
 use App\Form\CategoryType;
+use App\Form\ConstructionType;
 use App\Form\CustomerType;
 use App\Form\ImageType;
 use App\Form\ServiceType;
@@ -108,43 +109,36 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/addimage", name="admin_add_image")
      */
-    public function addImage(Request $request, FileUploader $fileUploader)
+    public function addConstruction(Request $request, FileUploader $fileUploader)
     {
-        $images = new Image();
-        $form = $this->createForm(ImageType::class, $images);
-        $form['constructionSite']['customer']->remove('password');
-        $form['constructionSite']['customer']->remove('firstname');
-        $form['constructionSite']['customer']->remove('phonenumber');
-        $form['constructionSite']['customer']->remove('addressTwo');
-        $form['constructionSite']['customer']->remove('zipcode2');
-        $form['constructionSite']['customer']->remove('city2');
+        // $images = new Image();
+        $construction = new ConstructionSite();
+        $form = $this->createForm(ConstructionType::class, $construction);
+        $form['customer']->remove('password');
+        $form['customer']->remove('firstname');
+        $form['customer']->remove('phonenumber');
+        $form['customer']->remove('addressTwo');
+        $form['customer']->remove('zipcode2');
+        $form['customer']->remove('city2');
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $construction = $entityManager->getRepository(ConstructionSite::class)
-                ->find(['id' => 1]);
             /** @var UploadedFile $image */
-            $imagelist = $form['name']->getData();
-            // dd($imagelist);
+            $imagelist = $form->get('images')->getData();
+            $email = $request->request->get('email');
             foreach ($imagelist as $image) {
                 if ($image) {
                     $imageFileName = $fileUploader->upload($image);
                     $img = new Image();
                     $img->setName($imageFileName);
+                    $construction->addImage($img);
                     $img->setConstructionSite($construction);
-                    $email = $construction->getCustomer()->getEmail();
-                    $id = $construction->getCustomer()->getId();
-                    $construction->setCustomer($id);
                     $customer = $entityManager->getRepository(Customer::class)
-                        ->findBy(['email' => $email])[0] ?? null;
+                                        ->findBy(['email' => $email])[0] ?? null;
                     if ($customer !== null) {
-                        $tmpClient = $construction->getCustomer();
-                        $customer->setLastName($tmpClient->getLastname());
-                        $customer->setFirstName($tmpClient->getFirstname());
-                        $customer->setPhoneNumber($tmpClient->getPhoneNumber());
                         $construction->setCustomer($customer);
                     }
-                    $entityManager->persist($img);
+                    $entityManager->persist($construction);
                     $entityManager->flush();
                 }
             }
@@ -165,7 +159,7 @@ class AdminController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $customer = $entityManager->getRepository(Customer::class)
                 ->findBy(['email' => $email])[0] ?? null;
-            $client = ['id' => $customer->getId(), 'lastname' => $customer->getLastname(), 'addresOne' => $customer->getAddresOne(), 'zipcode' => $customer->getZipcode(), 'city' => $customer->getCity()];
+            $client = ['id' => $customer->getId(), 'lastname' => $customer->getLastname(), 'addresOne' => $customer->getAddresOne(), 'zipcode' => $customer->getZipcode(), 'city' => $customer->getCity(), 'email'=> $customer->getEmail()];
             return new JsonResponse($client);
         } else {
             return new JsonResponse(false);

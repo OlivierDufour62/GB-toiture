@@ -46,7 +46,7 @@ class ConstructionSite
     private $date_delete;
 
     /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="constructionSite")
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="constructionSite", cascade={"persist"})
      */
     private $images;
     
@@ -59,6 +59,11 @@ class ConstructionSite
      * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="constructionSites", cascade={"persist"})
      */
     private $customer;
+
+    /**
+     * @ORM\Column(type="string", length=1000)
+     */
+    private $description;
 
     public function __construct()
     {
@@ -173,6 +178,18 @@ class ConstructionSite
     public function setCustomer(?Customer $customer): self
     {
         $this->customer = $customer;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
