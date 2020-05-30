@@ -107,7 +107,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/addimage", name="admin_add_image")
+     * @Route("/admin/addconstruction", name="admin_add_image")
      */
     public function addConstruction(Request $request, FileUploader $fileUploader)
     {
@@ -142,7 +142,7 @@ class AdminController extends AbstractController
                     $entityManager->flush();
                 }
             }
-            // return new JsonResponse(true);
+            return new JsonResponse(true);
         }
         return $this->render('admin/add_image.html.twig', [
             'form' => $form->createView(),

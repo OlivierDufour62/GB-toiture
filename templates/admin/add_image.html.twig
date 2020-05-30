@@ -6,9 +6,10 @@
 {% endblock %}
 
 {% block content %}
-
-	{{ form_start(form, {'attr': {'class': 'col-6 mx-auto ajaxaddimage'}})}}
-
+	<div class="col-6 mx-auto bg text-white successsend d-none bg-success">
+		<p>Chantier enregistrer</p>
+	</div>
+	{{ form_start(form, {'attr': {'class': 'col-6 mx-auto ajaxaddconsctruction'}})}}
 	<div class="form-row">
 		<div class="form-group col-6 col-lg-9">
 			<input class="form-control mr-sm-2 mt-lg-4 searchbar" name="email" type="text" placeholder="Recherche par email">
@@ -18,29 +19,29 @@
 		</div>
 	</div>
 	<div class="form-row">
-			<div class="form-group col-6 col-lg-6">
-				{{ form_widget(form.customer.lastname, {'attr': {'class': 'form-control shadow-none','placeholder': 'Nom'}})}}
-			</div>
-			<div class="form-group col-6 col-lg-6">
-				{{ form_widget(form.customer.email, {'attr': {'class': 'form-control shadow-none','placeholder': 'Prénom'}})}}
-			</div>
+		<div class="form-group col-6 col-lg-6">
+			{{ form_widget(form.customer.lastname, {'attr': {'class': 'form-control shadow-none','placeholder': 'Nom'}})}}
 		</div>
-		<div class="form-group">
-			{{ form_widget(form.customer.addresOne, {'attr': {'class': 'form-control shadow-none','placeholder': 'Adresse'}})}}
+		<div class="form-group col-6 col-lg-6">
+			{{ form_widget(form.customer.email, {'attr': {'class': 'form-control shadow-none','placeholder': 'Prénom'}})}}
 		</div>
-		<div class="form-row">
-			<div class="form-group col-lg-4">
-			{{ form_widget(form.customer.zipcode, {'attr': {'class': 'form-control shadow-none','placeholder': 'Code postal'}})}}
-			</div>
-			<div class="form-group col-lg-8">
-			{{ form_widget(form.customer.city, {'attr': {'class': 'form-control shadow-none','placeholder': 'Ville'}})}}
-			</div>
-		</div>
-	
-	<div class="form-row">
-<div class="form-group col-12 col-lg-12">
-		{{ form_widget(form.name, {'attr': {'class': 'form-control shadow-none', 'placeholder': 'Nom du chantier'}})}}
 	</div>
+	<div class="form-group">
+		{{ form_widget(form.customer.addresOne, {'attr': {'class': 'form-control shadow-none','placeholder': 'Adresse'}})}}
+	</div>
+	<div class="form-row">
+		<div class="form-group col-lg-4">
+			{{ form_widget(form.customer.zipcode, {'attr': {'class': 'form-control shadow-none','placeholder': 'Code postal'}})}}
+		</div>
+		<div class="form-group col-lg-8">
+			{{ form_widget(form.customer.city, {'attr': {'class': 'form-control shadow-none','placeholder': 'Ville'}})}}
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div class="form-group col-12 col-lg-12">
+			{{ form_widget(form.name, {'attr': {'class': 'form-control shadow-none', 'placeholder': 'Nom du chantier'}})}}
+		</div>
 		<div class="form-group col-12">
 			{{ form_widget(form.description, {'attr': {'class': 'form-control shadow-none resize', 'placeholder':'Description'}})}}
 		</div>
@@ -49,7 +50,7 @@
 		{{ form_widget(form.images, {'attr': {'class': 'form-control-file shadow-none'}})}}
 	</div>
 	<div class="mx-auto d-flex justify-content-center">
-		<button type="submit" class="btn bg264d7efoot text-white mb-3 shadow-none">Enregistrer</button>
+		<button type="submit" id="addconstruction" class="btn bg264d7efoot text-white mb-3 shadow-none">Enregistrer</button>
 	</div>
 </div>
 {{ form_end(form) }}{% endblock %}

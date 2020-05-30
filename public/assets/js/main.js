@@ -118,6 +118,33 @@ $(document).ready(function () {
         });
     });
 
+    $('#addconstruction').on('click', function (e) {
+        e.preventDefault();
+        let data = {};
+        let data2 = new FormData($('.ajaxaddconsctruction')[0]);
+        $(".ajaxaddconstruction")
+            .serializeArray()
+            .forEach((object) => {
+                data[object.name] = object.value
+            });
+        $.ajax({
+            type: 'POST',
+            url: `/admin/addconstruction`,
+            data: data2,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                $(".successsend").removeClass("d-none");
+                setTimeout(function () {
+                    $(".successsend").addClass("d-none");
+                }, 1500);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    });
+
     $('#search').on('click', function (e) {
         e.preventDefault()
         let email = $('.searchbar').val()
