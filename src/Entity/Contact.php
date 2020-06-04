@@ -64,6 +64,46 @@ class Contact
      */
     private $isActive;
 
+    /**
+     * @ORM\Column(type="string", length=1000)
+     */
+    private $message;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $zipcode;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $addressTwo;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $zipcodeTwo;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $cityTwo;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $object;
+
     public function __construct()
     {
         $this->setDateCreate(new \DateTime('now'));
@@ -168,6 +208,102 @@ class Contact
     public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function getMessage(): ?string
+    {
+        return $this->message;
+    }
+
+    public function setMessage(string $message): self
+    {
+        $this->message = $message;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getZipcode(): ?string
+    {
+        return $this->zipcode;
+    }
+
+    public function setZipcode(string $zipcode): self
+    {
+        $this->zipcode = $zipcode;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getAddressTwo(): ?string
+    {
+        return $this->addressTwo;
+    }
+
+    public function setAddressTwo(string $addressTwo): self
+    {
+        $this->addressTwo = $addressTwo;
+
+        return $this;
+    }
+
+    public function getZipcodeTwo(): ?string
+    {
+        return $this->zipcodeTwo;
+    }
+
+    public function setZipcodeTwo(string $zipcodeTwo): self
+    {
+        $this->zipcodeTwo = $zipcodeTwo;
+
+        return $this;
+    }
+
+    public function getCityTwo(): ?string
+    {
+        return $this->cityTwo;
+    }
+
+    public function setCityTwo(?string $cityTwo): self
+    {
+        $this->cityTwo = $cityTwo;
+
+        return $this;
+    }
+
+    public function getObject(): ?string
+    {
+        return $this->object;
+    }
+
+    public function setObject(string $object): self
+    {
+        $this->object = $object;
 
         return $this;
     }

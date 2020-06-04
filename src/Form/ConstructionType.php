@@ -19,23 +19,22 @@ class ConstructionType extends AbstractType
             ->add('name', TextType::class)
             ->add('description', TextareaType::class)
             ->add('customer', CustomerType::class)
-            ->add('images', FileType::class,[
+            ->add('images', FileType::class, [
                 'label' => false,
                 'multiple' => true,
                 'mapped' => false,
-                'required' => false,  
-                'constraints' => [
-                    new File([
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'image/png',
-                            'image/webp',
-                            'image/tiff'
-                        ],
-                ])
-            ]])
-            
-        ;
+                'required' => false,
+                // 'constraints' => [
+                //     new File([
+                //         'mimeTypes' => [
+                //             'image/jpg',
+                //             'image/png',
+                //             'image/webp',
+                //             'image/tiff'
+                //         ],
+                //     ])
+                // ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

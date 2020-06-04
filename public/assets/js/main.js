@@ -120,13 +120,8 @@ $(document).ready(function () {
 
     $('#addconstruction').on('click', function (e) {
         e.preventDefault();
-        let data = {};
         let data2 = new FormData($('.ajaxaddconsctruction')[0]);
-        $(".ajaxaddconstruction")
-            .serializeArray()
-            .forEach((object) => {
-                data[object.name] = object.value
-            });
+        console.log(data2)
         $.ajax({
             type: 'POST',
             url: `/admin/addconstruction`,
@@ -134,6 +129,7 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: function (data) {
+                console.log(data)
                 $(".successsend").removeClass("d-none");
                 setTimeout(function () {
                     $(".successsend").addClass("d-none");
@@ -158,9 +154,40 @@ $(document).ready(function () {
                 $('#construction_customer_addresOne').val(data.addresOne);
                 $('#construction_customer_zipcode').val(data.zipcode);
                 $('#construction_customer_city').val(data.city);
-                $('#construction_name').val(data.lastname)
-                
+                $('#construction_name').val(data.lastname);
             }
         });
+    });
+
+    // partie isActive
+
+    $('.messageswitches').on('change', function () {
+        const id = $(this).attr('messageswitches');
+        $('.messageswitches')
+        $.ajax({
+            url: `/admin/messageisactive/${id}`,
+        }).done();
+    });
+
+    $('.customerswitches').on('change', function () {
+        const id = $(this).attr('customerswitches');
+        $('.customerswitches')
+        $.ajax({
+            url: `/admin/customerisactive/${id}`,
+        }).done();
+    });
+
+    $('.categoryswitches').on('change', function () {
+        const id = $(this).attr('categoryswitches');
+        $('.categoryswitches')
+        $.ajax({
+            url: `/admin/categoryisactive/${id}`,
+        }).done();
+    });
+
+    //reply message
+    $('.reply').on('click', function () {
+        console.log("coucou")
+        $("#dialog-perso").dialog();
     });
 });                                                                                                                      

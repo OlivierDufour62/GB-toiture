@@ -2,10 +2,26 @@
     width: 80%;
 }
 
-.w60{
+.w60 {
     width: 60%;
 }
+
+.width-size{
+    width: 285px;
+}
+
+.height-size-header{
+    height: 150px;
+}
+
+.menu-absolute{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
 /* header */
+
 .hamb {
     height: 5px;
     width: 50px;
@@ -24,65 +40,76 @@
     font-size: 1.4em;
 }
 
-a:link
-{
-text-decoration:none;
+a:link {
+    text-decoration: none;
 }
 
 /* footer */
+
 .bg264d7efoot {
     background-color: #264d7e;
 }
 
+/* retouche header */
+
+.bgD7D7D7 {
+    background-color: #D7D7D7;
+}
+
+.color3f3f3f {
+    color: #3f3f3f;
+}
+
 /* index */
-.size-h4{
+
+.size-h4 {
     font-size: 1.2em;
 }
 
-.subtitle{
+.subtitle {
     font-size: 1.5em;
 }
 
-.shadowed{
+.shadowed {
     box-shadow: 5px 5px 5px #264d7e;
 }
 
-.titlecolor{
+.titlecolor {
     color: #264d7e;
 }
 
-.pos-absolute{
+.pos-absolute {
     position: absolute;
     top: 70px;
     left: 129px;
 }
 
-.pos-absolute0{
+.pos-absolute0 {
     position: absolute;
     top: 160px;
     left: 97px;
 }
 
-.pos-absolute1{
+.pos-absolute1 {
     position: absolute;
     top: 260px;
     left: 97px;
 }
 
-.pos-absolute2{
+.pos-absolute2 {
     position: absolute;
     top: 90px;
     left: 97px;
     margin-top: 20px;
 }
 
-.pos-absolute3{
+.pos-absolute3 {
     position: absolute;
     top: 210px;
     left: 97px;
 }
 
-.pos-absolute4{
+.pos-absolute4 {
     position: absolute;
     top: 170px;
     left: 83px;
@@ -90,58 +117,58 @@ text-decoration:none;
 
 /* div */
 
-.pos-abslolute5{
+.pos-abslolute5 {
     position: absolute;
     top: 0px;
 }
 
-.pos-absolute-titlespec{
+.pos-absolute-titlespec {
     position: absolute;
     top: 70px;
     left: 73px;
 }
 
-.pos-absolute6{
+.pos-absolute6 {
     position: absolute;
     top: 310px;
     left: 97px;
 }
 
-.bold{
+.bold {
     font-weight: bold;
     font-size: 1.5em;
 }
 
-.title-presta{
+.title-presta {
     font-size: 1.8em;
 }
 
-.bgF4F4F4{
+.bgF4F4F4 {
     background-color: #F4F4F4;
 }
 
-.opa{
+.opa {
     opacity: 0.7;
 }
 
-.zindex{
+.zindex {
     z-index: 800;
 }
+
 /* end index */
 
 /* prestation*/
 
-.pos-absolute-presta{
+.pos-absolute-presta {
     position: absolute;
     top: 300px;
     left: 215px;
 }
 
-.titlepresta{
+.titlepresta {
     font-size: 4em;
     color: #264d7e;
 }
-
 
 .anim-opa {
     animation-duration: 2s;
@@ -162,7 +189,6 @@ text-decoration:none;
     }
     to {
         opacity: 0.6;
-        
     }
 }
 
@@ -172,7 +198,6 @@ text-decoration:none;
     }
     to {
         opacity: 1;
-        
     }
 }
 
@@ -180,18 +205,19 @@ text-decoration:none;
 
 /*contact*/
 
-.color264d7e{
+.color264d7e {
     color: #264d7e;
 }
 
-.resize{
+.resize {
     resize: none;
 }
+
 /*end contact*/
 
 /*devis*/
 
-.div-none{
+.div-none {
     display: none;
 }
 
@@ -199,7 +225,7 @@ text-decoration:none;
 
 /*admin*/
 
-.btn264d7e{
+.btn264d7e {
     background-color: #264d7e;
 }
 
@@ -216,74 +242,58 @@ text-decoration:none;
     .menu {
         display: none;
     }
-
-    .footmobile{
+    .footmobile {
         display: none;
     }
-
     .text {
         color: white !important;
     }
-
     .bg264d7e {
         background-color: #264d7e;
     }
-
-    .titlesizemobile{
+    .titlesizemobile {
         font-size: 1.2em;
     }
-
-    .subtitlemobile{
+    .subtitlemobile {
         font-size: 1.0em;
     }
-
-    .fontsizemobile{
+    .fontsizemobile {
         font-size: 0.8em;
     }
-
-    .w100{
+    .w100 {
         width: 100%;
     }
-
-    .h2sizemobile{
+    .h2sizemobile {
         font-size: 2.0em;
         color: #264d7e;
     }
-    
-    .galery-mobile{
+    .galery-mobile {
         display: flex !important;
         flex-direction: column-reverse !important;
     }
-
-    .m-admin{
+    .m-admin {
         display: flex;
         justify-content: stretch;
     }
 }
 
 @media screen and (max-width: 1024px) {
-    .w100{
+    .w100 {
         width: 100%;
     }
 }
 
 @media screen and (min-width: 720px) {
-
-    .border264d7efixe{
+    .border264d7efixe {
         border: solid 3px #264d7e;
     }
-
     .border264d7e {
         border: solid 3px #264d7e;
     }
-    
 }
 
-
 @media screen and (min-width: 1024px) {
-
-    .menu-fixed{
+    .menu-fixed {
         position: fixed;
     }
-
 }

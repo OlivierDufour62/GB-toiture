@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\ConstructionSite;
+use App\Entity\Contact;
 use App\Entity\Customer;
 use App\Entity\Image;
 use App\Entity\Service;
@@ -18,7 +19,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AdminController extends AbstractController
 {
@@ -46,7 +47,7 @@ class AdminController extends AbstractController
         $customer = $entityManager->getRepository(Customer::class)
             ->findAll();
         return $this->render('admin/customer.html.twig', [
-            'customer' => $customer,
+            'allCustomer' => $customer,
         ]);
     }
 
@@ -61,7 +62,6 @@ class AdminController extends AbstractController
         $form->remove('password');
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($addCustomer);
             $entityManager->flush();
             return new JsonResponse(true);
@@ -83,7 +83,6 @@ class AdminController extends AbstractController
         $form->remove('password');
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($editCustomer);
             $entityManager->flush();
             return new JsonResponse(true);
@@ -91,6 +90,23 @@ class AdminController extends AbstractController
         return $this->render('admin/editcustomer.html.twig', [
             'customer' => $editCustomer, 'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/admin/customerisactive/{id}", name="customerisactive")
+     */
+    public function customerIsActive($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $customer = $entityManager->getRepository(Customer::class)
+            ->find($id);
+        if (!$customer) {
+            return new JsonResponse(false);
+        }
+        $customer->setIsActive(!$customer->getIsActive());
+        $entityManager->persist($customer);
+        $entityManager->flush();
+        return new JsonResponse(true);
     }
 
     /**
@@ -128,6 +144,10 @@ class AdminController extends AbstractController
             $email = $request->request->get('email');
             foreach ($imagelist as $image) {
                 if ($image) {
+                    $mimeType = $image->getMimeType();
+                    if($mimeType !== 'image/jpeg' && $mimeType !==  'image/png' && $mimeType !== 'image/tiff' && $mimeType !==  'image/webp' && $mimeType !== 'image/jpeg'){
+                        return new JsonResponse($mimeType !== 'image/jpeg');
+                    }
                     $imageFileName = $fileUploader->upload($image);
                     $img = new Image();
                     $img->setName($imageFileName);
@@ -178,7 +198,6 @@ class AdminController extends AbstractController
         $form = $this->createForm(CategoryType::class, $cat);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($cat);
             $entityManager->flush();
             return new JsonResponse(true);
@@ -186,7 +205,7 @@ class AdminController extends AbstractController
         $category = $entityManager->getRepository(Category::class)
             ->findAll();
         return $this->render('admin/prestation.html.twig', [
-            'service' => $service, 'category' => $category, 'form' => $form->createView(),
+            'allService' => $service, 'category' => $category, 'form' => $form->createView(),
         ]);
     }
 
@@ -210,6 +229,23 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/admin/categoryisactive/{id}", name="categoryisactive")
+     */
+    public function categoriesIsActive($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $category = $entityManager->getRepository(Category::class)
+            ->find($id);
+        if (!$category) {
+            return new JsonResponse(false);
+        }
+        $category->setIsActive(!$category->getIsActive());
+        $entityManager->persist($category);
+        $entityManager->flush();
+        return new JsonResponse(true);
+    }
+
+    /**
      * @Route("/admin/editcategory/{id}", name="admin_edit_category")
      */
     public function editPrestation(Request $request, $id)
@@ -221,7 +257,6 @@ class AdminController extends AbstractController
         $form = $this->createForm(CategoryType::class, $addPresta);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($addPresta);
             $entityManager->flush();
             // return new JsonResponse(true);
@@ -266,8 +301,11 @@ class AdminController extends AbstractController
      */
     public function message()
     {
-        return $this->render('', [
-            'controller_name' => 'AdminController',
+        $entityManager = $this->getDoctrine()->getManager();
+        $message = $entityManager->getRepository(Contact::class)
+            ->findAll();
+        return $this->render('admin/message.html.twig', [
+            'message' => $message,
         ]);
     }
 
@@ -279,5 +317,22 @@ class AdminController extends AbstractController
         return $this->render('', [
             'controller_name' => 'AdminController',
         ]);
+    }
+
+    /**
+     * @Route("/admin/messageisactive/{id}", name="messageisactive")
+     */
+    public function messageIsActive($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $message = $entityManager->getRepository(Contact::class)
+            ->find($id);
+        if (!$message) {
+            return new JsonResponse(false);
+        }
+        $message->setIsActive(!$message->getIsActive());
+        $entityManager->persist($message);
+        $entityManager->flush();
+        return new JsonResponse(true);
     }
 }

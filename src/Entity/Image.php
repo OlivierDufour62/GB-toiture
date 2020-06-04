@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ImageRepository::class)
@@ -20,6 +21,9 @@ class Image
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\File(
+     *     mimeTypes = {"image/jpeg", "image/png", "image/tiff"}
+     * )
      */
     private $name;
 
@@ -45,7 +49,7 @@ class Image
     private $date_delete;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ConstructionSite::class, inversedBy="images",cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity=ConstructionSite::class, inversedBy="images")
      */
     private $constructionSite;
 
@@ -171,5 +175,4 @@ class Image
 
         return $this;
     }
-
 }
