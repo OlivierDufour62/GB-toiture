@@ -1,0 +1,36 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Message
+{% endblock %}
+{% block h1 %}Message
+{% endblock %}
+
+{% block content %}
+	{% for message in discussion %}
+    <div>
+        <p>
+            {{message.object}}
+        </p>
+        <p>
+            {{message.message}}
+        </p>
+        <p>
+            {{message.message}}
+        </p>
+    </div>
+    {% endfor %}
+	{{ form_start(form, {'attr': {'class': 'col-8 ajaxsendresponse mx-auto mt-5'}})}}
+	<div class="form-group">
+		{{ form_widget(form.object, {'attr': {'class': 'form-control shadow-none', 'value': 'RE:' ~ contact.object}})}}
+	</div>
+	<div class="form-group">
+		{{ form_widget(form.email, {'attr': {'class': 'form-control shadow-none', 'value': contact.email }})}}
+	</div>
+	<div class="form-group">
+		{{ form_widget(form.message, {'attr': {'class': 'form-control resize shadow-none','placeholder': 'Votre message', 'rows':'10', 'cols':'29'}})}}
+	</div>
+	<div class="justify-content-end">
+		<button type="submit" class="btn btn264d7e text-white my-2 my-sm-0 ml-3">Envoyer</button>
+	</div>
+	{{ form_end(form) }}
+{% endblock %}

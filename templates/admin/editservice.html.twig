@@ -1,0 +1,30 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Éditer service
+{% endblock %}
+{% block h1 %}Éditer un service
+{% endblock %}
+
+{% block content %}
+    <div class="col-6 mx-auto bg text-white successsend d-none bg-success">
+		<p>Service éditer</p>
+	</div>
+	{{ form_start(form, {'attr': {'class': 'col-12 col-xl-6 mx-auto mt-5 ajaxeditservice', 'serviceid': service.id}})}}
+	<div class="form-row d-flex justify-content-center">
+		<div class="form-group col-12 col-lg-3 col-xl-6">
+			{{ form_widget(form.name, {'attr': {'class': 'form-control shadow-none','placeholder': 'Nom'}})}}
+		</div>
+		<div class="form-group col-12 col-lg-3 col-xl-6">
+			{{ form_widget(form.rate, {'attr': {'class': 'form-control shadow-none','placeholder': 'Tarif'}})}}
+		</div>
+	</div>
+	<div class="form-row d-flex justify-content-center">
+		<div class="form-group col-12 col-lg-6 col-xl-12">
+			{{ form_widget(form.category, {'attr': {'class': 'form-control col-12 col-lg-12'}})}}
+		</div>
+	</div>
+	<div class="mx-auto col-12 col-lg-6 col-xl-12 d-flex justify-content-end p-0 m-0">
+		<button id="editservice" type="submit" class="btn bg264d7efoot text-white mb-3 shadow-none">Enregistrer</button>
+	</div>
+	{{ form_end(form) }}
+{% endblock %}

@@ -29,7 +29,7 @@
 						<th scope="row">{{categories.id}}</th>
 						<th scope="row">{{categories.name}}</th>
 						<td>
-							<a href="/admin/editcategory/{{categories.id}}">
+							<a href="/admin/editcategory/{{categories.id}}" class="editcat">
 								<i class="ri-arrow-right-line text-white"></i>
 							</a>
 						</td>
@@ -53,7 +53,7 @@
 		<div class="div-none col-12 mx-auto mb-3">
 			{{ form_start(form, {'attr': {'class': 'col-6 mx-auto ajaxaddcategory'}})}}
 			{{ form_widget(form.name, {'attr': {'class': 'form-control shadow-none mb-3','placeholder': 'Nom'}})}}
-			<button type="submit" id="addcategory" class="btn text-white btn264d7e shadow-none addcat">Ajouter</button>
+			<button type="submit" id="addcategory" class="text-white btn264d7e shadow-none addcat">Ajouter</button>
 			{{ form_end(form) }}
 		</div>
 	</div>
@@ -77,7 +77,9 @@
 						<td>{{services.name}}</td>
 						<td>{{services.rate}}</td>
 						<td>
-							<i class="ri-arrow-right-line"></i>
+							<a href="/admin/editservice/{{services.id}}" class=" editcat">
+								<i class="ri-arrow-right-line text-white"></i>
+							</a>
 						</td>
 						<td>
 							<div class="custom-control custom-switch">
@@ -91,6 +93,6 @@
 		</table>
 	</div>
 	<div class="d-flex justify-content-end col-12 col-lg-12 col-xl-12 p-0 m-0">
-		<a class="btn text-white btn264d7e" href="/admin/addprestation">Ajouter une prestation</a>
+		<a class="btn text-white btn264d7e" href="/admin/addservice">Ajouter une prestation</a>
 	</div>
 {% endblock %}

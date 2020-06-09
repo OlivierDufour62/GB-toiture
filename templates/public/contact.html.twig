@@ -12,58 +12,46 @@
 
 		<div class="form-row">
 			<div class="form-group col-6 col-lg-6">
-				{# <input type="text" class="form-control shadow-none" id="lastname" placeholder="Nom"> #}
 				{{ form_widget(form.lastname, {'attr': {'class': 'form-control shadow-none','placeholder': 'Nom'}})}}
 			</div>
 			<div class="form-group col-6 col-lg-6">
-				{# <input type="text" class="form-control shadow-none" id="firstname" placeholder="Prénom"> #}
 				{{ form_widget(form.firstname, {'attr': {'class': 'form-control shadow-none','placeholder': 'Prénom'}})}}
 			</div>
 		</div>
 		<div class="form-row">
 			<div class="form-group col-6 col-lg-6">
-				{# <input type="email" class="form-control shadow-none" id="lastname" placeholder="Email"> #}
 				{{ form_widget(form.email, {'attr': {'class': 'form-control shadow-none','placeholder': 'Email'}})}}
 			</div>
 			<div class="form-group col-6 col-lg-6">
-				{# <input type="text" class="form-control shadow-none" id="phonenumber" placeholder="Téléphone"> #}
 				{{ form_widget(form.phonenumber, {'attr': {'class': 'form-control shadow-none','placeholder': 'Téléphone'}})}}
 			</div>
 		</div>
 		<div class="form-group">
-			{# <input type="text" class="form-control shadow-none" id="address" placeholder="Adresse"> #}
 				{{ form_widget(form.address, {'attr': {'class': 'form-control shadow-none','placeholder': 'Adresse'}})}}
 		</div>
 		<div class="form-row">
 			<div class="form-group col-lg-2">
-				{# <input type="text" class="form-control shadow-none" id="zipcode" placeholder="Code postal"> #}
 				{{ form_widget(form.zipcode, {'attr': {'class': 'form-control shadow-none','placeholder': 'Code postal'}})}}
 			</div>
 			<div class="form-group col-lg-10">
-				{# <input type="text" class="form-control shadow-none" id="city" placeholder="Ville"> #}
 				{{ form_widget(form.city, {'attr': {'class': 'form-control shadow-none','placeholder': 'Ville'}})}}
 			</div>
 		</div>
 		<div class="form-group">
-			{# <input type="text" class="form-control shadow-none" id="address2" placeholder="Adresse secondaire"> #}
 				{{ form_widget(form.addressTwo, {'attr': {'class': 'form-control shadow-none','placeholder': 'Adresse secondaire'}})}}
 		</div>
 		<div class="form-row">
 			<div class="form-group col-lg-2">
-				{# <input type="text" class="form-control shadow-none" id="zipcode2" placeholder="Code postal 2"> #}
 				{{ form_widget(form.zipcodeTwo, {'attr': {'class': 'form-control shadow-none','placeholder': 'Code postal secondaire'}})}}
 			</div>
 			<div class="form-group col-lg-10">
-				{# <input type="text" class="form-control shadow-none" id="city2" placeholder="Ville 2"> #}
 				{{ form_widget(form.cityTwo, {'attr': {'class': 'form-control shadow-none','placeholder': 'Ville secondaire'}})}}
 			</div>
 		</div>
 		<div class="form-group">
-			{# <textarea class="form-control resize shadow-none" id="exampleFormControlTextarea1" rows="5"></textarea> #}
 				{{ form_widget(form.object, {'attr': {'class': 'form-control shadow-none','placeholder': 'Objet'}})}}
 		</div>
 		<div class="form-group">
-			{# <textarea class="form-control resize shadow-none" id="exampleFormControlTextarea1" rows="5"></textarea> #}
 				{{ form_widget(form.message, {'attr': {'class': 'form-control resize shadow-none','placeholder': 'Votre message', 'rows':'10'}})}}
 		</div>
 		<div class="mx-auto d-flex justify-content-center">

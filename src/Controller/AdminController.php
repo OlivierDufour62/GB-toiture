@@ -11,7 +11,7 @@ use App\Entity\Service;
 use App\Form\CategoryType;
 use App\Form\ConstructionType;
 use App\Form\CustomerType;
-use App\Form\ImageType;
+use App\Form\ContactType;
 use App\Form\ServiceType;
 use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,7 +19,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class AdminController extends AbstractController
 {
@@ -145,7 +146,7 @@ class AdminController extends AbstractController
             foreach ($imagelist as $image) {
                 if ($image) {
                     $mimeType = $image->getMimeType();
-                    if($mimeType !== 'image/jpeg' && $mimeType !==  'image/png' && $mimeType !== 'image/tiff' && $mimeType !==  'image/webp' && $mimeType !== 'image/jpeg'){
+                    if ($mimeType !== 'image/jpeg' && $mimeType !==  'image/png' && $mimeType !== 'image/tiff' && $mimeType !==  'image/webp' && $mimeType !== 'image/jpeg') {
                         return new JsonResponse($mimeType !== 'image/jpeg');
                     }
                     $imageFileName = $fileUploader->upload($image);
@@ -154,7 +155,7 @@ class AdminController extends AbstractController
                     $construction->addImage($img);
                     $img->setConstructionSite($construction);
                     $customer = $entityManager->getRepository(Customer::class)
-                                        ->findBy(['email' => $email])[0] ?? null;
+                        ->findBy(['email' => $email])[0] ?? null;
                     if ($customer !== null) {
                         $construction->setCustomer($customer);
                     }
@@ -179,7 +180,7 @@ class AdminController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $customer = $entityManager->getRepository(Customer::class)
                 ->findBy(['email' => $email])[0] ?? null;
-            $client = ['id' => $customer->getId(), 'lastname' => $customer->getLastname(), 'addresOne' => $customer->getAddresOne(), 'zipcode' => $customer->getZipcode(), 'city' => $customer->getCity(), 'email'=> $customer->getEmail()];
+            $client = ['id' => $customer->getId(), 'lastname' => $customer->getLastname(), 'addresOne' => $customer->getAddresOne(), 'zipcode' => $customer->getZipcode(), 'city' => $customer->getCity(), 'email' => $customer->getEmail()];
             return new JsonResponse($client);
         } else {
             return new JsonResponse(false);
@@ -205,27 +206,66 @@ class AdminController extends AbstractController
         $category = $entityManager->getRepository(Category::class)
             ->findAll();
         return $this->render('admin/prestation.html.twig', [
-            'allService' => $service, 'category' => $category, 'form' => $form->createView(),
+            'allService' => $service, 'category' => $category, 'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/admin/addprestation", name="admin_add_prestation")
+     * @Route("/admin/addservice", name="admin_add_service")
      */
-    public function addPrestation(Request $request)
+    public function addService(Request $request)
     {
-        $addPresta = new Service();
-        $form = $this->createForm(ServiceType::class, $addPresta);
+        $addService = new Service();
+        $form = $this->createForm(ServiceType::class, $addService);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($addPresta);
+            $entityManager->persist($addService);
             $entityManager->flush();
-            // return new JsonResponse(true);
+            return new JsonResponse(true);
         }
-        return $this->render('admin/add_prestation.html.twig', [
+        return $this->render('admin/add_service.html.twig', [
+            'service' => $addService,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/admin/editservice/{id}", name="admin_edit_service")
+     */
+    public function editService(Request $request, $id)
+
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $editService = $entityManager->getRepository(Service::class)
+            ->find($id);
+        $form = $this->createForm(ServiceType::class, $editService);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($editService);
+            $entityManager->flush();
+            return new JsonResponse(true);
+        }
+        return $this->render('admin/editservice.html.twig', [
+            'service' => $editService, 'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/serviceisactive/{id}", name="serviceisactive")
+     */
+    public function serviceIsActive($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $service = $entityManager->getRepository(Service::class)
+            ->find($id);
+        if (!$service) {
+            return new JsonResponse(false);
+        }
+        $service->setIsActive(!$service->getIsActive());
+        $entityManager->persist($service);
+        $entityManager->flush();
+        return new JsonResponse(true);
     }
 
     /**
@@ -248,21 +288,21 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/editcategory/{id}", name="admin_edit_category")
      */
-    public function editPrestation(Request $request, $id)
+    public function editCategory(Request $request, $id)
+
     {
-        $addPresta = new Service();
         $entityManager = $this->getDoctrine()->getManager();
-        $category = $entityManager->getRepository(Category::class)
-            ->findBy(['id' => $id]);
-        $form = $this->createForm(CategoryType::class, $addPresta);
+        $editCategory = $entityManager->getRepository(Category::class)
+            ->find($id);
+        $form = $this->createForm(CategoryType::class, $editCategory);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($addPresta);
+            $entityManager->persist($editCategory);
             $entityManager->flush();
-            // return new JsonResponse(true);
+            return new JsonResponse(true);
         }
-        return $this->render('admin/prestation.html.twig', [
-            'form' => $form->createView(), 'category' => $category
+        return $this->render('admin/editcategory.html.twig', [
+            'category' => $editCategory, 'formEdit' => $form->createView(),
         ]);
     }
 
@@ -302,20 +342,79 @@ class AdminController extends AbstractController
     public function message()
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $message = $entityManager->getRepository(Contact::class)
+        $contact = $entityManager->getRepository(Contact::class)
             ->findAll();
         return $this->render('admin/message.html.twig', [
-            'message' => $message,
+            'contact' => $contact,
         ]);
     }
 
+    // /**
+    //  * @Route("/admin/response/{id}", name="admin_reply_message")
+    //  */
+    // public function response(Request $request, $id)
+    // {
+    //     $entityManager = $this->getDoctrine()->getManager();
+    //     $contact = $entityManager->getRepository(Contact::class)
+    //         ->find($id);
+    //     $template = $request->isXmlHttpRequest() ? 'template_xhr.html.twig' : 'replymessage.html.twig';
+    //     $entityManager = $this->getDoctrine()->getManager();
+    //     $contactResponse = new Contact();
+    //     $form = $this->createForm(ContactType::class, $contactResponse);
+    //     $form->handleRequest($request);
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $contactResponse->setIsResponse(true);
+    //         $entityManager->persist($contactResponse);
+    //         $entityManager->flush();
+    //     }
+    //     return $this->render($template, [
+    //         'form' => $form->createView(), 'contact' => $contact
+    //     ]);
+    // }
+
     /**
-     * @Route("/admin/replymessage", name="admin_reply_message")
+     * @Route("/admin/replymessage/{id}", name="admin_reply_message")
      */
-    public function replyMessage()
+    public function replyMessage(Request $request, $id, $conversation, MailerInterface $mailer)
     {
-        return $this->render('', [
-            'controller_name' => 'AdminController',
+        $entityManager = $this->getDoctrine()->getManager();
+        $message = $entityManager->getRepository(Contact::class)
+            ->find($id);
+        $discussion = $entityManager->getRepository(Contact::class)
+            ->findBy(['id'=>$id, 'conversation'=> $conversation]);
+        $contactResponse = new Contact();
+        $form = $this->createForm(ContactType::class, $contactResponse);
+        $form->remove('lastname');
+        $form->remove('firstname');
+        $form->remove('address');
+        $form->remove('zipcode');
+        $form->remove('city');
+        $form->remove('addressTwo');
+        $form->remove('zipcodeTwo');
+        $form->remove('cityTwo');
+        $form->remove('phonenumber');
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $contactResponse->setIsResponse(true);
+            $contactResponse->setlastname('');
+            $contactResponse->setFirstname('');
+            $contactResponse->setAddress('');
+            $contactResponse->setZipcode('');
+            $contactResponse->setCity('');
+            $contactResponse->setPhonenumber('');
+            $contactResponse->setConversation($message);
+            $entityManager->persist($contactResponse);
+            $entityManager->flush();
+            $email = (new Email())
+                ->from('projetwebafpa@gmail.com')
+                ->to($message->getEmail())
+                ->subject($form->get('object')->getData())
+                ->text($form->get('message')->getData());
+            $mailer->send($email);
+            return new JsonResponse(true);
+        }
+        return $this->render('admin/replymessage.html.twig', [
+            'form' => $form->createView(), 'contact' => $message, 'discussion'=>$discussion,
         ]);
     }
 

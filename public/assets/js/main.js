@@ -24,6 +24,7 @@ $(document).ready(function () {
     // console.log(path)
     // console.log(path[path.length-1])
     let path = window.location.pathname.split('/');
+    console.log(path)
     $('.cc').each(function () {
         $(this).children().removeClass('border....')
         $('.cc').each(function () {
@@ -44,11 +45,20 @@ $(document).ready(function () {
         $(`.mm-admin`).toggle(`fold`, 1500);
     });
 
-    $('.addcat').click(function(){
+    $('.addcat').click(function () {
         $('.div-none').toggle(`fold`, 1500);
-    })
+    });
 
-    $('#addcategory').on('click', function(e){
+    // $('.editcat').click(function(){
+    //     $('.div-none-edit').toggle(`fold`, 1500);
+    // });
+
+    // $('.editcat').on('click', function() {
+    //     let id = $('.editcat').attr('id');
+    //     $('#category_id').val(id);
+    // });
+
+    $('#addcategory').on('click', function (e) {
         e.preventDefault();
         let data = {};
         $('.ajaxaddcategory')
@@ -71,7 +81,7 @@ $(document).ready(function () {
         });
     });
 
-    $('#addcustomer').on('click', function(e){
+    $('#addcustomer').on('click', function (e) {
         e.preventDefault();
         let data = {};
         $('.ajaxaddcustomer')
@@ -94,7 +104,7 @@ $(document).ready(function () {
         });
     });
 
-    $('#editcustomer').on('click', function(e){
+    $('#editcustomer').on('click', function (e) {
         e.preventDefault();
         let data = {};
         const id = $('.ajaxeditcustomer').attr('customerid');
@@ -118,6 +128,53 @@ $(document).ready(function () {
         });
     });
 
+    $('#addservice').on('click', function (e) {
+        e.preventDefault();
+        let data = {};
+        $('.ajaxaddservice')
+            .serializeArray()
+            .forEach((object) => {
+                data[object.name] = object.value
+            });
+        $.ajax({
+            type: 'POST',
+            url: `/admin/addservice`,
+            data: data,
+            success: function (data) {
+                if (data === true) {
+                    $(".successsend").removeClass("d-none");
+                    setTimeout(function () {
+                        $(".successsend").addClass("d-none");
+                    }, 1500);
+                }
+            }
+        });
+    });
+
+    $('#editservice').on('click', function (e) {
+        e.preventDefault();
+        let data = {};
+        const id = $('.ajaxeditservice').attr('serviceid');
+        $('.ajaxeditservice')
+            .serializeArray()
+            .forEach((object) => {
+                data[object.name] = object.value
+            });
+        $.ajax({
+            type: 'POST',
+            url: `/admin/editservice/${id}`,
+            data: data,
+            success: function (data) {
+                if (data === true) {
+                    $(".successsend").removeClass("d-none");
+                    setTimeout(function () {
+                        $(".successsend").addClass("d-none");
+                    }, 1500);
+                }
+            }
+        });
+    });
+
     $('#addconstruction').on('click', function (e) {
         e.preventDefault();
         let data2 = new FormData($('.ajaxaddconsctruction')[0]);
@@ -129,7 +186,8 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: function (data) {
-                console.log(data)
+                $('input').val('');
+                $('textarea').val('');
                 $(".successsend").removeClass("d-none");
                 setTimeout(function () {
                     $(".successsend").addClass("d-none");
@@ -159,6 +217,26 @@ $(document).ready(function () {
         });
     });
 
+    // $('.reply').on('click', function (e) {
+    //     e.preventDefault();
+    //     let data = {};
+    //     const id = $('.reply').attr('id');
+    //     // $('.ajaxaddservice')
+    //     //     .serializeArray()
+    //     //     .forEach((object) => {
+    //     //         data[object.name] = object.value
+    //     //     });
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: `/admin/response/${id}`,
+    //         data: data,
+    //         success: function (data) {
+    //             $('.response').removeClass('d-none')
+    //             $(".response").html(data);
+    //         },
+    //     });
+    // });
+
     // partie isActive
 
     $('.messageswitches').on('change', function () {
@@ -185,9 +263,17 @@ $(document).ready(function () {
         }).done();
     });
 
-    //reply message
-    $('.reply').on('click', function () {
-        console.log("coucou")
-        $("#dialog-perso").dialog();
+    $('.serviceswitches').on('change', function () {
+        const id = $(this).attr('serviceswitches');
+        $('.serviceswitches')
+        $.ajax({
+            url: `/admin/serviceisactive/${id}`,
+        }).done();
     });
+
+    // //reply message
+    // $('.reply').on('click', function () {
+    //     console.log("coucou")
+    //     $("#dialog-perso").dialog();
+    // });
 });                                                                                                                      

@@ -16,8 +16,8 @@
 
 .menu-absolute{
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 20px;
+    left: 20px;
 }
 
 /* header */
@@ -52,11 +52,15 @@ a:link {
 
 /* retouche header */
 
+.header-opa{
+    opacity: 0.9;
+}
+
 .bgD7D7D7 {
     background-color: #D7D7D7;
 }
 
-.color3f3f3f {
+body, a {
     color: #3f3f3f;
 }
 
@@ -221,6 +225,10 @@ a:link {
     display: none;
 }
 
+.div-none-edit{
+    display: none;
+}
+
 /*end devis*/
 
 /*admin*/
@@ -275,6 +283,15 @@ a:link {
         display: flex;
         justify-content: stretch;
     }
+
+    .d-flex-button{
+        display: flex !important;
+        justify-content: end !important;
+    }
+
+    .m-button{
+        margin-top: 15px !important;
+    }
 }
 
 @media screen and (max-width: 1024px) {
@@ -295,5 +312,9 @@ a:link {
 @media screen and (min-width: 1024px) {
     .menu-fixed {
         position: fixed;
+    }
+
+    .m-button{
+        margin-left: 10px !important;
     }
 }
