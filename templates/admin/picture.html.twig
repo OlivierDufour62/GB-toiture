@@ -1,0 +1,67 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Photo
+{% endblock %}
+{% block h1 %}Photo
+{% endblock %}
+
+{% block content %}
+
+	<div class="table-responsive col-12 col-lg-12 col-xl-10 p-0 m-0 mt-5 mx-auto">
+		<table class="table table-striped table-dark text-center">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">ID chantier</th>
+					<th scope="col">Prénom</th>
+					<th scope="col">Email</th>
+					<th scope="col">Téléphone</th>
+					<th scope="col">Voir</th>
+					<th scope="col">Galerie</th>
+					<th scope="col">Carroussel</th>
+					<th scope="col">Supprimer</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for pictures in picture %}
+					{# {% set picturesID = pictures.id %} #}
+					{% if pictures.constructionSite != null %}
+						<tr>
+							<th scope="row">{{pictures.id}}</th>
+							<td>{{pictures.constructionSite.id}}</td>
+							<td>{{pictures.constructionSite.customer.lastname}}</td>
+							<td>{{pictures.name}}</td>
+							<td>{{pictures.constructionSite.customer.addresOne}}</td>
+							<td>
+								<a href="/admin/replymessage/{{pictures.id}}" id="{{pictures.id}}" class="text-white">
+									<i class="ri-arrow-right-line text-white"></i>
+								</a>
+							</td>
+							<td>
+								<div class="custom-control custom-switch">
+									<input type="checkbox" class="custom-control-input galeryswitches" galeryswitches="{{pictures.id}}" id="galeryswitches{{pictures.id}}" {% if pictures.isGalery %} checked {% endif %}>
+									<label class="custom-control-label" for="galeryswitches{{pictures.id}}"></label>
+								</div>
+							</td>
+							<td>
+								<div class="custom-control custom-switch">
+									<input type="checkbox" class="custom-control-input carrousselswitches" carrousselswitches="{{pictures.id}}" id="carrousselswitches{{pictures.id}}" {% if pictures.isCarroussel %} checked {% endif %}>
+									<label class="custom-control-label" for="carrousselswitches{{pictures.id}}"></label>
+								</div>
+							</td>
+							<td>
+								<div class="custom-control custom-switch">
+									<input type="checkbox" class="custom-control-input pictureswitches" pictureswitches="{{pictures.id}}" id="messageSwitches{{pictures.id}}" {% if pictures.isActive %} checked {% endif %}>
+									<label class="custom-control-label" for="messageSwitches{{pictures.id}}"></label>
+								</div>
+							</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="d-flex justify-content-end col-12 col-lg-12 col-xl-10 p-0 m-0 mx-auto">
+		<a class="btn text-white btn264d7e" href="/admin/createdocument">Créer un document</a>
+	</div>
+{% endblock %}

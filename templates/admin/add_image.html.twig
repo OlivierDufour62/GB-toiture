@@ -12,7 +12,7 @@
 	{{ form_start(form, {'attr': {'class': 'col-12 col-lg-6 mx-auto ajaxaddconsctruction w100'}})}}
 	<div class="form-row">
 		<div class="form-group col-12 col-lg-9">
-			<input class="form-control col-12 w100 mr-sm-2 mt-lg-4 searchbar" name="email" type="text" placeholder="Recherche par email">
+			<input class="form-control col-12 w100 mr-sm-2 mt-lg-4 searchbar" name="phonenumber" type="text" placeholder="Recherche par téléphone">
 		</div>
 		<div class="form-group d-flex justify-content-end col-12 col-lg-3 d-flex justify-content-end">
 			<a href="#" id="search" class="btn mt-lg-4 col-6 bg264d7efoot text-white my-lg-2 my-sm-0 ml-3 col-lg-5">Valider</a>
@@ -23,7 +23,7 @@
 			{{ form_widget(form.customer.lastname, {'attr': {'class': 'form-control shadow-none','placeholder': 'Nom'}})}}
 		</div>
 		<div class="form-group col-12 col-lg-6">
-			{{ form_widget(form.customer.email, {'attr': {'class': 'form-control shadow-none','placeholder': 'Email'}})}}
+			{{ form_widget(form.customer.phonenumber, {'attr': {'class': 'form-control shadow-none','placeholder': 'Téléphone'}})}}
 		</div>
 	</div>
 	<div class="form-group">
@@ -47,6 +47,11 @@
 		</div>
 	</div>
 	<div class="form-group col-12 col-lg-6">
+		{% for message in app.flashes('alerte') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+		{% endfor %}
 		{{ form_widget(form.images, {'attr': {'class': 'form-control-file shadow-none'}})}}
 	</div>
 	<div class="mx-auto d-flex justify-content-center">

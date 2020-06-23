@@ -111,26 +111,12 @@ class Contact
      */
     private $isRead;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isResponse;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Contact::class, inversedBy="contacts")
-     */
-    private $conversation;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Contact::class, mappedBy="conversation")
-     */
-    private $contacts;
-
     public function __construct()
     {
         $this->setDateCreate(new \DateTime('now'));
         $this->date_update = new \DateTime();
         $this->setIsActive(true);
+        $this->setIsRead(false);
         $this->contacts = new ArrayCollection();
     }
 
@@ -342,60 +328,4 @@ class Contact
 
         return $this;
     }
-
-    public function getIsResponse(): ?bool
-    {
-        return $this->isResponse;
-    }
-
-    public function setIsResponse(bool $isResponse): self
-    {
-        $this->isResponse = $isResponse;
-
-        return $this;
-    }
-
-    public function getConversation(): ?self
-    {
-        return $this->conversation;
-    }
-
-    public function setConversation(?self $conversation): self
-    {
-        $this->conversation = $conversation;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|self[]
-     */
-    public function getContacts(): Collection
-    {
-        return $this->contacts;
-    }
-
-    public function addContact(self $contact): self
-    {
-        if (!$this->contacts->contains($contact)) {
-            $this->contacts[] = $contact;
-            $contact->setConversation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeContact(self $contact): self
-    {
-        if ($this->contacts->contains($contact)) {
-            $this->contacts->removeElement($contact);
-            // set the owning side to null (unless already changed)
-            if ($contact->getConversation() === $this) {
-                $contact->setConversation(null);
-            }
-        }
-
-        return $this;
-    }
-
 }

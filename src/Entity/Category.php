@@ -56,12 +56,14 @@ class Category
      */
     private $isActive;
 
+
     public function __construct()
     {
         $this->setDateCreate(new \DateTime('now'));
         $this->date_update = new \DateTime();
         $this->services = new ArrayCollection();
         $this->setIsActive(true);
+        $this->quoteRequests = new ArrayCollection();
     }
 
     public function getId(): ?int

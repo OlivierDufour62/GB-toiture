@@ -48,7 +48,7 @@ class Document
 
     /**
      * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="documents")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $client;
 
@@ -67,8 +67,15 @@ class Document
      */
     private $images;
 
-    
+    /**
+     * @ORM\OneToMany(targetEntity=MaterialDocument::class, mappedBy="document")
+     */
+    private $materialDocuments;
 
+    /**
+     * @ORM\Column(type="string", length=1000)
+     */
+    private $additionnalInformation;
 
     public function __construct()
     {
@@ -77,6 +84,7 @@ class Document
         $this->date_update = new \DateTime();
         $this->setIsActive(true);
         $this->images = new ArrayCollection();
+        $this->materialDocuments = new ArrayCollection();
     }
     
 
@@ -215,6 +223,49 @@ class Document
                 $image->setDocument(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MaterialDocument[]
+     */
+    public function getMaterialDocuments(): Collection
+    {
+        return $this->materialDocuments;
+    }
+
+    public function addMaterialDocument(MaterialDocument $materialDocument): self
+    {
+        if (!$this->materialDocuments->contains($materialDocument)) {
+            $this->materialDocuments[] = $materialDocument;
+            $materialDocument->setDocument($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMaterialDocument(MaterialDocument $materialDocument): self
+    {
+        if ($this->materialDocuments->contains($materialDocument)) {
+            $this->materialDocuments->removeElement($materialDocument);
+            // set the owning side to null (unless already changed)
+            if ($materialDocument->getDocument() === $this) {
+                $materialDocument->setDocument(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAdditionnalInformation(): ?string
+    {
+        return $this->additionnalInformation;
+    }
+
+    public function setAdditionnalInformation(string $additionnalInformation): self
+    {
+        $this->additionnalInformation = $additionnalInformation;
 
         return $this;
     }

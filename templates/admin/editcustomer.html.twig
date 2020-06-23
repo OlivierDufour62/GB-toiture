@@ -11,6 +11,11 @@
 	</div>
 	<div class="col-10 mt-5">
 		{{ form_start(form, {'attr': {'class': 'col-6 mx-auto ajaxeditcustomer', 'customerid': customer.id}})}}
+		<div class="form-group">
+			{% for genre in form.genre %}
+				{{ form_row(genre, {'attr': {'class':'d-inline-flex flex-column-reverse'}}) }}
+			{% endfor %}
+		</div>
 		<div class="form-row">
 			<div class="form-group col-6 col-lg-6">
 				{{ form_widget(form.lastname, {'attr': {'class': 'form-control shadow-none','placeholder': 'Nom'}})}}

@@ -11,6 +11,11 @@
 	</div>
 	<div class="col-10 mt-5">
 		{{ form_start(form, {'attr': {'class': 'col-6 mx-auto ajaxaddcustomer'}})}}
+		<div class="form-group">
+			{% for genre in form.genre %}
+				{{ form_row(genre, {'attr': {'class':'d-inline-flex flex-column-reverse'}}) }}
+			{% endfor %}
+		</div>
 		<div class="form-row">
 			<div class="form-group col-6 col-lg-6">
 				{{ form_widget(form.lastname, {'attr': {'class': 'form-control shadow-none','placeholder': 'Nom'}})}}
@@ -32,10 +37,10 @@
 		</div>
 		<div class="form-row">
 			<div class="form-group col-lg-4">
-			{{ form_widget(form.zipcode, {'attr': {'class': 'form-control shadow-none','placeholder': 'Code postal'}})}}
+				{{ form_widget(form.zipcode, {'attr': {'class': 'form-control shadow-none','placeholder': 'Code postal'}})}}
 			</div>
 			<div class="form-group col-lg-8">
-			{{ form_widget(form.city, {'attr': {'class': 'form-control shadow-none','placeholder': 'Ville'}})}}
+				{{ form_widget(form.city, {'attr': {'class': 'form-control shadow-none','placeholder': 'Ville'}})}}
 			</div>
 		</div>
 		<div class="form-group">
@@ -43,10 +48,10 @@
 		</div>
 		<div class="form-row">
 			<div class="form-group col-lg-4">
-			{{ form_widget(form.zipcode2, {'attr': {'class': 'form-control shadow-none','placeholder': 'Code postal secondaire'}})}}
+				{{ form_widget(form.zipcode2, {'attr': {'class': 'form-control shadow-none','placeholder': 'Code postal secondaire'}})}}
 			</div>
 			<div class="form-group col-lg-8">
-			{{ form_widget(form.city2, {'attr': {'class': 'form-control shadow-none','placeholder': 'Ville secondaire'}})}}
+				{{ form_widget(form.city2, {'attr': {'class': 'form-control shadow-none','placeholder': 'Ville secondaire'}})}}
 			</div>
 		</div>
 		<div class="mx-auto d-flex justify-content-center">

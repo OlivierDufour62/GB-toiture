@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\ConstructionSite;
 use App\Entity\Contact;
 use App\Entity\Customer;
+use App\Entity\Document;
 use App\Entity\Image;
 use App\Entity\Service;
 use App\Form\CategoryType;
@@ -19,16 +20,37 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AdminController extends AbstractController
 {
 
-    // public function __construct()
-    // {
-    //     $entityManager = $this->getDoctrine()->getManager();
-    // }
+    /**
+     * @Route("/login", name="app_login")
+     */
+    public function adminLogin(AuthenticationUtils $authenticationUtils): Response
+    {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('admin_index');
+        }
+        // get the login error if there is one
+        // $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        // $lastUsername = $authenticationUtils->getLastUsername();
+        return $this->render('admin/login.html.twig');
+    }
+
+    /**
+     * @Route("/logout", name="app_logout")
+     */
+    public function logout()
+    {
+        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
+
     /**
      * @Route("/admin/index", name="admin_index")
      */
@@ -133,21 +155,23 @@ class AdminController extends AbstractController
         $form = $this->createForm(ConstructionType::class, $construction);
         $form['customer']->remove('password');
         $form['customer']->remove('firstname');
-        $form['customer']->remove('phonenumber');
+        $form['customer']->remove('email');
         $form['customer']->remove('addressTwo');
         $form['customer']->remove('zipcode2');
         $form['customer']->remove('city2');
+        $form['customer']->remove('genre');
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             /** @var UploadedFile $image */
             $imagelist = $form->get('images')->getData();
-            $email = $request->request->get('email');
+            $phonenumber = $request->request->get('phonenumber');
             foreach ($imagelist as $image) {
-                if ($image) {
+                // if ($image) {
                     $mimeType = $image->getMimeType();
-                    if ($mimeType !== 'image/jpeg' && $mimeType !==  'image/png' && $mimeType !== 'image/tiff' && $mimeType !==  'image/webp' && $mimeType !== 'image/jpeg') {
-                        return new JsonResponse($mimeType !== 'image/jpeg');
+                    if ($mimeType !== 'image/jpeg' && $mimeType !==  'image/png' && $mimeType !== 'image/tiff' && $mimeType !==  'image/webp' && $mimeType !== 'image/jpg') {
+                        $this->addFlash('alerte', 'Veuillez choisir des images valides.');
+                    return $this->redirectToRoute('admin_add_image');
                     }
                     $imageFileName = $fileUploader->upload($image);
                     $img = new Image();
@@ -155,13 +179,13 @@ class AdminController extends AbstractController
                     $construction->addImage($img);
                     $img->setConstructionSite($construction);
                     $customer = $entityManager->getRepository(Customer::class)
-                        ->findBy(['email' => $email])[0] ?? null;
+                        ->findBy(['phonenumber' => $phonenumber])[0] ?? null;
                     if ($customer !== null) {
                         $construction->setCustomer($customer);
                     }
                     $entityManager->persist($construction);
                     $entityManager->flush();
-                }
+                // }
             }
             return new JsonResponse(true);
         }
@@ -175,11 +199,11 @@ class AdminController extends AbstractController
      */
     public function searchCustomer(Request $request)
     {
-        if ($request->isXmlHttpRequest() || $request->query->get('email') !== '') {
-            $email = $request->query->get('email');
+        if ($request->isXmlHttpRequest() || $request->query->get('phonenumber') !== '') {
+            $phonenumber = $request->query->get('phonenumber');
             $entityManager = $this->getDoctrine()->getManager();
             $customer = $entityManager->getRepository(Customer::class)
-                ->findBy(['email' => $email])[0] ?? null;
+                ->findBy(['phonenumber' => $phonenumber])[0] ?? null;
             $client = ['id' => $customer->getId(), 'lastname' => $customer->getLastname(), 'addresOne' => $customer->getAddresOne(), 'zipcode' => $customer->getZipcode(), 'city' => $customer->getCity(), 'email' => $customer->getEmail()];
             return new JsonResponse($client);
         } else {
@@ -311,8 +335,11 @@ class AdminController extends AbstractController
      */
     public function document()
     {
-        return $this->render('', [
-            'controller_name' => 'AdminController',
+        $entityManager = $this->getDoctrine()->getManager();
+        $document = $entityManager->getRepository(Document::class)
+            ->findAll();
+        return $this->render('admin/document.html.twig', [
+            'document' => $document,
         ]);
     }
 
@@ -321,7 +348,7 @@ class AdminController extends AbstractController
      */
     public function createDocument()
     {
-        return $this->render('', [
+        return $this->render('admin/createdocument.html.twig', [
             'controller_name' => 'AdminController',
         ]);
     }
@@ -337,6 +364,70 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/admin/picture", name="admin_picture")
+     */
+    public function picture()
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $picture = $entityManager->getRepository(Image::class)
+            ->findAll();
+        return $this->render('admin/picture.html.twig', [
+            'picture' => $picture,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/pictureisgalery/{id}", name="pictureisgalery")
+     */
+    public function pictureIsGalery($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $pictureGalery = $entityManager->getRepository(Image::class)
+            ->find($id);
+        if (!$pictureGalery) {
+            return new JsonResponse(false);
+        }
+        $pictureGalery->setIsGalery(!$pictureGalery->getIsGalery());
+        $entityManager->persist($pictureGalery);
+        $entityManager->flush();
+        return new JsonResponse(true);
+    }
+
+    /**
+     * @Route("/admin/pictureiscarroussel/{id}", name="pictureiscarroussel")
+     */
+    public function pictureIsCarroussel($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $pictureCarroussel = $entityManager->getRepository(Image::class)
+            ->find($id);
+        if (!$pictureCarroussel) {
+            return new JsonResponse(false);
+        }
+        $pictureCarroussel->setIsCarroussel(!$pictureCarroussel->getIsCarroussel());
+        $entityManager->persist($pictureCarroussel);
+        $entityManager->flush();
+        return new JsonResponse(true);
+    }
+
+    /**
+     * @Route("/admin/pictureisactive/{id}", name="pictureisactive")
+     */
+    public function pictureIsActive($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $pictureIsActive = $entityManager->getRepository(Image::class)
+            ->find($id);
+        if (!$pictureIsActive) {
+            return new JsonResponse(false);
+        }
+        $pictureIsActive->setIsActive(!$pictureIsActive->getIsActive());
+        $entityManager->persist($pictureIsActive);
+        $entityManager->flush();
+        return new JsonResponse(true);
+    }
+
+    /**
      * @Route("/admin/message", name="admin_message")
      */
     public function message()
@@ -349,39 +440,16 @@ class AdminController extends AbstractController
         ]);
     }
 
-    // /**
-    //  * @Route("/admin/response/{id}", name="admin_reply_message")
-    //  */
-    // public function response(Request $request, $id)
-    // {
-    //     $entityManager = $this->getDoctrine()->getManager();
-    //     $contact = $entityManager->getRepository(Contact::class)
-    //         ->find($id);
-    //     $template = $request->isXmlHttpRequest() ? 'template_xhr.html.twig' : 'replymessage.html.twig';
-    //     $entityManager = $this->getDoctrine()->getManager();
-    //     $contactResponse = new Contact();
-    //     $form = $this->createForm(ContactType::class, $contactResponse);
-    //     $form->handleRequest($request);
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $contactResponse->setIsResponse(true);
-    //         $entityManager->persist($contactResponse);
-    //         $entityManager->flush();
-    //     }
-    //     return $this->render($template, [
-    //         'form' => $form->createView(), 'contact' => $contact
-    //     ]);
-    // }
-
     /**
      * @Route("/admin/replymessage/{id}", name="admin_reply_message")
      */
-    public function replyMessage(Request $request, $id, $conversation, MailerInterface $mailer)
+    public function replyMessage(Request $request, $id, MailerInterface $mailer)
     {
         $entityManager = $this->getDoctrine()->getManager();
         $message = $entityManager->getRepository(Contact::class)
             ->find($id);
         $discussion = $entityManager->getRepository(Contact::class)
-            ->findBy(['id'=>$id, 'conversation'=> $conversation]);
+            ->findBy(['id'=>$id]);
         $contactResponse = new Contact();
         $form = $this->createForm(ContactType::class, $contactResponse);
         $form->remove('lastname');
@@ -395,16 +463,6 @@ class AdminController extends AbstractController
         $form->remove('phonenumber');
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $contactResponse->setIsResponse(true);
-            $contactResponse->setlastname('');
-            $contactResponse->setFirstname('');
-            $contactResponse->setAddress('');
-            $contactResponse->setZipcode('');
-            $contactResponse->setCity('');
-            $contactResponse->setPhonenumber('');
-            $contactResponse->setConversation($message);
-            $entityManager->persist($contactResponse);
-            $entityManager->flush();
             $email = (new Email())
                 ->from('projetwebafpa@gmail.com')
                 ->to($message->getEmail())

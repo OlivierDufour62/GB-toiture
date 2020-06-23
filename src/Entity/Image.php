@@ -67,12 +67,25 @@ class Image
      * @ORM\ManyToOne(targetEntity=Service::class, inversedBy="images")
      */
     private $service;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isCarroussel;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isGalery;
+
     
     public function __construct()
     {
         $this->setDateCreate(new \DateTime('now'));
         $this->date_update = new \DateTime();
         $this->setIsActive(true);
+        $this->setIsCarroussel(false);
+        $this->setIsGalery(false);
     }
 
     public function getId(): ?int
@@ -172,6 +185,30 @@ class Image
     public function setService(?Service $service): self
     {
         $this->service = $service;
+
+        return $this;
+    }
+
+    public function getIsCarroussel(): ?bool
+    {
+        return $this->isCarroussel;
+    }
+
+    public function setIsCarroussel(bool $isCarroussel): self
+    {
+        $this->isCarroussel = $isCarroussel;
+
+        return $this;
+    }
+
+    public function getIsGalery(): ?bool
+    {
+        return $this->isGalery;
+    }
+
+    public function setIsGalery(bool $isGalery): self
+    {
+        $this->isGalery = $isGalery;
 
         return $this;
     }

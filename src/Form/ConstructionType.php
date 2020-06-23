@@ -9,7 +9,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\File;
 
 class ConstructionType extends AbstractType
 {
@@ -24,16 +23,6 @@ class ConstructionType extends AbstractType
                 'multiple' => true,
                 'mapped' => false,
                 'required' => false,
-                // 'constraints' => [
-                //     new File([
-                //         'mimeTypes' => [
-                //             'image/jpg',
-                //             'image/png',
-                //             'image/webp',
-                //             'image/tiff'
-                //         ],
-                //     ])
-                // ]
             ]);
     }
 

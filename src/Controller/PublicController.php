@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Entity\Document;
+use App\Entity\QuoteRequest;
 use App\Form\ContactType;
+use App\Form\QuoteRequestType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -54,10 +57,13 @@ class PublicController extends AbstractController
     /**
      * @Route("/devis", name="devis")
      */
-    public function devis()
+    public function devis(Request $request)
     {
+        $entityManager = $this->getDoctrine()->getManager();
+        $quoteRequest = new Document();
+        // $form = $this->createForm( , $quoteRequest);
         return $this->render('public/devis.html.twig', [
-            'controller_name' => 'PublicController',
+            
         ]);
     }
 

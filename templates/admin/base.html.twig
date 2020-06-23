@@ -27,7 +27,9 @@
 						</h1>
 					</div>
 				</div>
+				{% if is_granted('ROLE_ADMIN') %}
 					{% include './admin/partial/menu.html.twig' %}
+				{% endif %}
 			</header>
 			<main class="container-fluid p-0 m-0">
 				<div class="col-10 col-lg-12 col-xl-12 w100 d-flex justify-content-end row p-0 m-0">

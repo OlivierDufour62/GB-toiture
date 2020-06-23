@@ -7,11 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=CustomerRepository::class)
  */
-class Customer
+class Customer implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -116,6 +117,11 @@ class Customer
      */
     private $constructionSites;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $genre;
+
     public function __construct()
     {
         $this->setDateCreate(new \DateTime('now'));
@@ -123,6 +129,7 @@ class Customer
         $this->documents = new ArrayCollection();
         $this->setIsActive(true);
         $this->constructionSites = new ArrayCollection();
+        $this->quoteRequests = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -380,6 +387,42 @@ class Customer
                 $constructionSite->setCustomer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRoles(): array
+    {
+        $roles = [];
+        $roles[] = $this->role;
+        $roles[] = 'ROLE_USER';
+        return $roles;
+    }
+
+    public function getSalt()
+    {
+        // you may need a real salt depending on your encoder
+        // see section on salt below
+        return null;
+    }
+
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    public function getGenre(): ?bool
+    {
+        return $this->genre;
+    }
+
+    public function setGenre(bool $genre): self
+    {
+        $this->genre = $genre;
 
         return $this;
     }

@@ -20,7 +20,14 @@
     left: 20px;
 }
 
+.bord{
+    border: none !important;
+}
 /* header */
+
+.textdark{
+    color: #3f3f3f;
+}
 
 .hamb {
     height: 5px;
@@ -75,7 +82,7 @@ body, a {
 }
 
 .shadowed {
-    box-shadow: 5px 5px 5px #264d7e;
+    box-shadow: 5px 5px 5px #3f3f3f;
 }
 
 .titlecolor {

@@ -21,14 +21,11 @@ $(document).ready(function () {
         $(this).children('.anim-opa').css('animation-name', 'prestationleave');
     });
 
-    // console.log(path)
-    // console.log(path[path.length-1])
-    let path = window.location.pathname.split('/');
-    console.log(path)
+    let path = window.location.pathname.split('8000');
     $('.cc').each(function () {
         $(this).children().removeClass('border....')
         $('.cc').each(function () {
-            if ($(this).attr('href') === path[path.length - 1]) {
+            if ($(this).attr('href') == path[path.length - 1]) {
                 $(this).children().addClass('border264d7efixe');
             }
         });
@@ -199,16 +196,40 @@ $(document).ready(function () {
         });
     });
 
+    $('#sendresponse').on('click', function (e) {
+        e.preventDefault();
+        let data = {};
+        const id = $('.ajaxsendresponse').attr('responseid');
+        $('.ajaxsendresponse')
+            .serializeArray()
+            .forEach((object) => {
+                data[object.name] = object.value
+            });
+        $.ajax({
+            type: 'POST',
+            url: `/admin/replymessage/${id}`,
+            data: data,
+            success: function (data) {
+                if (data === true) {
+                    $(".successsend").removeClass("d-none");
+                    setTimeout(function () {
+                        $(".successsend").addClass("d-none");
+                    }, 1500);
+                }
+            }
+        });
+    });
+
     $('#search').on('click', function (e) {
         e.preventDefault()
-        let email = $('.searchbar').val()
+        let phonenumber = $('.searchbar').val()
         $.ajax({
             type: 'GET',
             url: `/admin/searchcustomer`,
-            data: { email: email },
+            data: { phonenumber: phonenumber },
             success: function (data) {
                 $('#construction_customer_lastname').val(data.lastname);
-                $('#construction_customer_email').val(data.email);
+                $('#construction_customer_phonenumber').val(phonenumber);
                 $('#construction_customer_addresOne').val(data.addresOne);
                 $('#construction_customer_zipcode').val(data.zipcode);
                 $('#construction_customer_city').val(data.city);
@@ -268,6 +289,30 @@ $(document).ready(function () {
         $('.serviceswitches')
         $.ajax({
             url: `/admin/serviceisactive/${id}`,
+        }).done();
+    });
+
+    $('.galeryswitches').on('change', function () {
+        const id = $(this).attr('galeryswitches');
+        $('.galeryswitches')
+        $.ajax({
+            url: `/admin/pictureisgalery/${id}`,
+        }).done();
+    });
+
+    $('.carrousselswitches').on('change', function () {
+        const id = $(this).attr('carrousselswitches');
+        $('.carrousselswitches')
+        $.ajax({
+            url: `/admin/pictureiscarroussel/${id}`,
+        }).done();
+    });
+
+    $('.pictureswitches').on('change', function () {
+        const id = $(this).attr('pictureswitches');
+        $('.pictureswitches')
+        $.ajax({
+            url: `/admin/pictureisactive/${id}`,
         }).done();
     });
 
