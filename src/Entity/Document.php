@@ -21,7 +21,7 @@ class Document
     private $id;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="integer")
      */
     private $type;
 
@@ -47,7 +47,7 @@ class Document
     private $date_delete;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="documents")
+     * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="documents",cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $client;
@@ -63,7 +63,7 @@ class Document
     private $isActive;
 
     /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="document")
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="document",cascade={"persist"})
      */
     private $images;
 
@@ -76,6 +76,16 @@ class Document
      * @ORM\Column(type="string", length=1000)
      */
     private $additionnalInformation;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $typeBat;
 
     public function __construct()
     {
@@ -93,12 +103,12 @@ class Document
         return $this->id;
     }
 
-    public function getType(): ?bool
+    public function getType(): ?int
     {
         return $this->type;
     }
 
-    public function setType(bool $type): self
+    public function setType(int $type): self
     {
         $this->type = $type;
 
@@ -266,6 +276,30 @@ class Document
     public function setAdditionnalInformation(string $additionnalInformation): self
     {
         $this->additionnalInformation = $additionnalInformation;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getTypeBat(): ?string
+    {
+        return $this->typeBat;
+    }
+
+    public function setTypeBat(string $typeBat): self
+    {
+        $this->typeBat = $typeBat;
 
         return $this;
     }

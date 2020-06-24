@@ -7,197 +7,217 @@
 	<div class="col-6 col-lg-2 mx-auto text-center mt-3 mb-3">
 		<h1 class="color264d7e titlesizemobile ">Devis</h1>
 	</div>
-	<div class="col-12 col-lg-6 mx-auto">
-		<form>
-			<fieldset class="border p-2 mb-2">
-				<legend class="titlesizemobile color264d7e">Vos coordonnées</legend>
-				<div class="form-row">
-					<div class="form-group col-6 col-lg-6">
-						<input type="text" class="form-control shadow-none" id="lastname" placeholder="Nom">
-					</div>
-					<div class="form-group col-6 col-lg-6">
-						<input type="text" class="form-control shadow-none" id="firstname" placeholder="Prénom">
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-6 col-lg-6">
-						<input type="email" class="form-control shadow-none" id="lastname" placeholder="Email">
-					</div>
-					<div class="form-group col-6 col-lg-6">
-						<input type="text" class="form-control shadow-none" id="phonenumber" placeholder="Téléphone">
-					</div>
-				</div>
-			</fieldset>
-			<fieldset class="border p-2 mb-2">
-				<legend class="titlesizemobile color264d7e">Adresse du chantier</legend>
-				<div class="form-group">
-					<input type="text" class="form-control shadow-none" id="address" placeholder="Adresse">
-				</div>
-				<div class="form-row">
-					<div class="form-group col-lg-2">
-						<input type="text" class="form-control shadow-none" id="zipcode" placeholder="Code postal">
-					</div>
-					<div class="form-group col-lg-10">
-						<input type="text" class="form-control shadow-none" id="city" placeholder="Ville">
-					</div>
-				</div>
-			</fieldset>
-			<fieldset class="border p-2 mb-2">
-				<legend class="titlesizemobile color264d7e">Type de batiment</legend>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="type-bat" id="house" value="house">
-					<label class="form-check-label" for="house">Maison</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="type-bat" id="building" value="building">
-					<label class="form-check-label" for="building">Immeuble</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="type-bat" id="factory" value="factory">
-					<label class="form-check-label" for="factory">Usine</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="type-bat" id="industrialpremises" value="industrialpremises">
-					<label class="form-check-label" for="industrialpremises">Local industriel</label>
-				</div>
-			</fieldset>
-			<fieldset class="border p-2 mb-2">
-				<legend class="titlesizemobile color264d7e">Information du chantier</legend>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input rb" type="radio" name="info" id="roofing" value="couverture">
-					<label class="form-check-label" for="roofing">Couverture</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input rb" type="radio" name="info" id="roofermaintenance" value="entretien">
-					<label class="form-check-label" for="roofermaintenance">Entretien</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input rb" type="radio" name="info" id="cheneau" value="cheneau">
-					<label class="form-check-label" for="cheneau">Chéneau</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input rb" type="radio" name="info" id="externalinsulation" value="Isolation externe">
-					<label class="form-check-label" for="externalinsulation">Isolation externe</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input rb" type="radio" name="info" id="zincworks" value="zinguerie">
-					<label class="form-check-label" for="zincworks">Zinguerie</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input rb" type="radio" name="info" id="gutter" value="gouttiere">
-					<label class="form-check-label" for="gutter">Gouttière</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input rb" type="radio" name="info" id="fireplace" value="cheminee">
-					<label class="form-check-label" for="fireplace">Cheminée</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input rb" type="radio" name="info" id="roofwindow" value="fenetre">
-					<label class="form-check-label" for="roofwindow">Fenêtre de toit</label>
-				</div>
-				<div class="form-row mt-2 div-none div-hide couverture">
-					<div class="d-flex">
-						<div class="form-group col-lg-3">
-							<input type="text" class="form-control shadow-none" id="surface" placeholder="Surface en m² estimée">
-						</div>
-						<div class="form-group col-lg-3">
-							<input type="text" class="form-control shadow-none" id="etage" placeholder="Nombre d'étage">
-						</div>
-					</div>
-				</div>
-				<div class="form-row mt-2 div-none div-hide entretien">
-					<div class="d-flex">
-						<div class="form-group col-lg-4">
-							<input type="text" class="form-control shadow-none" id="surface" placeholder="Que souhaitez vous nettoyer ?">
-						</div>
-						<div class="form-group col-lg-3">
-							<input type="text" class="form-control shadow-none" id="etage" placeholder="Nombre d'étage">
-						</div>
-					</div>
-				</div>
-				<div class="form-row mt-2 div-none div-hide cheneau">
-					<div class="d-flex">
-						<div class="form-check form-check-inline">
-							<input class="form-check-input rb" type="radio" name="cheneau" id="news" value="creation">
-							<label class="form-check-label" for="news">Création</label>
-						</div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input rb" type="radio" name="cheneau" id="old" value="remplacement">
-							<label class="form-check-label" for="old">Remplacement</label>
-						</div>
-					</div>
-				</div>
-				<div class="form-row mt-2 div-none div-hide zinguerie">
-					<div class="d-flex">
-						<fieldset>
-							<legend class="color264d7e size-h4">Montrer nous ce que vous souhaitez</legend>
-							<div class="form-check form-check-inline">
-								<input class="form-check-input rb" type="file" name="img-zinfg" id="old">
-							</div>
-						</fieldset>
-					</div>
-				</div>
-				<div class="form-row mt-2 div-none div-hide gouttiere">
-					<div class="d-flex">
-						<fieldset>
-							<legend class="color264d7e titlesizemobile size-h4">Montrer nous votre gouttière</legend>
-							<div class="form-check form-check-inline">
-								<input class="form-check-input rb" type="file" name="img-zinfg" id="old">
-							</div>
-						</fieldset>
-					</div>
-				</div>
-				<div class="form-row mt-2 div-none div-hide cheminee">
-					<div class="d-flex">
-						<fieldset>
-							<legend class="color264d7e titlesizemobile size-h4">Montrer nous votre cheminée</legend>
-							<div class="form-group col-lg-4">
-								<label for="">Joint, remplacement ?</label>
-								<input type="text" class="form-control shadow-none" id="surface" placeholder="Que souhaitez vous faire ?">
-							</div>
-							<div class="form-check form-check-inline">
-								<input class="form-check-input rb" type="file" name="img-zinfg" id="old">
-							</div>
-						</fieldset>
-					</div>
-				</div>
-				<div class="form-row mt-2 div-none div-hide fenetre">
-					<div class="d-flex">
-						<div class="form-check form-check-inline">
-							<input class="form-check-input rb" type="radio" name="cheneau" id="news" value="creation">
-							<label class="form-check-label" for="news">Création</label>
-						</div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input rb" type="radio" name="cheneau" id="old" value="remplacement">
-							<label class="form-check-label" for="old">Remplacement</label>
-						</div>
-					</div>
-				</div>
-			</fieldset>
-			<button>Ajouter une autre prestation</button>
-			<fieldset class="border p-2 mb-4">
-				<legend class="titlesizemobile color264d7e">Photo de votre toiture</legend>
-				<div class="form-row mt-2">
-					<div class="form-group col-lg-4">
-						<label for="photo">Photo 1</label>
-						<input type="file" class="form-control-file shadow-none" id="photo" name="photo">
-					</div>
-					<div class="form-group col-lg-4">
-						<label for="photo">Photo 2</label>
-						<input type="file" class="form-control-file shadow-none" id="photo1" name="photo">
-					</div>
-					<div class="form-group col-lg-4">
-						<label for="photo">Photo 3 (pignon)</label>
-						<input type="file" class="form-control-file shadow-none" id="photo3" name="photo">
-					</div>
-				</div>
-			</fieldset>
+	<div
+		class="col-12 col-lg-6 mx-auto">
+		{# <form> #}
+		{{ form_start(formQr)}}
+		<fieldset class="border p-2 mb-2">
+			<legend class="titlesizemobile color264d7e">Vos coordonnées</legend>
 			<div class="form-group">
-				<textarea class="form-control resize shadow-none" id="details" rows="5" placeholder="Information complémentaire"></textarea>
+				{% for genre in formQr.client.genre %}
+					{{ form_row(genre, {'attr': {'class':'d-inline-flex flex-column-reverse'}}) }}
+				{% endfor %}
 			</div>
-			<div class="mx-auto d-flex justify-content-center">
-				<button type="submit" class="btn bg264d7efoot text-white mb-3">Envoyer</button>
+			<div class="form-row">
+				<div
+					class="form-group col-6 col-lg-6">
+					{{ form_widget(formQr.client.lastname, {'attr': {'class': 'form-control shadow-none','placeholder': 'Nom'}})}}
+				</div>
+				<div
+					class="form-group col-6 col-lg-6">
+					{{ form_widget(formQr.client.firstname, {'attr': {'class': 'form-control shadow-none','placeholder': 'Prénom'}})}}
+				</div>
 			</div>
-		</form>
+			<div class="form-row">
+				<div
+					class="form-group col-6 col-lg-6">
+					{{ form_widget(formQr.client.email, {'attr': {'class': 'form-control shadow-none','placeholder': 'Email'}})}}
+
+				</div>
+				<div
+					class="form-group col-6 col-lg-6">
+					{{ form_widget(formQr.client.phonenumber, {'attr': {'class': 'form-control shadow-none','placeholder': 'Téléphone'}})}}
+
+				</div>
+			</div>
+		</fieldset>
+		<fieldset class="border p-2 mb-2">
+			<legend class="titlesizemobile color264d7e">Adresse du chantier</legend>
+			<div
+				class="form-group">
+				{{ form_widget(formQr.client.addresOne, {'attr': {'class': 'form-control shadow-none','placeholder': 'Adresse'}})}}
+
+			</div>
+			<div class="form-row">
+				<div
+					class="form-group col-lg-2">
+					{{ form_widget(formQr.client.zipcode, {'attr': {'class': 'form-control shadow-none','placeholder': 'Code postal'}})}}
+
+				</div>
+				<div
+					class="form-group col-lg-10">
+					{{ form_widget(formQr.client.city, {'attr': {'class': 'form-control shadow-none','placeholder': 'Ville'}})}}
+				</div>
+			</div>
+		</fieldset>
+		<fieldset class="border p-2 mb-2">
+			<legend class="titlesizemobile color264d7e">Type de batiment</legend>
+			<div class="form-check form-check-inline">
+				{% for typeBat in formQr.typeBat %}
+					{{ form_row(typeBat, {'attr': {'class':''}}) }}
+				{% endfor %}
+				{# <input class="form-check-input" type="radio" name="type-bat" id="house" value="house">
+													<label class="form-check-label" for="house">Maison</label> #}
+			</div>
+			{# <div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="type-bat" id="building" value="building">
+											<label class="form-check-label" for="building">Immeuble</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="type-bat" id="factory" value="factory">
+											<label class="form-check-label" for="factory">Usine</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="type-bat" id="industrialpremises" value="industrialpremises">
+											<label class="form-check-label" for="industrialpremises">Local industriel</label>
+										</div> #}
+		</fieldset>
+		<fieldset class="border p-2 mb-2">
+			<legend class="titlesizemobile color264d7e">Information du chantier</legend>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input rb" type="radio" name="info" id="roofing" value="couverture">
+				<label class="form-check-label" for="roofing">Couverture</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input rb" type="radio" name="info" id="roofermaintenance" value="entretien">
+				<label class="form-check-label" for="roofermaintenance">Entretien</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input rb" type="radio" name="info" id="cheneau" value="cheneau">
+				<label class="form-check-label" for="cheneau">Chéneau</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input rb" type="radio" name="info" id="externalinsulation" value="Isolation externe">
+				<label class="form-check-label" for="externalinsulation">Isolation externe</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input rb" type="radio" name="info" id="zincworks" value="zinguerie">
+				<label class="form-check-label" for="zincworks">Zinguerie</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input rb" type="radio" name="info" id="gutter" value="gouttiere">
+				<label class="form-check-label" for="gutter">Gouttière</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input rb" type="radio" name="info" id="fireplace" value="cheminee">
+				<label class="form-check-label" for="fireplace">Cheminée</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input rb" type="radio" name="info" id="roofwindow" value="fenetre">
+				<label class="form-check-label" for="roofwindow">Fenêtre de toit</label>
+			</div>
+			<div class="form-row mt-2 div-none div-hide couverture">
+				<div class="d-flex">
+					<div class="form-group col-lg-3">
+						<input type="text" class="form-control shadow-none" id="surface" placeholder="Surface en m² estimée">
+					</div>
+				</div>
+			</div>
+			<div class="form-row mt-2 div-none div-hide entretien">
+				<div class="d-flex">
+					<div class="form-group col-lg-4">
+						<input type="text" class="form-control shadow-none" id="surface" placeholder="Que souhaitez vous nettoyer ?">
+					</div>
+				</div>
+			</div>
+			<div class="form-row mt-2 div-none div-hide cheneau">
+				<div class="d-flex">
+					<div class="form-check form-check-inline">
+						<input class="form-check-input rb" type="radio" name="cheneau" id="news" value="creation">
+						<label class="form-check-label" for="news">Création</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input rb" type="radio" name="cheneau" id="old" value="remplacement">
+						<label class="form-check-label" for="old">Remplacement</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-row mt-2 div-none div-hide zinguerie">
+				<div class="d-flex">
+					<fieldset>
+						<legend class="color264d7e size-h4">Montrer nous ce que vous souhaitez</legend>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input rb" type="file" name="img-zinfg" id="old">
+						</div>
+					</fieldset>
+				</div>
+			</div>
+			<div class="form-row mt-2 div-none div-hide gouttiere">
+				<div class="d-flex">
+					<fieldset>
+						<legend class="color264d7e titlesizemobile size-h4">Montrer nous votre gouttière</legend>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input rb" type="file" name="img-zinfg" id="old">
+						</div>
+					</fieldset>
+				</div>
+			</div>
+			<div class="form-row mt-2 div-none div-hide cheminee">
+				<div class="d-flex">
+					<fieldset>
+						<legend class="color264d7e titlesizemobile size-h4">Montrer nous votre cheminée</legend>
+						<div class="form-group col-lg-4">
+							<label for="">Joint, remplacement ?</label>
+							<input type="text" class="form-control shadow-none" id="surface" placeholder="Que souhaitez vous faire ?">
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input rb" type="file" name="img-zinfg" id="old">
+						</div>
+					</fieldset>
+				</div>
+			</div>
+			<div class="form-row mt-2 div-none div-hide fenetre">
+				<div class="d-flex">
+					<div class="form-check form-check-inline">
+						<input class="form-check-input rb" type="radio" name="cheneau" id="news" value="creation">
+						<label class="form-check-label" for="news">Création</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input rb" type="radio" name="cheneau" id="old" value="remplacement">
+						<label class="form-check-label" for="old">Remplacement</label>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+		<fieldset class="border p-2 mb-4">
+			<legend class="titlesizemobile color264d7e">Photo de votre toiture</legend>
+			<div class="form-row mt-2">
+				{{ form_widget(formQr.images, {'attr': {'class': 'form-control-file shadow-none'}})}}
+				{# <div class="form-group col-lg-4">
+									<label for="photo">Photo 1</label>
+									<input type="file" class="form-control-file shadow-none" id="photo" name="photo">
+								</div>
+								<div class="form-group col-lg-4">
+									<label for="photo">Photo 2</label>
+									<input type="file" class="form-control-file shadow-none" id="photo1" name="photo">
+								</div>
+								<div class="form-group col-lg-4">
+									<label for="photo">Photo 3 (pignon)</label>
+									<input type="file" class="form-control-file shadow-none" id="photo3" name="photo">
+								</div> #}
+			</div>
+		</fieldset>
+		<div class="form-group">
+			<p class="textdark">
+				Veuillez nous donner quelques détails concernant votre maison par exemple le nombre d'étage, quelle partie à entretenir, création ou remplacement de vos fenêtre de toit, etc.
+			</p>
+			{{ form_widget(formQr.additionnalInformation, {'attr': {'class': 'form-control resize shadow-none','rows':"5", 'placeholder':"Information complémentaire"}})}}
+			{# <textarea class="form-control shadow-none" id="details" rows="5" placeholder="Information complémentaire"></textarea> #}
+		</div>
+		<div class="mx-auto d-flex justify-content-center">
+			<button type="submit" class="btn bg264d7efoot text-white mb-3">Envoyer</button>
+		</div>
+		{{ form_end(formQr) }}
+
 	</div>
 {% endblock %}

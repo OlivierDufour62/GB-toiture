@@ -59,7 +59,7 @@ class Image
     private $isActive;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Document::class, inversedBy="images")
+     * @ORM\ManyToOne(targetEntity=Document::class, inversedBy="images",cascade={"persist"})
      */
     private $document;
 

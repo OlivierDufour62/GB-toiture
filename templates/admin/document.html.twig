@@ -13,11 +13,11 @@
 			<thead>
 				<tr>
 					<th scope="col">ID</th>
+					<th scope="col">ID client</th>
 					<th scope="col">Nom</th>
-					<th scope="col">Prénom</th>
-					<th scope="col">Email</th>
-					<th scope="col">Téléphone</th>
-					<th scope="col">Répondre</th>
+					<th scope="col">Catégorie</th>
+					<th scope="col">État</th>
+					<th scope="col">Traiter</th>
 					<th scope="col">Supprimer</th>
 				</tr>
 			</thead>
@@ -25,17 +25,17 @@
 				{% for doc in document %}
 					<tr>
 						<th scope="row">{{doc.id}}</th>
-						<td>{{contact.lastname}}</td>
-						<td>{{contact.firstname}}</td>
-						<td>{{contact.email}}</td>
-						<td>{{contact.phonenumber}}</td>
+						<td>{{doc.client.id}}</td>
+						<td>{{doc.client.lastname}}</td>
+						<td>{{doc.client.email}}</td>
+						<td>{{doc.client.phonenumber}}</td>
 						<td>
-							<a href="/admin/replymessage/{{contact.id}}" id="{{contact.id}}" class="btn btn264d7e text-white reply sendprovider">Répondre</a>
+							<a href="/admin/replymessage/{{doc.id}}" id="{{doc.id}}" class="btn btn264d7e text-white reply sendprovider">Répondre</a>
 						</td>
 						<td>
 							<div class="custom-control custom-switch">
-								<input type="checkbox" class="custom-control-input messageswitches" contactwitches="{{contact.id}}" id="messageSwitches{{contact.id}}" {% if contact.isActive %} checked {% endif %}>
-								<label class="custom-control-label" for="messageSwitches{{contact.id}}"></label>
+								<input type="checkbox" class="custom-control-input messageswitches" contactwitches="{{doc.id}}" id="messageSwitches{{doc.id}}" {% if doc.isActive %} checked {% endif %}>
+								<label class="custom-control-label" for="messageSwitches{{doc.id}}"></label>
 							</div>
 						</td>
 					</tr>

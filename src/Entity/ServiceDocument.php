@@ -25,12 +25,12 @@ class ServiceDocument
      */
     private $document;
 
-   /**
-    * @var \DateTime $date_create
-    *
-    * @Gedmo\Timestampable(on="create")
-    * @ORM\Column(type="datetime")
-    */
+    /**
+     * @var \DateTime $date_create
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
     private $date_create;
 
     /**
@@ -50,6 +50,12 @@ class ServiceDocument
      * @ORM\Column(type="boolean")
      */
     private $isActive;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Service::class, inversedBy="serviceDocuments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $service;
 
     public function __construct()
     {
@@ -120,6 +126,17 @@ class ServiceDocument
     {
         $this->isActive = $isActive;
 
+        return $this;
+    }
+
+    public function getService(): ?Service
+    {
+        return $this->service;
+    }
+
+    public function setService(?Service $service): self
+    {
+        $this->service = $service;
         return $this;
     }
 }

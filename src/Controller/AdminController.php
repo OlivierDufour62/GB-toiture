@@ -150,12 +150,11 @@ class AdminController extends AbstractController
      */
     public function addConstruction(Request $request, FileUploader $fileUploader)
     {
-        // $images = new Image();
         $construction = new ConstructionSite();
         $form = $this->createForm(ConstructionType::class, $construction);
-        $form['customer']->remove('password');
         $form['customer']->remove('firstname');
         $form['customer']->remove('email');
+        $form['customer']->remove('password');
         $form['customer']->remove('addressTwo');
         $form['customer']->remove('zipcode2');
         $form['customer']->remove('city2');
@@ -167,7 +166,6 @@ class AdminController extends AbstractController
             $imagelist = $form->get('images')->getData();
             $phonenumber = $request->request->get('phonenumber');
             foreach ($imagelist as $image) {
-                // if ($image) {
                     $mimeType = $image->getMimeType();
                     if ($mimeType !== 'image/jpeg' && $mimeType !==  'image/png' && $mimeType !== 'image/tiff' && $mimeType !==  'image/webp' && $mimeType !== 'image/jpg') {
                         $this->addFlash('alerte', 'Veuillez choisir des images valides.');
@@ -185,7 +183,6 @@ class AdminController extends AbstractController
                     }
                     $entityManager->persist($construction);
                     $entityManager->flush();
-                // }
             }
             return new JsonResponse(true);
         }

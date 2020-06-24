@@ -68,12 +68,18 @@ class Service
      */
     private $images;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ServiceDocument::class, mappedBy="service")
+     */
+    private $serviceDocuments;
+
     public function __construct()
     {
         $this->setDateCreate(new \DateTime('now'));
         $this->date_update = new \DateTime();
         $this->setIsActive(true);
         $this->images = new ArrayCollection();
+        $this->serviceDocuments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -190,6 +196,37 @@ class Service
             // set the owning side to null (unless already changed)
             if ($image->getService() === $this) {
                 $image->setService(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ServiceDocument[]
+     */
+    public function getServiceDocuments(): Collection
+    {
+        return $this->serviceDocuments;
+    }
+
+    public function addServiceDocument(ServiceDocument $serviceDocument): self
+    {
+        if (!$this->serviceDocuments->contains($serviceDocument)) {
+            $this->serviceDocuments[] = $serviceDocument;
+            $serviceDocument->setService($this);
+        }
+
+        return $this;
+    }
+
+    public function removeServiceDocument(ServiceDocument $serviceDocument): self
+    {
+        if ($this->serviceDocuments->contains($serviceDocument)) {
+            $this->serviceDocuments->removeElement($serviceDocument);
+            // set the owning side to null (unless already changed)
+            if ($serviceDocument->getService() === $this) {
+                $serviceDocument->setService(null);
             }
         }
 
