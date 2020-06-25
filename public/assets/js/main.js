@@ -12,6 +12,7 @@ $(document).ready(function () {
     }, function () {
         $(this).removeClass(`border264d7e`);
     });
+
     //animate for index prestation and galery
     $('.anim').mouseenter(function () {
         $(this).children('.anim-opa').css('animation-name', 'prestation');
@@ -37,6 +38,10 @@ $(document).ready(function () {
         div.show("slow");
     });
 
+    $('.rb').click(function () {
+        $('.service').parent().parent().addClass(this.value)
+    })
+
     $(".mobilemenuadmin").click(function () {
         $(`.mm-admin`).addClass('m-admin');
         $(`.mm-admin`).toggle(`fold`, 1500);
@@ -45,15 +50,6 @@ $(document).ready(function () {
     $('.addcat').click(function () {
         $('.div-none').toggle(`fold`, 1500);
     });
-
-    // $('.editcat').click(function(){
-    //     $('.div-none-edit').toggle(`fold`, 1500);
-    // });
-
-    // $('.editcat').on('click', function() {
-    //     let id = $('.editcat').attr('id');
-    //     $('#category_id').val(id);
-    // });
 
     $('#addcategory').on('click', function (e) {
         e.preventDefault();
@@ -316,9 +312,53 @@ $(document).ready(function () {
         }).done();
     });
 
-    // //reply message
-    // $('.reply').on('click', function () {
-    //     console.log("coucou")
-    //     $("#dialog-perso").dialog();
-    // });
+    // fin partie isActive
+    
+    var $categories = $('.categories');
+    // When sport gets selected ...
+    $categories.change(function () {
+        // ... retrieve the corresponding form.
+        var $form = $(this).closest('form');
+        // Simulate form data, but only include the selected sport value.
+        var data = {};
+        data[$categories.attr('name')] = $(this).val();
+        // Submit data via AJAX to the form's action path.
+        $.ajax({
+            url: $form.attr('action'),
+            type: $form.attr('method'),
+            data: data,
+            success: function (html) {
+                // Replace current position field ...
+                $('#document_service').replaceWith(
+                    // ... with the returned one from the AJAX response.
+                    $(html).find('#document_service')
+                );
+                // Position field now displays the appropriate positions.
+            }
+        });
+    });
+
+    $('#senddevis').on('click', function (e) {
+        e.preventDefault();
+        let data2 = new FormData($('.ajaxsenddevis')[0]);
+        console.log(data2)
+        $.ajax({
+            type: 'POST',
+            url: `/devis`,
+            data: data2,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                $('input').val('');
+                $('textarea').val('');
+                $(".successsend").removeClass("d-none");
+                setTimeout(function () {
+                    $(".successsend").addClass("d-none");
+                }, 1500);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    });
 });                                                                                                                      

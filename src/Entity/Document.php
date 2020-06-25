@@ -21,7 +21,7 @@ class Document
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $type;
 
@@ -53,7 +53,7 @@ class Document
     private $client;
 
     /**
-     * @ORM\OneToMany(targetEntity=ServiceDocument::class, mappedBy="document")
+     * @ORM\OneToMany(targetEntity=ServiceDocument::class, mappedBy="document",cascade={"persist"})
      */
     private $serviceDocuments;
 
@@ -68,7 +68,7 @@ class Document
     private $images;
 
     /**
-     * @ORM\OneToMany(targetEntity=MaterialDocument::class, mappedBy="document")
+     * @ORM\OneToMany(targetEntity=MaterialDocument::class, mappedBy="document", cascade={"persist"})
      */
     private $materialDocuments;
 
@@ -87,6 +87,11 @@ class Document
      */
     private $typeBat;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="documents")
+     */
+    private $category;
+
     public function __construct()
     {
         $this->serviceDocuments = new ArrayCollection();
@@ -103,12 +108,12 @@ class Document
         return $this->id;
     }
 
-    public function getType(): ?int
+    public function getType(): ?string
     {
         return $this->type;
     }
 
-    public function setType(int $type): self
+    public function setType(string $type): self
     {
         $this->type = $type;
 
@@ -300,6 +305,18 @@ class Document
     public function setTypeBat(string $typeBat): self
     {
         $this->typeBat = $typeBat;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

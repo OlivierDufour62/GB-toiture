@@ -6,9 +6,12 @@ use App\Entity\Contact;
 use App\Entity\Customer;
 use App\Entity\Document;
 use App\Entity\Image;
+use App\Entity\Service;
+use App\Entity\ServiceDocument;
 use App\Form\ContactType;
 use App\Form\DocumentType;
 use App\Service\FileUploader;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,8 +25,16 @@ class PublicController extends AbstractController
      */
     public function index()
     {
+        $entityManager = $this->getDoctrine()->getManager();
+        $imageCaroussel = $entityManager->getRepository(Image::class)
+            ->findBy(['isCarroussel' => true]);
+        $imageService = new Service();
+        $imageService->getImages();
+        dd($imageService->getImages());
+        // $imageExpert = $entityManager->getRepository(Image::class)
+        //         ->findBy(['service' !== null => $service]);
         return $this->render('public/index.html.twig', [
-            'controller_name' => 'PublicController',
+            'imageCaroussel' => $imageCaroussel,
         ]);
     }
 
@@ -68,33 +79,43 @@ class PublicController extends AbstractController
         $formQuoteRequest['client']->remove('addressTwo');
         $formQuoteRequest['client']->remove('zipcode2');
         $formQuoteRequest['client']->remove('city2');
+        $formQuoteRequest->remove('name');
         $formQuoteRequest->handleRequest($request);
-        // dd($formQuoteRequest->getData());
+        $serviceDocument = new ServiceDocument();
+        $quoteRequest->addServiceDocument($serviceDocument);
+        $serviceDocument->setDocument($quoteRequest);
+        $service = new Service();
+        $service->addServiceDocument($serviceDocument);
+        $serviceDocument->setService($formQuoteRequest->get('service')->getData());
+        $quoteRequest->setType('Pré-devis');
+        $quoteRequest->setCategory($formQuoteRequest->get('category')->getData());
+        $quoteRequest->setName($formQuoteRequest['client']->get('lastname')->getData());
         if ($formQuoteRequest->isSubmitted() && $formQuoteRequest->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             /** @var UploadedFile $image */
             $imagelist = $formQuoteRequest->get('images')->getData();
             $phonenumber = $formQuoteRequest['client']->get('phonenumber')->getData();
+            // dd($quoteRequest);
             // le foreach sert à pouvoir enregistré plusieurs images avec un seul champ
             foreach ($imagelist as $image) {
-                    $mimeType = $image->getMimeType();
-                    if ($mimeType !== 'image/jpeg' && $mimeType !==  'image/png' && $mimeType !== 'image/tiff' && $mimeType !==  'image/webp' && $mimeType !== 'image/jpg') {
-                        $this->addFlash('alerte', 'Veuillez choisir des images valides.');
+                $mimeType = $image->getMimeType();
+                if ($mimeType !== 'image/jpeg' && $mimeType !==  'image/png' && $mimeType !== 'image/tiff' && $mimeType !==  'image/webp' && $mimeType !== 'image/jpg') {
+                    $this->addFlash('alerte', 'Veuillez choisir des images valides.');
                     // return $this->redirectToRoute('admin_add_image');
-                    }
-                    $imageFileName = $fileUploader->upload($image);
-                    $img = new Image();
-                    $img->setName($imageFileName);
-                    $quoteRequest->addImage($img);
-                    $img->setDocument($quoteRequest);
-                    //vérifie si le numéro de téléphone entrer est existant si il existe il 'set' la demannde au client en question dans le cas contraire il cré un nouveau client 
-                    $customer = $entityManager->getRepository(Customer::class)
-                        ->findBy(['phonenumber' => $phonenumber])[0] ?? null;
-                    if ($customer !== null) {
-                        $quoteRequest->setClient($customer);
-                    }
-                    $entityManager->persist($quoteRequest);
-                    $entityManager->flush();
+                }
+                $imageFileName = $fileUploader->upload($image);
+                $img = new Image();
+                $img->setName($imageFileName);
+                $quoteRequest->addImage($img);
+                $img->setDocument($quoteRequest);
+                //vérifie si le numéro de téléphone entrer est existant si il existe il 'set' la demannde au client en question dans le cas contraire il cré un nouveau client 
+                $customer = $entityManager->getRepository(Customer::class)
+                    ->findBy(['phonenumber' => $phonenumber])[0] ?? null;
+                if ($customer !== null) {
+                    $quoteRequest->setClient($customer);
+                }
+                $entityManager->persist($quoteRequest);
+                $entityManager->flush();
             }
             return new JsonResponse(true);
         }

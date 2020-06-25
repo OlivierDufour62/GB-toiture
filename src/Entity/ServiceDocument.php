@@ -20,7 +20,7 @@ class ServiceDocument
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Document::class, inversedBy="serviceDocuments")
+     * @ORM\ManyToOne(targetEntity=Document::class, inversedBy="serviceDocuments",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $document;
@@ -138,5 +138,10 @@ class ServiceDocument
     {
         $this->service = $service;
         return $this;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->getService();
     }
 }

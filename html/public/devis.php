@@ -168,7 +168,7 @@
                                     <input type="text" class="form-control shadow-none" id="surface" placeholder="Que souhaitez vous faire ?">
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input rb" type="file" name="img-zinfg" id="old">
+                                    <input class="form-check-input rb" type="file" name="img-zing" id="old">
                                 </div>
                             </fieldset>
                         </div>

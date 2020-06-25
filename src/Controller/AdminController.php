@@ -140,8 +140,8 @@ class AdminController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $image = $entityManager->getRepository(Image::class)
             ->findAll();
-        return $this->render('admin/image.html.twig', [
-            'image' => $image,
+        return $this->render('admin/picture.html.twig', [
+            'picture' => $image,
         ]);
     }
 
@@ -168,8 +168,6 @@ class AdminController extends AbstractController
             foreach ($imagelist as $image) {
                     $mimeType = $image->getMimeType();
                     if ($mimeType !== 'image/jpeg' && $mimeType !==  'image/png' && $mimeType !== 'image/tiff' && $mimeType !==  'image/webp' && $mimeType !== 'image/jpg') {
-                        $this->addFlash('alerte', 'Veuillez choisir des images valides.');
-                    return $this->redirectToRoute('admin_add_image');
                     }
                     $imageFileName = $fileUploader->upload($image);
                     $img = new Image();
