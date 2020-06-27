@@ -27,7 +27,7 @@
 				{% for categories in category %}
 					<tr>
 						<th scope="row">{{categories.id}}</th>
-						<th scope="row">{{categories.name}}</th>
+						<th scope="row">{{categories.name|capitalize}}</th>
 						<td>
 							<a href="/admin/editcategory/{{categories.id}}" class="editcat">
 								<i class="ri-arrow-right-line text-white"></i>
@@ -73,8 +73,8 @@
 				{% for services in allService %}
 					<tr>
 						<th scope="row">{{services.id}}</th>
-						<th scope="row">{{services.category.name}}</th>
-						<td>{{services.name}}</td>
+						<th scope="row">{{services.category.name|capitalize}}</th>
+						<td>{{services.name|capitalize}}</td>
 						<td>{{services.rate}}</td>
 						<td>
 							<a href="/admin/editservice/{{services.id}}" class=" editcat">

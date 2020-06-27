@@ -24,8 +24,8 @@
 				{% for customers in allCustomer %}
 					<tr>
 						<th scope="row">{{customers.id}}</th>
-						<td>{{customers.lastname}}</td>
-						<td>{{customers.firstname}}</td>
+						<td>{{customers.lastname|capitalize}}</td>
+						<td>{{customers.firstname|capitalize}}</td>
 						<td>{{customers.email}}</td>
 						<td>{{customers.phonenumber}}</td>
 						<td>

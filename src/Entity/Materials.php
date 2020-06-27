@@ -62,7 +62,7 @@ class Materials
     private $date_delete;
 
     /**
-     * @ORM\OneToMany(targetEntity=MaterialDocument::class, mappedBy="material")
+     * @ORM\OneToMany(targetEntity=MaterialDocument::class, mappedBy="material",cascade={"persist"})
      */
     private $materialDocuments;
 

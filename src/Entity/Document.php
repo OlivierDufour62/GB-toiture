@@ -88,7 +88,7 @@ class Document
     private $typeBat;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="documents")
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="documents", cascade={"persist"})
      */
     private $category;
 

@@ -25,8 +25,8 @@
 				{% for contact in contact %}
 					<tr>
 						<th scope="row">{{contact.id}}</th>
-						<td>{{contact.lastname}}</td>
-						<td>{{contact.firstname}}</td>
+						<td>{{contact.lastname|capitalize}}</td>
+						<td>{{contact.firstname|capitalize}}</td>
 						<td>{{contact.email}}</td>
 						<td>{{contact.phonenumber}}</td>
 						<td>

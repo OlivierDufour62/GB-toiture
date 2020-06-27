@@ -1,0 +1,107 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Devis/Facture
+{% endblock %}
+{% block h1 %}Devis/Facture
+{% endblock %}
+
+{% block content %}
+
+	<div class="col-12 col-lg-12 col-xl-10 p-0 m-0 mt-5 mx-auto">
+
+		<div class="row col-12 d-flex justify-content-center">
+			{% for images in imagetreatment %}
+				<div class="row col-4">
+					<img class="col-8" src="/uploads/images/{{images.name}}" alt="">
+				</div>
+			{% endfor %}
+		</div>
+		{% form_theme formtreatmentqr 'bootstrap_4_layout.html.twig' %}
+		{{ form_start(formtreatmentqr, {'attr': {'class': 'col-8 col-xl-12 ajaxsendresponse mx-auto mt-5' }})}}
+		<div class="d-flex col-12">
+			<div class="col-6">
+				<div class="form-row">
+					<div class="form-group col-6 col-lg-6">
+						<p>
+							{{treatment.category.name}}
+						</p>
+					</div>
+					<div
+						class="form-group col-6 col-lg-6">{# {{ form_widget(formtreatmentqr.name, {'attr': {'class': 'form-control shadow-none','placeholder': 'Prénom'}})}} #}
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-6 col-lg-6">
+						{{ form_widget(formtreatmentqr.additionnalInformation, {'attr': {'class': 'form-control resize shadow-none'}})}}
+					</div>
+					<div class="form-group col-6 col-lg-6">
+						{{ form_widget(formtreatmentqr.name, {'attr': {'class': 'form-control shadow-none','placeholder': 'Prénom'}})}}
+					</div>
+				</div>
+				<fieldset>
+					<legend class="titlesizemobile color264d7e">Prestation</legend>
+					<div class="form-row col-12 p-0 m-0">
+						<div class="form-group col-6 col-lg-3 col-xl-3">
+							{{ form_widget(formtreatmentqr.serviceDocuments.designation, {'attr': {'class': 'form-control resize shadow-none'}})}}
+						</div>
+						<div class="form-group col-6 col-lg-3 col-xl-3">
+							{{ form_widget(formtreatmentqr.serviceDocuments.quantity, {'attr': {'class': 'form-control shadow-none','placeholder': 'Quantité'}})}}
+						</div>
+						<div class="form-group col-6 col-lg-3 col-xl-3">
+							{{ form_widget(formtreatmentqr.serviceDocuments.unity, {'attr': {'class': 'form-control shadow-none','placeholder': 'Unité'}})}}
+						</div>
+						<div class="form-group col-6 col-lg-3 col-xl-3">
+							{{ form_widget(formtreatmentqr.serviceDocuments.price, {'attr': {'class': 'form-control shadow-none','placeholder': 'Prix'}})}}
+						</div>
+					</div>
+					<div class="d-flex justify-content-end p-1">
+						<button class="btn text-white btn264d7e">Ajouter une prestation</button>
+					</div>
+				</fieldset>
+				<fieldset class="panel1">
+					<div class="form-row col-12 p-0 m-0">
+						<ul class="tags row" data-prototype="{{ form_widget(formtreatmentqr.materialDocuments.vars.prototype)|e('html_attr') }}">
+							<li>
+								{{ form_row(formtreatmentqr.materialDocuments , {'attr': {'class': 'd-flex'}}) }}</li>
+						</ul>
+					</div>
+					<legend class="titlesizemobile color264d7e">Matériaux</legend>
+				</fieldset>
+			</div>
+			<div class="col-6 col-lg-6 col-xl-6">
+				<div class="form-group">
+					{% for genre in formtreatmentqr.client.genre %}
+						{{ form_row(genre, {'attr': {'class':'d-inline-flex flex-column-reverse'}}) }}
+					{% endfor %}
+				</div>
+				<div class="form-row">
+					<div class="form-group col-6 col-lg-6">
+						{{ form_widget(formtreatmentqr.client.lastname, {'attr': {'class': 'form-control shadow-none','placeholder': 'Nom'}})}}
+					</div>
+					<div class="form-group col-6 col-lg-6">
+						{{ form_widget(formtreatmentqr.client.firstname, {'attr': {'class': 'form-control shadow-none','placeholder': 'Prénom'}})}}
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-6 col-lg-6">
+						{{ form_widget(formtreatmentqr.client.email, {'attr': {'class': 'form-control shadow-none','placeholder': 'Email'}})}}
+					</div>
+				</div>
+				<div class="form-group">
+					{{ form_widget(formtreatmentqr.client.addresOne, {'attr': {'class': 'form-control shadow-none','placeholder': 'Adresse'}})}}
+				</div>
+				<div class="form-row">
+					<div class="form-group col-lg-4">
+						{{ form_widget(formtreatmentqr.client.zipcode, {'attr': {'class': 'form-control shadow-none','placeholder': 'Code postal'}})}}
+					</div>
+					<div class="form-group col-lg-8">
+						{{ form_widget(formtreatmentqr.client.city, {'attr': {'class': 'form-control shadow-none','placeholder': 'Ville'}})}}
+					</div>
+				</div>
+			</div>
+				<button id="" type="submit" class="btn bg264d7efoot text-white mb-3 shadow-none">Enregistrer</button>
+		</div>
+		{{ form_end(formtreatmentqr) }}
+	</div>
+
+{% endblock %}

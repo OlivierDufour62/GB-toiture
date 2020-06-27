@@ -28,9 +28,9 @@ class PublicController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $imageCaroussel = $entityManager->getRepository(Image::class)
             ->findBy(['isCarroussel' => true]);
-        $imageService = new Service();
-        $imageService->getImages();
-        dd($imageService->getImages());
+        // $imageService = new Service();
+        // $imageService->getImages();
+        // dd($imageService->getImages());
         // $imageExpert = $entityManager->getRepository(Image::class)
         //         ->findBy(['service' !== null => $service]);
         return $this->render('public/index.html.twig', [
@@ -89,13 +89,12 @@ class PublicController extends AbstractController
         $serviceDocument->setService($formQuoteRequest->get('service')->getData());
         $quoteRequest->setType('Pré-devis');
         $quoteRequest->setCategory($formQuoteRequest->get('category')->getData());
-        $quoteRequest->setName($formQuoteRequest['client']->get('lastname')->getData());
         if ($formQuoteRequest->isSubmitted() && $formQuoteRequest->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             /** @var UploadedFile $image */
             $imagelist = $formQuoteRequest->get('images')->getData();
             $phonenumber = $formQuoteRequest['client']->get('phonenumber')->getData();
-            // dd($quoteRequest);
+            $quoteRequest->setName($formQuoteRequest['client']->get('lastname')->getData());
             // le foreach sert à pouvoir enregistré plusieurs images avec un seul champ
             foreach ($imagelist as $image) {
                 $mimeType = $image->getMimeType();

@@ -29,9 +29,9 @@
 						<tr>
 							<th scope="row">{{pictures.id}}</th>
 							<td>{{pictures.constructionSite.id}}</td>
-							<td>{{pictures.constructionSite.customer.lastname}}</td>
-							<td>{{pictures.name}}</td>
-							<td>{{pictures.constructionSite.customer.addresOne}}</td>
+							<td>{{pictures.constructionSite.customer.lastname|capitalize}}</td>
+							<td>{{pictures.name|capitalize}}</td>
+							<td>{{pictures.constructionSite.customer.addresOne|capitalize}}</td>
 							<td>
 								<a href="/admin/replymessage/{{pictures.id}}" id="{{pictures.id}}" class="text-white">
 									<i class="ri-arrow-right-line text-white"></i>

@@ -57,6 +57,26 @@ class ServiceDocument
      */
     private $service;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $price;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $designation;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $quantity;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $unity;
+
     public function __construct()
     {
         $this->setDateCreate(new \DateTime('now'));
@@ -143,5 +163,53 @@ class ServiceDocument
     public function __toString()
     {
         return (string) $this->getService();
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?float $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getDesignation(): ?string
+    {
+        return $this->designation;
+    }
+
+    public function setDesignation(?string $designation): self
+    {
+        $this->designation = $designation;
+
+        return $this;
+    }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(?int $quantity): self
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getUnity(): ?string
+    {
+        return $this->unity;
+    }
+
+    public function setUnity(?string $unity): self
+    {
+        $this->unity = $unity;
+
+        return $this;
     }
 }

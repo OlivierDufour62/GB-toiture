@@ -313,7 +313,7 @@ $(document).ready(function () {
     });
 
     // fin partie isActive
-    
+
     var $categories = $('.categories');
     // When sport gets selected ...
     $categories.change(function () {
@@ -361,4 +361,44 @@ $(document).ready(function () {
             }
         });
     });
+
+    $(".flip1").click(function() {
+        $(".panel1").slideToggle("slow");
+    });
+
+    var $collectionHolder;
+    var $addTagButton = $('<button class="btn text-white btn264d7e add_tag_link mt-3">Ajouter un materiaux</button>');
+    var $newLinkLi = $('<li class="col-12 d-flex justify-content-end p-0 m-0"></li>').append($addTagButton);
+
+    $collectionHolder = $('ul.tags').addClass('list-unstyled p-0 m-0');
+    // add the "add a tag" anchor and li to the tags ul
+    $collectionHolder.append($newLinkLi);
+    // count the current form inputs we have (e.g. 2), use that as the new
+    // index when inserting a new item (e.g. 2)
+    $collectionHolder.data('index', $collectionHolder.find('input').length);
+    $addTagButton.click(function (e) {
+        // add a new tag form (see next code block)
+        addTagForm($collectionHolder, $newLinkLi);
+    });
+
+    // setup an "add a tag" link
+    function addTagForm($collectionHolder, $newLinkLi) {
+        // Get the data-prototype explained earlier
+        var prototype = $collectionHolder.data('prototype');
+        // get the new index
+        var index = $collectionHolder.data('index');
+        var newForm = prototype;
+        // You need this only if you didn't set 'label' => false in your tags field in TaskType
+        // Replace '__name__label__' in the prototype's HTML to
+        // instead be a number based on how many items we have
+        // newForm = newForm.replace(/__name__label__/g, index);
+        // Replace '__name__' in the prototype's HTML to
+        // instead be a number based on how many items we have
+        newForm = newForm.replace(/__name__/g, index);
+        // increase the index with one for the next item
+        $collectionHolder.data('index', index + 1).addClass('col-12' ,'dflex');
+        // Display the form in the page in an li, before the "Add a tag" link li
+        var $newFormLi = $('<li></li>').append(newForm).children('div').addClass('dflex').children().addClass('col-6 col-lg-3 col-xl-3 m-0 p-0');
+        $newLinkLi.before($newFormLi);
+    }
 });                                                                                                                      

@@ -8,11 +8,15 @@ use App\Entity\Contact;
 use App\Entity\Customer;
 use App\Entity\Document;
 use App\Entity\Image;
+use App\Entity\MaterialDocument;
+use App\Entity\Materials;
 use App\Entity\Service;
+use App\Entity\ServiceDocument;
 use App\Form\CategoryType;
 use App\Form\ConstructionType;
 use App\Form\CustomerType;
 use App\Form\ContactType;
+use App\Form\QuoteType;
 use App\Form\ServiceType;
 use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -166,21 +170,21 @@ class AdminController extends AbstractController
             $imagelist = $form->get('images')->getData();
             $phonenumber = $request->request->get('phonenumber');
             foreach ($imagelist as $image) {
-                    $mimeType = $image->getMimeType();
-                    if ($mimeType !== 'image/jpeg' && $mimeType !==  'image/png' && $mimeType !== 'image/tiff' && $mimeType !==  'image/webp' && $mimeType !== 'image/jpg') {
-                    }
-                    $imageFileName = $fileUploader->upload($image);
-                    $img = new Image();
-                    $img->setName($imageFileName);
-                    $construction->addImage($img);
-                    $img->setConstructionSite($construction);
-                    $customer = $entityManager->getRepository(Customer::class)
-                        ->findBy(['phonenumber' => $phonenumber])[0] ?? null;
-                    if ($customer !== null) {
-                        $construction->setCustomer($customer);
-                    }
-                    $entityManager->persist($construction);
-                    $entityManager->flush();
+                $mimeType = $image->getMimeType();
+                if ($mimeType !== 'image/jpeg' && $mimeType !==  'image/png' && $mimeType !== 'image/tiff' && $mimeType !==  'image/webp' && $mimeType !== 'image/jpg') {
+                }
+                $imageFileName = $fileUploader->upload($image);
+                $img = new Image();
+                $img->setName($imageFileName);
+                $construction->addImage($img);
+                $img->setConstructionSite($construction);
+                $customer = $entityManager->getRepository(Customer::class)
+                    ->findBy(['phonenumber' => $phonenumber])[0] ?? null;
+                if ($customer !== null) {
+                    $construction->setCustomer($customer);
+                }
+                $entityManager->persist($construction);
+                $entityManager->flush();
             }
             return new JsonResponse(true);
         }
@@ -444,7 +448,7 @@ class AdminController extends AbstractController
         $message = $entityManager->getRepository(Contact::class)
             ->find($id);
         $discussion = $entityManager->getRepository(Contact::class)
-            ->findBy(['id'=>$id]);
+            ->findBy(['id' => $id]);
         $contactResponse = new Contact();
         $form = $this->createForm(ContactType::class, $contactResponse);
         $form->remove('lastname');
@@ -467,7 +471,7 @@ class AdminController extends AbstractController
             return new JsonResponse(true);
         }
         return $this->render('admin/replymessage.html.twig', [
-            'form' => $form->createView(), 'contact' => $message, 'discussion'=>$discussion,
+            'form' => $form->createView(), 'contact' => $message, 'discussion' => $discussion,
         ]);
     }
 
@@ -486,5 +490,68 @@ class AdminController extends AbstractController
         $entityManager->persist($message);
         $entityManager->flush();
         return new JsonResponse(true);
+    }
+
+    /**
+     * @Route("/admin/quoterequest", name="admin_quoterequest")
+     */
+    public function quoteRequest()
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $quoteRequest = $entityManager->getRepository(Document::class)
+            ->findAll();
+        return $this->render('admin/quoterequest.html.twig', [
+            'quoterequest' => $quoteRequest,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/treatment/{id}", name="admin_treatment_qr")
+     */
+    public function treatmentQr(Request $request, $id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $treatment = $entityManager->getRepository(Document::class)
+            ->find($id);
+        $pTreatment = new Document();
+        $imageTreatment = $treatment->getImages();
+        $formTreatmentQr = $this->createForm(QuoteType::class, $treatment);
+        $formTreatmentQr['client']->remove('addressTwo');
+        $formTreatmentQr['client']->remove('zipcode2');
+        $formTreatmentQr['client']->remove('city2');
+        $formTreatmentQr['client']->remove('phonenumber');
+        $formTreatmentQr['client']->remove('password');
+        $formTreatmentQr->handleRequest($request);
+        $pTreatment->setType('Devis');
+        $pTreatment->setAdditionnalInformation('');
+        if ($formTreatmentQr->isSubmitted() && $formTreatmentQr->isValid()) {
+            // dd($formTreatmentQr->get('materialDocuments')->getData());
+            $pTreatment->setName($formTreatmentQr['client']->get('lastname')->getData());              
+            $pTreatment->setTypeBat($formTreatmentQr->get('typeBat')->getData());              
+            $materialDocument = new MaterialDocument();
+            $serviceDocument = new ServiceDocument();
+            $serviceDocument->setDocument($pTreatment);
+            $service = new Service();
+            $service->addServiceDocument($serviceDocument);
+            // dd($formTreatmentQr['serviceDocuments']->get('designation')->getData()->getId());
+            $serviceDocument->setService($formTreatmentQr['serviceDocuments']->get('designation')->getData());
+            $materials = new Materials();
+            $materials->setLibelle($formTreatmentQr['materialDocuments'][0]->get('libelle')->getData());
+            $materials->setPrice($formTreatmentQr['materialDocuments'][0]->get('price')->getData());
+            $materials->setQuantity($formTreatmentQr['materialDocuments'][0]->get('quantity')->getData());
+            $materials->setUnity($formTreatmentQr['materialDocuments'][0]->get('unity')->getData());
+            $materials->addMaterialDocument($materialDocument);
+            $materialDocument->setMaterial($materials);
+            $materialDocument->setDocument($pTreatment);
+            $pTreatment->addServiceDocument($serviceDocument);
+            $pTreatment->addMaterialDocument($materialDocument);
+            // dd($pTreatment);
+            $entityManager->persist($pTreatment);
+            $entityManager->flush();
+            // return new JsonResponse(true);
+        }
+        return $this->render('admin/treatment.html.twig', [
+            'treatment' => $treatment, 'formtreatmentqr' => $formTreatmentQr->createView(), 'imagetreatment' => $imageTreatment,
+        ]);
     }
 }

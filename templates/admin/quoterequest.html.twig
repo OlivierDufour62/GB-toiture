@@ -1,0 +1,42 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Devis/Facture
+{% endblock %}
+{% block h1 %}Devis/Facture
+{% endblock %}
+
+{% block content %}
+
+	<div class="table-responsive col-12 col-lg-12 col-xl-10 p-0 m-0 mt-5 mx-auto">
+
+		<table class="table table-striped table-dark text-center">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">ID client</th>
+					<th scope="col">Nom</th>
+					<th scope="col">Catégorie</th>
+					<th scope="col">État</th>
+					<th scope="col">Traiter</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for qr in quoterequest %}
+					<tr>
+						<th scope="row">{{qr.id}}</th>
+						<td>{{qr.client.id}}</td>
+						<td>{{qr.client.lastname|capitalize}}</td>
+						<td>{{qr.category.name|capitalize}}</td>
+						<td>{{qr.type}}</td>
+						<td>
+							<a href="/admin/treatment/{{qr.id}}" id="{{qr.id}}" class="btn btn264d7e text-white reply sendprovider">Répondre</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="d-flex justify-content-end col-12 col-lg-12 col-xl-10 p-0 m-0 mx-auto">
+		<a class="btn text-white btn264d7e" href="/admin/createdocument">Créer un qrument</a>
+	</div>
+{% endblock %}

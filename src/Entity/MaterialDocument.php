@@ -41,14 +41,20 @@ class MaterialDocument
     private $date_delete;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Document::class, inversedBy="materialDocuments")
+     * @ORM\ManyToOne(targetEntity=Document::class, inversedBy="materialDocuments",cascade={"persist"})
      */
     private $document;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Materials::class, inversedBy="materialDocuments")
+     * @ORM\ManyToOne(targetEntity=Materials::class, inversedBy="materialDocuments",cascade={"persist"})
      */
     private $material;
+
+    public function __construct()
+    {
+        $this->setDateCreate(new \DateTime('now'));
+        $this->date_update = new \DateTime();
+    }
 
     public function getId(): ?int
     {
