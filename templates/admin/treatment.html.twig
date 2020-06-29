@@ -38,24 +38,13 @@
 						{{ form_widget(formtreatmentqr.name, {'attr': {'class': 'form-control shadow-none','placeholder': 'Prénom'}})}}
 					</div>
 				</div>
-				<fieldset>
+				<fieldset class="panel2">
 					<legend class="titlesizemobile color264d7e">Prestation</legend>
 					<div class="form-row col-12 p-0 m-0">
-						<div class="form-group col-6 col-lg-3 col-xl-3">
-							{{ form_widget(formtreatmentqr.serviceDocuments.designation, {'attr': {'class': 'form-control resize shadow-none'}})}}
-						</div>
-						<div class="form-group col-6 col-lg-3 col-xl-3">
-							{{ form_widget(formtreatmentqr.serviceDocuments.quantity, {'attr': {'class': 'form-control shadow-none','placeholder': 'Quantité'}})}}
-						</div>
-						<div class="form-group col-6 col-lg-3 col-xl-3">
-							{{ form_widget(formtreatmentqr.serviceDocuments.unity, {'attr': {'class': 'form-control shadow-none','placeholder': 'Unité'}})}}
-						</div>
-						<div class="form-group col-6 col-lg-3 col-xl-3">
-							{{ form_widget(formtreatmentqr.serviceDocuments.price, {'attr': {'class': 'form-control shadow-none','placeholder': 'Prix'}})}}
-						</div>
-					</div>
-					<div class="d-flex justify-content-end p-1">
-						<button class="btn text-white btn264d7e">Ajouter une prestation</button>
+						<ul class="tag row" data-prototype="{{ form_widget(formtreatmentqr.serviceDocuments.vars.prototype)|e('html_attr') }}">
+							<li>
+								{{ form_row(formtreatmentqr.serviceDocuments , {'attr': {'class': 'd-flex'}}) }}</li>
+						</ul>
 					</div>
 				</fieldset>
 				<fieldset class="panel1">

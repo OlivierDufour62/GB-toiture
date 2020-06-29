@@ -172,6 +172,7 @@ class AdminController extends AbstractController
             foreach ($imagelist as $image) {
                 $mimeType = $image->getMimeType();
                 if ($mimeType !== 'image/jpeg' && $mimeType !==  'image/png' && $mimeType !== 'image/tiff' && $mimeType !==  'image/webp' && $mimeType !== 'image/jpg') {
+                    return new JsonResponse('Type mime invalide', 400);
                 }
                 $imageFileName = $fileUploader->upload($image);
                 $img = new Image();
@@ -330,39 +331,6 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/document", name="admin_document")
-     */
-    public function document()
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        $document = $entityManager->getRepository(Document::class)
-            ->findAll();
-        return $this->render('admin/document.html.twig', [
-            'document' => $document,
-        ]);
-    }
-
-    /**
-     * @Route("/admin/createdocument", name="admin_create_document")
-     */
-    public function createDocument()
-    {
-        return $this->render('admin/createdocument.html.twig', [
-            'controller_name' => 'AdminController',
-        ]);
-    }
-
-    /**
-     * @Route("/admin/editdocument", name="admin_edit_document")
-     */
-    public function editDocument()
-    {
-        return $this->render('', [
-            'controller_name' => 'AdminController',
-        ]);
-    }
-
-    /**
      * @Route("/admin/picture", name="admin_picture")
      */
     public function picture()
@@ -499,7 +467,7 @@ class AdminController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
         $quoteRequest = $entityManager->getRepository(Document::class)
-            ->findAll();
+            ->findBy(['type' => 'Pré-devis']);
         return $this->render('admin/quoterequest.html.twig', [
             'quoterequest' => $quoteRequest,
         ]);
@@ -514,6 +482,8 @@ class AdminController extends AbstractController
         $treatment = $entityManager->getRepository(Document::class)
             ->find($id);
         $pTreatment = new Document();
+        $pTreatment->setCategory($treatment->getCategory());
+        $pTreatment->setClient($treatment->getClient());
         $imageTreatment = $treatment->getImages();
         $formTreatmentQr = $this->createForm(QuoteType::class, $treatment);
         $formTreatmentQr['client']->remove('addressTwo');
@@ -525,33 +495,73 @@ class AdminController extends AbstractController
         $pTreatment->setType('Devis');
         $pTreatment->setAdditionnalInformation('');
         if ($formTreatmentQr->isSubmitted() && $formTreatmentQr->isValid()) {
-            // dd($formTreatmentQr->get('materialDocuments')->getData());
-            $pTreatment->setName($formTreatmentQr['client']->get('lastname')->getData());              
-            $pTreatment->setTypeBat($formTreatmentQr->get('typeBat')->getData());              
+            $pTreatment->setName($formTreatmentQr['client']->get('lastname')->getData());
+            $pTreatment->setTypeBat($formTreatmentQr->get('typeBat')->getData());
             $materialDocument = new MaterialDocument();
-            $serviceDocument = new ServiceDocument();
-            $serviceDocument->setDocument($pTreatment);
             $service = new Service();
-            $service->addServiceDocument($serviceDocument);
-            // dd($formTreatmentQr['serviceDocuments']->get('designation')->getData()->getId());
-            $serviceDocument->setService($formTreatmentQr['serviceDocuments']->get('designation')->getData());
-            $materials = new Materials();
-            $materials->setLibelle($formTreatmentQr['materialDocuments'][0]->get('libelle')->getData());
-            $materials->setPrice($formTreatmentQr['materialDocuments'][0]->get('price')->getData());
-            $materials->setQuantity($formTreatmentQr['materialDocuments'][0]->get('quantity')->getData());
-            $materials->setUnity($formTreatmentQr['materialDocuments'][0]->get('unity')->getData());
-            $materials->addMaterialDocument($materialDocument);
-            $materialDocument->setMaterial($materials);
-            $materialDocument->setDocument($pTreatment);
+            foreach ($formTreatmentQr['serviceDocuments'] as $value) {
+                $serviceDocument = new ServiceDocument();
+                $serviceDocument->setDesignation($value->get('designation')->getData()->getName());
+                $serviceDocument->setPrice($value->get('price')->getData());
+                $serviceDocument->setQuantity($value->get('quantity')->getData());
+                $serviceDocument->setUnity($value->get('unity')->getData());
+                $serviceDocument->setDocument($pTreatment);
+                $service->addServiceDocument($serviceDocument);
+                $serviceDocument->setService($value->get('designation')->getData());
+                $entityManager->persist($serviceDocument);
+            }
             $pTreatment->addServiceDocument($serviceDocument);
             $pTreatment->addMaterialDocument($materialDocument);
-            // dd($pTreatment);
+            foreach ($formTreatmentQr['materialDocuments'] as $value) {
+                $materials = new Materials();
+                $materials->setLibelle($value->get('libelle')->getData());
+                $materials->setPrice($value->get('price')->getData());
+                $materials->setQuantity($value->get('quantity')->getData());
+                $materials->setUnity($value->get('unity')->getData());
+                $materials->addMaterialDocument($materialDocument);
+                $materialDocument->setMaterial($materials);
+                $materialDocument->setDocument($pTreatment);
+                $entityManager->persist($materials);
+            }
             $entityManager->persist($pTreatment);
             $entityManager->flush();
             // return new JsonResponse(true);
         }
         return $this->render('admin/treatment.html.twig', [
             'treatment' => $treatment, 'formtreatmentqr' => $formTreatmentQr->createView(), 'imagetreatment' => $imageTreatment,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/document", name="admin_document")
+     */
+    public function document()
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $document = $entityManager->getRepository(Document::class)
+            ->findAll();
+        return $this->render('admin/document.html.twig', [
+            'document' => $document,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/createdocument", name="admin_create_document")
+     */
+    public function createDocument()
+    {
+        return $this->render('admin/createdocument.html.twig', [
+            'controller_name' => 'AdminController',
+        ]);
+    }
+
+    /**
+     * @Route("/admin/editdocument", name="admin_edit_document")
+     */
+    public function editDocument()
+    {
+        return $this->render('', [
+            'controller_name' => 'AdminController',
         ]);
     }
 }

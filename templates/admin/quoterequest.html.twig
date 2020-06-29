@@ -22,16 +22,16 @@
 			</thead>
 			<tbody>
 				{% for qr in quoterequest %}
-					<tr>
-						<th scope="row">{{qr.id}}</th>
-						<td>{{qr.client.id}}</td>
-						<td>{{qr.client.lastname|capitalize}}</td>
-						<td>{{qr.category.name|capitalize}}</td>
-						<td>{{qr.type}}</td>
-						<td>
-							<a href="/admin/treatment/{{qr.id}}" id="{{qr.id}}" class="btn btn264d7e text-white reply sendprovider">Répondre</a>
-						</td>
-					</tr>
+						<tr>
+							<th scope="row">{{qr.id}}</th>
+							<td>{{qr.client.id}}</td>
+							<td>{{qr.client.lastname|capitalize}}</td>
+							<td>{{qr.category.name|capitalize}}</td>
+							<td>{{qr.type}}</td>
+							<td>
+								<a href="/admin/treatment/{{qr.id}}" id="{{qr.id}}" class="btn btn264d7e text-white reply sendprovider">Répondre</a>
+							</td>
+						</tr>
 				{% endfor %}
 			</tbody>
 		</table>

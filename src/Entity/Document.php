@@ -238,7 +238,6 @@ class Document
                 $image->setDocument(null);
             }
         }
-
         return $this;
     }
 

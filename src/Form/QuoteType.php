@@ -27,7 +27,15 @@ class QuoteType extends AbstractType
                 'label' => false,
                 'mapped' => false
                 ])
-            ->add('serviceDocuments', ServiceDocumentType::class , ['mapped' => false])
+            ->add('serviceDocuments', CollectionType::class , [
+                'entry_type' => ServiceDocumentType::class,
+                'data_class' => null, 
+                'prototype' => true, 
+                'by_reference' => false,
+                'allow_add' => true,
+                'label' => false,
+                'mapped' => false
+                ])
             ->add('client', CustomerType::class)
         ;
     }

@@ -14,15 +14,23 @@ class ServiceDocumentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('price', TextType::class)
-            ->add('designation', EntityType::class, ['class' => 'App:Service',
-            'choice_label' => 'name',
-            'multiple' => false,
-            'mapped' => false
+            ->add('designation', EntityType::class, [
+                'class' => 'App:Service',
+                'choice_label' => 'name',
+                'multiple' => false,
+                'mapped' => false,
+                'label' => false,
             ])
-            ->add('quantity', TextType::class)
-            ->add('unity', TextType::class)
-        ;
+            ->add('quantity', TextType::class , [
+                'label' => false, 'attr' => ['placeholder' => 'Quantité']
+                ])
+            ->add('unity', TextType::class, [
+                'label' => false, 'attr' => ['placeholder' => 'Unité']
+                ])
+            ->add('price', TextType::class, [
+                'label' => false, 'attr' => ['placeholder' => 'Prix']
+                ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -171,23 +171,29 @@ $(document).ready(function () {
     $('#addconstruction').on('click', function (e) {
         e.preventDefault();
         let data2 = new FormData($('.ajaxaddconsctruction')[0]);
-        console.log(data2)
+        // console.log(data2)
         $.ajax({
             type: 'POST',
             url: `/admin/addconstruction`,
             data: data2,
             contentType: false,
             processData: false,
-            success: function (data) {
+            success: function (data, status) {
+                console.log(status)
+                console.log(data)
                 $('input').val('');
                 $('textarea').val('');
-                $(".successsend").removeClass("d-none");
+                $(".successsend").removeClass("d-none").addClass('bg-success').children().text('Chantier enregistré');
                 setTimeout(function () {
-                    $(".successsend").addClass("d-none");
+                    $(".successsend").addClass("d-none").removeClass("bg-success");
                 }, 1500);
             },
             error: function (err) {
                 console.log(err);
+                $(".successsend").removeClass("d-none").addClass('bg-danger').children().text(err.responseJSON);
+                setTimeout(function () {
+                    $(".successsend").addClass("d-none").removeClass("bg-danger");
+                }, 1500);
             }
         });
     });
@@ -341,7 +347,7 @@ $(document).ready(function () {
     $('#senddevis').on('click', function (e) {
         e.preventDefault();
         let data2 = new FormData($('.ajaxsenddevis')[0]);
-        console.log(data2)
+        // console.log(data2)
         $.ajax({
             type: 'POST',
             url: `/devis`,
@@ -366,10 +372,13 @@ $(document).ready(function () {
         $(".panel1").slideToggle("slow");
     });
 
+    $(".flip").click(function() {
+        $(".panel2").slideToggle("slow");
+    });
+
     var $collectionHolder;
     var $addTagButton = $('<button class="btn text-white btn264d7e add_tag_link mt-3">Ajouter un materiaux</button>');
     var $newLinkLi = $('<li class="col-12 d-flex justify-content-end p-0 m-0"></li>').append($addTagButton);
-
     $collectionHolder = $('ul.tags').addClass('list-unstyled p-0 m-0');
     // add the "add a tag" anchor and li to the tags ul
     $collectionHolder.append($newLinkLi);
@@ -380,7 +389,6 @@ $(document).ready(function () {
         // add a new tag form (see next code block)
         addTagForm($collectionHolder, $newLinkLi);
     });
-
     // setup an "add a tag" link
     function addTagForm($collectionHolder, $newLinkLi) {
         // Get the data-prototype explained earlier
@@ -400,5 +408,26 @@ $(document).ready(function () {
         // Display the form in the page in an li, before the "Add a tag" link li
         var $newFormLi = $('<li></li>').append(newForm).children('div').addClass('dflex').children().addClass('col-6 col-lg-3 col-xl-3 m-0 p-0');
         $newLinkLi.before($newFormLi);
+    }
+
+    var $collectionHolderSD;
+    var $addTagButtonSD = $('<button class="btn text-white btn264d7e mt-3 bpresta">Ajouter une prestation</button>');
+    var $newLinkLiSD = $('<li class="col-12 d-flex justify-content-end p-0 m-0 bpresta"></li>').append($addTagButtonSD);
+
+    $collectionHolderSD = $('ul.tag').addClass('list-unstyled p-0 m-0');
+    $collectionHolderSD.append($newLinkLiSD);
+    $collectionHolderSD.data('index', $collectionHolderSD.find('input').length);
+    $addTagButtonSD.click(function (e) {
+        addTagForm($collectionHolderSD, $newLinkLiSD);
+    });
+
+    function addTagForm($collectionHolderSD, $newLinkLiSD) {
+        var prototypeSD = $collectionHolderSD.data('prototype');
+        var indexSD = $collectionHolderSD.data('index');
+        var newFormSD = prototypeSD;
+        newFormSD = newFormSD.replace(/__name__/g, indexSD);
+        $collectionHolderSD.data('index', indexSD + 1).addClass('col-12' ,'dflex');
+        var $newFormLiSD = $('<li></li>').append(newFormSD).children('div').addClass('dflex').children().addClass('col-6 col-lg-3 col-xl-3 m-0 p-0');
+        $newLinkLiSD.before($newFormLiSD);
     }
 });                                                                                                                      
