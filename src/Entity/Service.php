@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 
 /**
@@ -23,10 +25,12 @@ class Service
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"device"}) 
      */
     private $name;
 
     /**
+     * @Groups({"device"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $rate;
@@ -53,8 +57,9 @@ class Service
     private $date_delete;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="services")
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="services",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"device"})
      */
     private $category;
 

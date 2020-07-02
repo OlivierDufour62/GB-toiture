@@ -52,7 +52,6 @@ class DocumentType extends AbstractType
                 'mapped' => false,
                 'expanded' => true,
                 'multiple' => false,
-
             ]);
         };
         $builder->addEventListener(
@@ -73,7 +72,8 @@ class DocumentType extends AbstractType
                 // the parent to the callback functions!
                 $formModifier($event->getForm()->getParent(), $categories);
             }
-        );
+        )
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\ServiceDocument;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,22 +20,27 @@ class ServiceDocumentRepository extends ServiceEntityRepository
         parent::__construct($registry, ServiceDocument::class);
     }
 
-    // /**
-    //  * @return ServiceDocument[] Returns an array of ServiceDocument objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+      * @return ServiceDocument[] Returns an array of ServiceDocument objects
+      */
+    
+    public function findByCategory(): array
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $query = $this->createQueryBuilder('s')
+        ->select('c' ,'s')
+        ->join('s.category', 's');
+        
+        return $query->getQuery()->getResult();
+        // return $this->createQueryBuilder('s')
+        //     // ->andWhere('s.exampleField = :val')
+        //     // ->setParameter('val', $value)
+        //     // ->orderBy('s.id', 'ASC')
+        //     ->setMaxResults(10)
+        //     ->getQuery()
+        //     ->getResult()
+        // ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?ServiceDocument

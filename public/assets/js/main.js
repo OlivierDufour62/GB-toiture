@@ -240,26 +240,6 @@ $(document).ready(function () {
         });
     });
 
-    // $('.reply').on('click', function (e) {
-    //     e.preventDefault();
-    //     let data = {};
-    //     const id = $('.reply').attr('id');
-    //     // $('.ajaxaddservice')
-    //     //     .serializeArray()
-    //     //     .forEach((object) => {
-    //     //         data[object.name] = object.value
-    //     //     });
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: `/admin/response/${id}`,
-    //         data: data,
-    //         success: function (data) {
-    //             $('.response').removeClass('d-none')
-    //             $(".response").html(data);
-    //         },
-    //     });
-    // });
-
     // partie isActive
 
     $('.messageswitches').on('change', function () {
@@ -368,11 +348,11 @@ $(document).ready(function () {
         });
     });
 
-    $(".flip1").click(function() {
+    $(".flip1").click(function () {
         $(".panel1").slideToggle("slow");
     });
 
-    $(".flip").click(function() {
+    $(".flip").click(function () {
         $(".panel2").slideToggle("slow");
     });
 
@@ -404,14 +384,14 @@ $(document).ready(function () {
         // instead be a number based on how many items we have
         newForm = newForm.replace(/__name__/g, index);
         // increase the index with one for the next item
-        $collectionHolder.data('index', index + 1).addClass('col-12' ,'dflex');
+        $collectionHolder.data('index', index + 1).addClass('col-12', 'dflex');
         // Display the form in the page in an li, before the "Add a tag" link li
         var $newFormLi = $('<li></li>').append(newForm).children('div').addClass('dflex').children().addClass('col-6 col-lg-3 col-xl-3 m-0 p-0');
         $newLinkLi.before($newFormLi);
     }
 
     var $collectionHolderSD;
-    var $addTagButtonSD = $('<button class="btn text-white btn264d7e mt-3 bpresta">Ajouter une prestation</button>');
+    var $addTagButtonSD = $('<button id="presta" class="btn text-white btn264d7e mt-3 bpresta">Ajouter une prestation</button>');
     var $newLinkLiSD = $('<li class="col-12 d-flex justify-content-end p-0 m-0 bpresta"></li>').append($addTagButtonSD);
 
     $collectionHolderSD = $('ul.tag').addClass('list-unstyled p-0 m-0');
@@ -426,8 +406,54 @@ $(document).ready(function () {
         var indexSD = $collectionHolderSD.data('index');
         var newFormSD = prototypeSD;
         newFormSD = newFormSD.replace(/__name__/g, indexSD);
-        $collectionHolderSD.data('index', indexSD + 1).addClass('col-12' ,'dflex');
-        var $newFormLiSD = $('<li></li>').append(newFormSD).children('div').addClass('dflex').children().addClass('col-6 col-lg-3 col-xl-3 m-0 p-0');
+        $collectionHolderSD.data('index', indexSD + 1).addClass('col-12', 'dflex');
+        var $newFormLiSD = $('<li></li>').append(newFormSD).children('div').addClass('dflex noeud').children().addClass('col-6 col-lg-2 col-xl-2 m-0 p-0').parent().append('<br>');
         $newLinkLiSD.before($newFormLiSD);
     }
+
+    // $('#presta').click(function () {
+    //     var category = $('#quote_serviceDocuments_0_categorie');
+    //     category.change(function () {
+    //         const idcat = $('#quote_serviceDocuments_0_categorie').val();
+    //         let data1 = {};
+    //         $.ajax({
+    //             url: `/admin/service/${idcat}`,
+    //             type: 'GET',
+    //             data: data1,
+    //             dataType: 'json',
+    //             success: function (html) {
+    //                 $(html).each(function (index, e) {
+    //                     console.log(e, index)
+    //                     console.log(e.name)
+    //                     $('#quote_serviceDocuments_0_designation').append('<option value=id>' + e.name + '</option>');
+    //                 });
+    //             }
+    //         });
+    //     });
+    // });
+    $('#presta').click(function () {
+        console.log($(this))
+        // console.log($('.designation').parent().parent().attr('id'));
+        // console.log($('.noeud').children().children().first())
+        var category = $('.noeud').children();
+        // var service = $('.noeud').children()
+        category.change(function () {
+            const idcat = $(this).children().first().children().val();
+            let data1 = {};
+            $.ajax({
+                url: `/admin/service/${idcat}`,
+                type: 'GET',
+                data: data1,
+                dataType: 'json',
+                success: function (html) {
+                    $('.designation').html('')
+                    $(html).each(function (index, e) {
+                        // console.log(e, index)
+                        // console.log(e.name)
+                        $('.designation').append('<option value=id>' + e.name + '</option>');
+                    });
+                }
+            });
+    });
+});
 });                                                                                                                      

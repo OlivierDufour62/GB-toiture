@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Document;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -17,7 +18,7 @@ class QuoteType extends AbstractType
         $builder
             ->add('additionnalInformation', TextareaType::class, ['required' => false])
             ->add('name', TextType::class)
-            ->add('typeBat', TextType::class, ['required' => false])
+            // ->add('typeBat', TextType::class, ['required' => false])
             ->add('materialDocuments', CollectionType::class , [
                 'entry_type' => MaterialsType::class,
                 'data_class' => null, 

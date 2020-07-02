@@ -19,6 +19,16 @@ class ServiceRepository extends ServiceEntityRepository
         parent::__construct($registry, Service::class);
     }
 
+    // public function foundName()
+    // {
+    //     $query = $this->getEntityManager()
+    //         ->createQuery(
+    //             'SELECT s.name FROM App:Service s WHERE s.category = category.id'
+    //         );
+
+    //     return $query->getResult();
+    // }
+
     // /**
     //  * @return Service[] Returns an array of Service objects
     //  */

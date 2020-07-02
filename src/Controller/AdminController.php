@@ -19,6 +19,8 @@ use App\Form\ContactType;
 use App\Form\QuoteType;
 use App\Form\ServiceType;
 use App\Service\FileUploader;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -486,6 +488,7 @@ class AdminController extends AbstractController
         $pTreatment->setClient($treatment->getClient());
         $imageTreatment = $treatment->getImages();
         $formTreatmentQr = $this->createForm(QuoteType::class, $treatment);
+        // $formService = $this->createForm(ServiceCatType::class);
         $formTreatmentQr['client']->remove('addressTwo');
         $formTreatmentQr['client']->remove('zipcode2');
         $formTreatmentQr['client']->remove('city2');
@@ -528,12 +531,23 @@ class AdminController extends AbstractController
             // return new JsonResponse(true);
         }
         return $this->render('admin/treatment.html.twig', [
-            'treatment' => $treatment, 'formtreatmentqr' => $formTreatmentQr->createView(), 'imagetreatment' => $imageTreatment,
+            'treatment' => $treatment, 'formtreatmentqr' => $formTreatmentQr->createView(), 'imagetreatment' => $imageTreatment
         ]);
     }
 
     /**
-     * @Route("/admin/document", name="admin_document")
+     * @Route("/admin/service/{idcat}", name="admin_service")
+     */
+    public function serviceAjax($idcat)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $service = $entityManager->getRepository(Service::class)
+                    ->findBy(['category'=>$idcat]);
+        return $this->json($service, 200, [], ['groups' => 'device']);
+    }
+
+    /**
+     * @Route("/admin/create", name="admin_document")
      */
     public function document()
     {
@@ -543,6 +557,34 @@ class AdminController extends AbstractController
         return $this->render('admin/document.html.twig', [
             'document' => $document,
         ]);
+    }
+
+    /**
+     * @Route("/admin/generatepdf", name="admin_generate_pdf")
+     */
+    public function generatePdf()
+    {
+        $pdfOptions = new Options();
+        $dompdf = new Dompdf($pdfOptions);
+        $pdfOptions->set('defaultFont', 'Arial');
+        $html = $this->render('pdf/pdf.html.twig', [
+        ]);
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+        $dompdf->stream('mypdf.pdf', [
+            'Attachement' => true
+        ]);
+        // $output = $dompdf->output();
+        
+        // // In this case, we want to write the file in the public directory
+        // $publicDirectory = $this->get('kernel')->getProjectDir() . '/public';
+        // // e.g /var/www/project/public/mypdf.pdf
+        // $pdfFilepath =  $publicDirectory . '/mypdf.pdf';
+        
+        // // Write file to the desired path
+        // file_put_contents($pdfFilepath, $output);
     }
 
     /**

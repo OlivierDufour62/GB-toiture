@@ -302,12 +302,10 @@ body, a {
         display: flex;
         justify-content: stretch;
     }
-
     .d-flex-button{
         display: flex !important;
         justify-content: end !important;
     }
-
     .m-button{
         margin-top: 15px !important;
     }
