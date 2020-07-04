@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 
@@ -25,12 +26,13 @@ class Service
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"device"}) 
+     * @Groups({"service"}) 
+     * @Assert\NotBlank
      */
     private $name;
 
     /**
-     * @Groups({"device"})
+     * @Groups({"service"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $rate;
@@ -59,7 +61,7 @@ class Service
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="services",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"device"})
+     * @Groups({"service"})
      */
     private $category;
 

@@ -42,10 +42,71 @@ $(document).ready(function () {
         $('.service').parent().parent().addClass(this.value)
     })
 
-    $(".mobilemenuadmin").click(function () {
-        $(`.mm-admin`).addClass('m-admin');
-        $(`.mm-admin`).toggle(`fold`, 1500);
+    $("#header-admin .hamburger").click(function () {
+        // récupére la position de l'élément ciblé 
+        var originalPosition = $('#menu')[0].getBoundingClientRect();
+        // récupére le height de l'élément ciblé 
+        var headerHeight = $('#header-admin').outerHeight();
+
+        console.log(originalPosition)
+        // ajoute a #menu des propriété css
+        $('#menu').data({
+            originalPosition: originalPosition,
+            maxWidth: $('#menu').css('max-width')
+
+        }).css({
+            position: 'fixed',
+            top: originalPosition.top,
+            left: originalPosition.left
+        });
+        $('#header-admin').css({
+            height: headerHeight
+        });
+
+        gsap.to('#menu', {
+            duration: .6,
+            left: 0,
+            maxWidth: 'none',
+            right: 0,
+            top: 0
+        });
+        $('#menu nav').height(0).css({
+            overflow: 'hidden',
+        });
+        gsap.to(`#menu nav`, {
+            duration: .6,
+            display: 'block',
+            height: $(window).height() - $('#menu>img').height()
+        });
+        // réglage fermeture header a finir 
+        gsap.to('#menu > i', {
+            opacity: 1,
+            duration: 1.2
+        });
     });
+    $(`#menu > i`).click(function () {
+        var originalPosition = $('#menu').data('originalPosition');
+        console.log(originalPosition)
+        gsap.to('#menu > i', {
+            opacity: 0,
+            duration: .6
+        });
+        gsap.to(`#menu nav`, {
+            height: 0,
+            duration: .5
+        });
+        t = gsap.to('#menu', {
+            duration: .2,
+            left: originalPosition.left,
+            right: 20,
+            top: originalPosition.top,
+            onComplete: function () {
+                $('#menu').css('max-width', $('#menu').data('maxWidth'));
+            }
+        }); 
+    })
+
+
 
     $('.addcat').click(function () {
         $('.div-none').toggle(`fold`, 1500);
@@ -411,34 +472,13 @@ $(document).ready(function () {
         $newLinkLiSD.before($newFormLiSD);
     }
 
-    // $('#presta').click(function () {
-    //     var category = $('#quote_serviceDocuments_0_categorie');
-    //     category.change(function () {
-    //         const idcat = $('#quote_serviceDocuments_0_categorie').val();
-    //         let data1 = {};
-    //         $.ajax({
-    //             url: `/admin/service/${idcat}`,
-    //             type: 'GET',
-    //             data: data1,
-    //             dataType: 'json',
-    //             success: function (html) {
-    //                 $(html).each(function (index, e) {
-    //                     console.log(e, index)
-    //                     console.log(e.name)
-    //                     $('#quote_serviceDocuments_0_designation').append('<option value=id>' + e.name + '</option>');
-    //                 });
-    //             }
-    //         });
-    //     });
-    // });
     $('#presta').click(function () {
-        console.log($(this))
-        // console.log($('.designation').parent().parent().attr('id'));
-        // console.log($('.noeud').children().children().first())
-        var category = $('.noeud').children();
-        // var service = $('.noeud').children()
+        var category = $('select[name*="categorie"]');
         category.change(function () {
-            const idcat = $(this).children().first().children().val();
+            var service = $(this).parent().parent().find('select[name*="designation"]');
+            console.log(service)
+            const idcat = $(this).val();
+            console.log(idcat)
             let data1 = {};
             $.ajax({
                 url: `/admin/service/${idcat}`,
@@ -446,14 +486,25 @@ $(document).ready(function () {
                 data: data1,
                 dataType: 'json',
                 success: function (html) {
-                    $('.designation').html('')
+                    // service.html('')
+                    // $(html).each(function (index, e) {
+                    //     service.append('<option value='+e.id+'>' + e.name + '</option>');
+                    // });
+                    // //évite de réécrire le dom trop fréquemment de facon moins optimisé 
+                    // var buffer = [];
+                    // $(html).each(function (index, e) {
+                    //     buffer.push('<option value='+e.id+'>' + e.name + '</option>');
+                    // });
+                    // service.html(buffer.join(''));
+
+                    //évite de réécrire le dom trop fréquemment de facon optimisé 
+                    var fragment = document.createDocumentFragment();
                     $(html).each(function (index, e) {
-                        // console.log(e, index)
-                        // console.log(e.name)
-                        $('.designation').append('<option value=id>' + e.name + '</option>');
+                        $('<option>').val(e.id).html(e.name).appendTo(fragment);
                     });
+                    service.html(fragment)
                 }
             });
+        });
     });
-});
 });                                                                                                                      

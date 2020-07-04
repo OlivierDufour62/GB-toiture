@@ -21,6 +21,8 @@ class ServiceDocumentType extends AbstractType
                 'multiple' => false,
                 'mapped' => false,
                 'label' => false,
+                'placeholder' => 'Choisissez une catégorie'
+
             ])
             ->add('designation', ChoiceType::class, [
                 'multiple' => false,

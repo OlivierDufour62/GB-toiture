@@ -504,11 +504,11 @@ class AdminController extends AbstractController
             $service = new Service();
             foreach ($formTreatmentQr['serviceDocuments'] as $value) {
                 $serviceDocument = new ServiceDocument();
-                $serviceDocument->setDesignation($value->get('designation')->getData()->getName());
-                $serviceDocument->setPrice($value->get('price')->getData());
-                $serviceDocument->setQuantity($value->get('quantity')->getData());
-                $serviceDocument->setUnity($value->get('unity')->getData());
-                $serviceDocument->setDocument($pTreatment);
+                $serviceDocument->setDesignation($value->get('designation')->getData()->getName())
+                                ->setPrice($value->get('price')->getData())
+                                ->setQuantity($value->get('quantity')->getData())
+                                ->setUnity($value->get('unity')->getData())
+                                ->setDocument($pTreatment);
                 $service->addServiceDocument($serviceDocument);
                 $serviceDocument->setService($value->get('designation')->getData());
                 $entityManager->persist($serviceDocument);
@@ -517,11 +517,11 @@ class AdminController extends AbstractController
             $pTreatment->addMaterialDocument($materialDocument);
             foreach ($formTreatmentQr['materialDocuments'] as $value) {
                 $materials = new Materials();
-                $materials->setLibelle($value->get('libelle')->getData());
-                $materials->setPrice($value->get('price')->getData());
-                $materials->setQuantity($value->get('quantity')->getData());
-                $materials->setUnity($value->get('unity')->getData());
-                $materials->addMaterialDocument($materialDocument);
+                $materials->setLibelle($value->get('libelle')->getData())
+                        ->setPrice($value->get('price')->getData())
+                        ->setQuantity($value->get('quantity')->getData())
+                        ->setUnity($value->get('unity')->getData())
+                        ->addMaterialDocument($materialDocument);
                 $materialDocument->setMaterial($materials);
                 $materialDocument->setDocument($pTreatment);
                 $entityManager->persist($materials);
@@ -543,11 +543,11 @@ class AdminController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $service = $entityManager->getRepository(Service::class)
                     ->findBy(['category'=>$idcat]);
-        return $this->json($service, 200, [], ['groups' => 'device']);
+        return $this->json($service, 200, [], ['groups' => 'service']);
     }
 
     /**
-     * @Route("/admin/create", name="admin_document")
+     * @Route("/admin/document", name="admin_document")
      */
     public function document()
     {
@@ -569,7 +569,7 @@ class AdminController extends AbstractController
         $pdfOptions->set('defaultFont', 'Arial');
         $html = $this->render('pdf/pdf.html.twig', [
         ]);
-
+        $html .= '<link rel="stylesheet" href="/GB-toiture/public/assets/css/pdf.css">';
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
