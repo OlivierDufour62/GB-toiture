@@ -1,8 +1,16 @@
-body{
-    header{
-        font-size: 18px;
-    }
+#colorbg{
+    background-color: #fafafa;
 }
+
+#main-title{
+    margin-top: 30px;
+    font-size: 50px;
+}
+
+#subtitle{
+    font-style: italic !important;
+}
+
 .w80 {
     width: 80%;
 }
@@ -35,14 +43,6 @@ body{
     color: #3f3f3f;
 }
 
-#header-admin .hamburger div {
-    background-color: #D7D7D7;
-    height: 4px;
-    margin-top: 10px;
-    border-radius: 2px;
-    width: 50px;
-}
-
 .hamb1 {
     height: 5px;
     width: 50px;
@@ -71,14 +71,50 @@ a:link {
 }
 
 .bgD7D7D7 {
-    background-color: #D7D7D7;
+    background-color: #d7d7d7;
 }
 
-body, a {
+body,
+a {
     color: #3f3f3f;
 }
 
 /* index */
+
+#prestations {
+    .prestation {
+        position: relative;
+        h4{
+            text-align: center;
+        }
+        img,.overlay {
+            border-radius: 2px;
+        }
+        img{
+            margin-top: 10px;
+            box-shadow: 5px 5px 10px rgba(#000, .75);
+        }
+        .overlay {
+            transition: opacity 200ms linear;
+            opacity: 0;
+            position: absolute;
+            top: 57px;
+            left: 15px;
+            right: 15px;
+            bottom: 0;
+            background-image: linear-gradient(to bottom, rgba(#fff, 0.8) 0%, rgba(#fff, 0.1) 100%);
+            ul {
+                text-align: center;
+                margin-top: 30px;
+            }
+        }
+        &:hover {
+            .overlay {
+                opacity: 1;
+            }
+        }
+    }
+}
 
 .height-picCarroussel {
     height: 717px;
@@ -92,10 +128,6 @@ body, a {
     font-size: 1.5em;
 }
 
-.shadowed {
-    box-shadow: 5px 5px 5px #3f3f3f;
-}
-
 .titlecolor {
     color: #264d7e;
 }
@@ -104,44 +136,6 @@ body, a {
     position: absolute;
     top: 70px;
     left: 129px;
-}
-
-.pos-absolute0 {
-    position: absolute;
-    top: 160px;
-    left: 97px;
-}
-
-.pos-absolute1 {
-    position: absolute;
-    top: 260px;
-    left: 97px;
-}
-
-.pos-absolute2 {
-    position: absolute;
-    top: 90px;
-    left: 97px;
-    margin-top: 20px;
-}
-
-.pos-absolute3 {
-    position: absolute;
-    top: 210px;
-    left: 97px;
-}
-
-.pos-absolute4 {
-    position: absolute;
-    top: 170px;
-    left: 83px;
-}
-
-/* div */
-
-.pos-abslolute5 {
-    position: absolute;
-    top: 0px;
 }
 
 .pos-absolute-titlespec {
@@ -166,7 +160,7 @@ body, a {
 }
 
 .bgF4F4F4 {
-    background-color: #F4F4F4;
+    background-color: #f4f4f4;
 }
 
 .opa {
@@ -197,39 +191,8 @@ body, a {
     color: #264d7e;
 }
 
-.anim-opa {
-    animation-duration: 2s;
-    animation-fill-mode: forwards;
-    opacity: 0;
-}
-
-.anim-opa {
-    animation-duration: 2s;
-    animation-fill-mode: forwards;
-    background-color: white;
-    opacity: 0;
-}
-
 .dflex {
     display: flex;
-}
-
-@keyframes prestationbg {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 0.6;
-    }
-}
-
-@keyframes prestation {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
 }
 
 /*end prestation*/
@@ -260,46 +223,51 @@ body, a {
 
 /*admin*/
 
-
-
-i{
+i {
     line-height: 1;
-}
-#menu > i::before{
-    font-size: 30px;
 }
 
 #header-admin {
     padding-top: 35px;
     padding-bottom: 35px;
-}
 
-#header-admin .hamburger {
-    display: none;
-}
-
-
-#menu nav {
-    margin-top: 10px;
+    .hamburger {
+        display: none;
+        div {
+            background-color: #d7d7d7;
+            height: 4px;
+            margin-top: 10px;
+            border-radius: 2px;
+            width: 50px;
+        }
+    }
 }
 
 .btn264d7e {
     background-color: #264d7e;
 }
 
-#menu > i {
-    opacity: 0;
-    display: block;
-    position: absolute;
-    left: calc(100% - 30px - 30px);
-    top: 20px;
-    padding: 10px;
-}
-
 #menu {
     background-color: #d7d7d7;
     color: #3f3f3f;
     border-radius: 3px;
+
+    nav {
+        margin-top: 10px;
+    }
+
+    > i {
+        opacity: 0;
+        display: block;
+        position: absolute;
+        left: calc(100% - 30px - 30px);
+        top: 20px;
+        padding: 10px;
+
+        ::before {
+            font-size: 30px;
+        }
+    }
 }
 
 @keyframes prestationleave {
@@ -325,7 +293,8 @@ i{
         display: block;
         padding: 30px;
     }
-    #menu, #header-admin .hamburger {
+    #menu,
+    #header-admin .hamburger {
         flex: 0 1 auto;
     }
     .footmobile {
@@ -341,7 +310,7 @@ i{
         font-size: 1.2em;
     }
     .subtitlemobile {
-        font-size: 1.0em;
+        font-size: 1em;
     }
     .fontsizemobile {
         font-size: 0.8em;
@@ -350,7 +319,7 @@ i{
         width: 100%;
     }
     .h2sizemobile {
-        font-size: 2.0em;
+        font-size: 2em;
         color: #264d7e;
     }
     .galery-mobile {
@@ -395,7 +364,6 @@ i{
         border: solid 3px #264d7e;
     }
 }
-
 
 @media screen and (min-width: 1024px) {
     .menu-fixed {

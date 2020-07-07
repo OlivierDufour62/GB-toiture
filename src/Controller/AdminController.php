@@ -19,8 +19,10 @@ use App\Form\ContactType;
 use App\Form\QuoteType;
 use App\Form\ServiceType;
 use App\Service\FileUploader;
-use Dompdf\Dompdf;
-use Dompdf\Options;
+use DateTime;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
+use Knp\Snappy\Pdf;
+use Spipu\Html2Pdf\Html2Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,9 +32,19 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Twig\Environment;
 
 class AdminController extends AbstractController
 {
+
+    private $twig;
+    private $pdf;
+
+    public function __construct(Environment $twig, Pdf $pdf)
+    {
+        $this->twig = $twig;
+        $this->pdf = $pdf;
+    }
 
     /**
      * @Route("/login", name="app_login")
@@ -106,14 +118,14 @@ class AdminController extends AbstractController
     public function editCustomer(Request $request, $id)
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $editCustomer = $entityManager->getRepository(Customer::class)
+        $editCustomer = $this->$entityManager->getRepository(Customer::class)
             ->find($id);
         $form = $this->createForm(CustomerType::class, $editCustomer);
         $form->remove('password');
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($editCustomer);
-            $entityManager->flush();
+            $this->$entityManager->persist($editCustomer);
+            $this->$entityManager->flush();
             return new JsonResponse(true);
         }
         return $this->render('admin/editcustomer.html.twig', [
@@ -484,10 +496,10 @@ class AdminController extends AbstractController
         $treatment = $entityManager->getRepository(Document::class)
             ->find($id);
         $pTreatment = new Document();
-        $pTreatment->setCategory($treatment->getCategory());
+        // $pTreatment->setCategory($treatment->getCategory());
         $pTreatment->setClient($treatment->getClient());
         $imageTreatment = $treatment->getImages();
-        $formTreatmentQr = $this->createForm(QuoteType::class, $treatment);
+        $formTreatmentQr = $this->createForm(QuoteType::class, $treatment, ['allow_extra_fields' => true]);
         // $formService = $this->createForm(ServiceCatType::class);
         $formTreatmentQr['client']->remove('addressTwo');
         $formTreatmentQr['client']->remove('zipcode2');
@@ -497,20 +509,22 @@ class AdminController extends AbstractController
         $formTreatmentQr->handleRequest($request);
         $pTreatment->setType('Devis');
         $pTreatment->setAdditionnalInformation('');
+        // dd($formTreatmentQr);
         if ($formTreatmentQr->isSubmitted() && $formTreatmentQr->isValid()) {
             $pTreatment->setName($formTreatmentQr['client']->get('lastname')->getData());
-            $pTreatment->setTypeBat($formTreatmentQr->get('typeBat')->getData());
+            $pTreatment->setTypeBat('Maison');
             $materialDocument = new MaterialDocument();
-            $service = new Service();
             foreach ($formTreatmentQr['serviceDocuments'] as $value) {
                 $serviceDocument = new ServiceDocument();
-                $serviceDocument->setDesignation($value->get('designation')->getData()->getName())
-                                ->setPrice($value->get('price')->getData())
-                                ->setQuantity($value->get('quantity')->getData())
-                                ->setUnity($value->get('unity')->getData())
-                                ->setDocument($pTreatment);
-                $service->addServiceDocument($serviceDocument);
-                $serviceDocument->setService($value->get('designation')->getData());
+                // dd($value->get('designation')->getData());
+                $serviceDocument
+                    ->setPrice($value->get('price')->getData())
+                    ->setQuantity($value->get('quantity')->getData())
+                    ->setUnity($value->get('unity')->getData())
+                    ->setDocument($pTreatment);
+                    $service = $entityManager->getRepository(Service::class)
+                                            ->find($value->get('designation')->getData());
+                $serviceDocument->setService($service);
                 $entityManager->persist($serviceDocument);
             }
             $pTreatment->addServiceDocument($serviceDocument);
@@ -518,10 +532,10 @@ class AdminController extends AbstractController
             foreach ($formTreatmentQr['materialDocuments'] as $value) {
                 $materials = new Materials();
                 $materials->setLibelle($value->get('libelle')->getData())
-                        ->setPrice($value->get('price')->getData())
-                        ->setQuantity($value->get('quantity')->getData())
-                        ->setUnity($value->get('unity')->getData())
-                        ->addMaterialDocument($materialDocument);
+                    ->setPrice($value->get('price')->getData())
+                    ->setQuantity($value->get('quantity')->getData())
+                    ->setUnity($value->get('unity')->getData())
+                    ->addMaterialDocument($materialDocument);
                 $materialDocument->setMaterial($materials);
                 $materialDocument->setDocument($pTreatment);
                 $entityManager->persist($materials);
@@ -542,7 +556,7 @@ class AdminController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
         $service = $entityManager->getRepository(Service::class)
-                    ->findBy(['category'=>$idcat]);
+            ->findBy(['category' => $idcat]);
         return $this->json($service, 200, [], ['groups' => 'service']);
     }
 
@@ -561,30 +575,37 @@ class AdminController extends AbstractController
 
     /**
      * @Route("/admin/generatepdf", name="admin_generate_pdf")
+     * @return Response
      */
     public function generatePdf()
     {
-        $pdfOptions = new Options();
-        $dompdf = new Dompdf($pdfOptions);
-        $pdfOptions->set('defaultFont', 'Arial');
-        $html = $this->render('pdf/pdf.html.twig', [
-        ]);
-        $html .= '<link rel="stylesheet" href="/GB-toiture/public/assets/css/pdf.css">';
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
-        $dompdf->stream('mypdf.pdf', [
-            'Attachement' => true
-        ]);
-        // $output = $dompdf->output();
-        
-        // // In this case, we want to write the file in the public directory
-        // $publicDirectory = $this->get('kernel')->getProjectDir() . '/public';
-        // // e.g /var/www/project/public/mypdf.pdf
-        // $pdfFilepath =  $publicDirectory . '/mypdf.pdf';
-        
-        // // Write file to the desired path
-        // file_put_contents($pdfFilepath, $output);
+        // $snappy = new Pdf($_ENV['WKHTMLTOPDF_PATH']);
+        // or you can do it in two steps
+        $snappy = new Pdf();
+        $snappy->setBinary($_ENV['WKHTMLTOPDF_PATH']);
+        $snappy->setOption('user-style-sheet', 'C:/wamp64/www/GB-toiture/public/assets/css/pdf.css');
+        $entityManager = $this->getDoctrine()->getManager();
+        $service = $entityManager->getRepository(Service::class)
+            ->findAll();
+        $html = $this->twig->render('pdf/pdf.html.twig', ['service' => $service]);
+        // dd($snappy->getOutputFromHtml($html));
+        $date = new DateTime();
+        return new PdfResponse($snappy->getOutputFromHtml($html), 'file'. $date->getTimestamp() . '.pdf');
+        // $response->setContent($this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('orientation' => 'portait')));
+        // dd($response);
+
+        // $response->headers->set('Content-Type', 'application/pdf');
+        // //$response->headers->set('Content-Type: application/pdf', 'application/force-download');
+        // $response->headers->set('Content-disposition', 'filename=1.pdf');
+        // return $response;
+        // $template = $this->renderView('pdf/pdf.html.twig');
+        // $html2pdf = new Html2Pdf('P', 'A4', 'fr');
+        // $html2pdf->pdf->SetDisplayMode('fullpage');
+        // $html2pdf->writeHTML($template);
+
+        // // $template = $html2pdf->writeHTML('pdf/pdf.html.twig');
+        // // $html2pdf->create('P', 'A4', 'fr',true,'UTF-8');
+        // return $html2pdf->output();
     }
 
     /**

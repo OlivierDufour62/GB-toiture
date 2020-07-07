@@ -21,6 +21,7 @@ class Service
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"service"})
      */
     private $id;
 

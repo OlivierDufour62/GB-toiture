@@ -63,11 +63,6 @@ class ServiceDocument
     private $price;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $designation;
-
-    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $quantity;
@@ -173,18 +168,6 @@ class ServiceDocument
     public function setPrice(?float $price): self
     {
         $this->price = $price;
-
-        return $this;
-    }
-
-    public function getDesignation(): ?string
-    {
-        return $this->designation;
-    }
-
-    public function setDesignation(?string $designation): self
-    {
-        $this->designation = $designation;
 
         return $this;
     }

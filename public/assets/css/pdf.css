@@ -1,31 +1,51 @@
-.bord{
+.bord {
     border: 2px solid black !important;
 }
 
-.bold{
+.bold {
     font-weight: bold;
 }
 
-.width-table1{
+.width-table1 {
     width: 250px;
 }
 
-.width-table-title{
+.width-table-title {
     width: 610px;
 }
 
-.width-table-libelle{
+.width-table-libelle {
     width: 500px;
 }
 
-.width-table-qupt{
+.width-table-qupt {
     width: 80px;
 }
 
-.width-table-unite{
+.width-table-unite {
     width: 50px;
 }
 
-.width-table-qpt{
+.width-table-qpt {
     width: 200px;
+}
+
+.address {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    /* -webkit-box-pack: center; /* wkhtmltopdf uses this one */
+    /*-webkit-justify-content: center;
+    justify-content: center; */
+    position: relative;
+}
+
+.address-client{
+    position: absolute;
+    top:0; 
+    left: 650px;
+}
+
+.textdark {
+    color: #3f3f3f;
 }

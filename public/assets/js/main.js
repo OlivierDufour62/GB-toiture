@@ -13,14 +13,6 @@ $(document).ready(function () {
         $(this).removeClass(`border264d7e`);
     });
 
-    //animate for index prestation and galery
-    $('.anim').mouseenter(function () {
-        $(this).children('.anim-opa').css('animation-name', 'prestation');
-        $(this).children('.bg-opa').css('animation-name', 'prestationbg');
-    });
-    $('.anim').mouseleave(function () {
-        $(this).children('.anim-opa').css('animation-name', 'prestationleave');
-    });
 
     let path = window.location.pathname.split('8000');
     $('.cc').each(function () {
@@ -47,13 +39,10 @@ $(document).ready(function () {
         var originalPosition = $('#menu')[0].getBoundingClientRect();
         // récupére le height de l'élément ciblé 
         var headerHeight = $('#header-admin').outerHeight();
-
-        console.log(originalPosition)
         // ajoute a #menu des propriété css
         $('#menu').data({
             originalPosition: originalPosition,
             maxWidth: $('#menu').css('max-width')
-
         }).css({
             position: 'fixed',
             top: originalPosition.top,
@@ -62,7 +51,6 @@ $(document).ready(function () {
         $('#header-admin').css({
             height: headerHeight
         });
-
         gsap.to('#menu', {
             duration: .6,
             left: 0,
@@ -78,12 +66,12 @@ $(document).ready(function () {
             display: 'block',
             height: $(window).height() - $('#menu>img').height()
         });
-        // réglage fermeture header a finir 
         gsap.to('#menu > i', {
             opacity: 1,
             duration: 1.2
         });
     });
+    // fermeture du menu 
     $(`#menu > i`).click(function () {
         var originalPosition = $('#menu').data('originalPosition');
         console.log(originalPosition)
@@ -95,7 +83,7 @@ $(document).ready(function () {
             height: 0,
             duration: .5
         });
-        t = gsap.to('#menu', {
+        gsap.to('#menu', {
             duration: .2,
             left: originalPosition.left,
             right: 20,
@@ -488,6 +476,7 @@ $(document).ready(function () {
                 success: function (html) {
                     // service.html('')
                     // $(html).each(function (index, e) {
+                    //     console.log(html)
                     //     service.append('<option value='+e.id+'>' + e.name + '</option>');
                     // });
                     // //évite de réécrire le dom trop fréquemment de facon moins optimisé 
