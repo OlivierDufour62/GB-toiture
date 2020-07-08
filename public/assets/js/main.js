@@ -290,6 +290,26 @@ $(document).ready(function () {
             }
         });
     });
+    
+    $('#search').on('click', function (e) {
+        e.preventDefault()
+        let phonenumber = $('.searchbar').val()
+        $.ajax({
+            type: 'GET',
+            url: `/admin/searchcustomer`,
+            data: { phonenumber: phonenumber },
+            success: function (data) {
+                $('#quote_client_lastname').val(data.lastname);
+                $('#quote_client_firstname').val(data.firstname);
+                $('#quote_client_phonenumber').val(phonenumber);
+                $('#quote_client_email').val(data.email);
+                $('#quote_client_addresOne').val(data.addresOne);
+                $('#quote_client_zipcode').val(data.zipcode);
+                $('#quote_client_city').val(data.city);
+                $('#quote_name').val(data.lastname);
+            }
+        });
+    });
 
     // partie isActive
 
@@ -499,27 +519,35 @@ $(document).ready(function () {
         });
     });
 
-    // $('#generate').on('click', function (e) {
-    //     e.preventDefault();
-    //     let data = {};
-    //     const id = $('.ajaxgenerate').attr('treatmentid');
-    //     $('.ajaxgenerate')
-    //         .serializeArray()
-    //         .forEach((object) => {
-    //             data[object.name] = object.value
-    //         });
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: `/admin/treatment/${id}`,
-    //         data: data,
-    //         success: function (data) {
-    //             if (data === true) {
-    //                 $(".successsend").removeClass("d-none");
-    //                 setTimeout(function () {
-    //                     $(".successsend").addClass("d-none");
-    //                 }, 1500);
-    //             }
-    //         }
-    //     });
-    // });
+    $('#generate').on('click', function (e) {
+        e.preventDefault();
+        // on reattribu les données du formulaires dans data afin de les envoyer dans le corps de la requête ajax
+        let data = {};
+        // ici on récupère l'id de la demande de devis afin de pouvoir la mettre dans la route 
+        const id = $('.ajaxgenerate').attr('treatmentid');
+        // ici on parcours les données 
+        $('.ajaxgenerate')
+            .serializeArray()
+            .forEach((object) => {
+                data[object.name] = object.value
+            });
+            // ajax commence ici 
+        $.ajax({
+            // on définie la méthode du formulaire ici en post car c'est plus sécurisé pour transmettre des données
+            type: 'POST',
+            // la route du controller visé 
+            url: `/admin/treatment/${id}`,
+            // les données du form
+            data: data,
+            // et enfin le succés 
+            success: function (data) {
+                if (data) {
+                    $(".successsend").removeClass("d-none");
+                    setTimeout(function () {
+                        $(".successsend").addClass("d-none");
+                    }, 1500);
+                }
+            }
+        });
+    });
 });                                                                                                                      

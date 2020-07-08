@@ -218,7 +218,7 @@ class AdminController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $customer = $entityManager->getRepository(Customer::class)
                 ->findBy(['phonenumber' => $phonenumber])[0] ?? null;
-            $client = ['id' => $customer->getId(), 'lastname' => $customer->getLastname(), 'addresOne' => $customer->getAddresOne(), 'zipcode' => $customer->getZipcode(), 'city' => $customer->getCity(), 'email' => $customer->getEmail()];
+            $client = ['id' => $customer->getId(), 'lastname' => $customer->getLastname(), 'firstname' => $customer->getfirstname(), 'addresOne' => $customer->getAddresOne(), 'zipcode' => $customer->getZipcode(), 'city' => $customer->getCity(), 'email' => $customer->getEmail(), 'genre' => $customer->getGenre()];
             return new JsonResponse($client);
         } else {
             return new JsonResponse(false);
@@ -523,8 +523,8 @@ class AdminController extends AbstractController
                     ->setQuantity($value->get('quantity')->getData())
                     ->setUnity($value->get('unity')->getData())
                     ->setDocument($pTreatment);
-                    $service = $entityManager->getRepository(Service::class)
-                                            ->find($value->get('designation')->getData());
+                $service = $entityManager->getRepository(Service::class)
+                    ->find($value->get('designation')->getData());
                 $serviceDocument->setService($service);
                 $entityManager->persist($serviceDocument);
             }
@@ -543,7 +543,7 @@ class AdminController extends AbstractController
             }
             $entityManager->persist($pTreatment);
             $entityManager->flush();
-            // return new JsonResponse(true);
+            return new JsonResponse(true);
         }
         return $this->render('admin/treatment.html.twig', [
             'treatment' => $treatment, 'formtreatmentqr' => $formTreatmentQr->createView(), 'imagetreatment' => $imageTreatment
@@ -584,26 +584,91 @@ class AdminController extends AbstractController
         $snappy = new Pdf();
         // ici on appelle la variable d'environnement WKHTMLPDF
         $snappy->setBinary($_ENV['WKHTMLTOPDF_PATH']);
-        // on appelle le css 
+        // ici on appelle le css 
         $snappy->setOption('user-style-sheet', 'C:/wamp64/www/GB-toiture/public/assets/css/pdf.css');
         $entityManager = $this->getDoctrine()->getManager();
         $devis = $entityManager->getRepository(Document::class)
             ->find($id);
+        // ici on appelle les collections lié au devis en question afin de les envoyé a la vue et ajouter les lignes au devis
         $service = $devis->getServiceDocuments();
         $materials = $devis->getMaterialDocuments();
+        // ici on envoie une vue twig afin de permettre la génération du pdf 
         $html = $this->twig->render('pdf/pdf.html.twig', ['devis' => $devis, 'service' => $service, 'material' => $materials]);
         // dd($snappy->getOutputFromHtml($html));
         $date = new DateTime();
-        return new PdfResponse($snappy->getOutputFromHtml($html), 'file'. $date->getTimestamp() . '.pdf');
+        return new PdfResponse($snappy->getOutputFromHtml($html), $devis->getClient()->getLastname() . $date->getTimestamp() . '.pdf');
     }
 
     /**
      * @Route("/admin/createdocument", name="admin_create_document")
      */
-    public function createDocument()
+    public function createDocument(Request $request)
     {
+        $entityManager = $this->getDoctrine()->getManager();
+        // on instancie l'entité document
+        $createPdf = new Document();
+        // crée me formulaire QuoteType qui correspond à celui que j'ai choisis pour créer les documents (facture ou devis), le 'allow_extra_fields' définie a true indique qu'on champ sera remplie d'une autre façon que celle de symfony pour ma part j'ai choisis d'envoyé un tableau a json a une méthode ajax
+        $formcreatePdf = $this->createForm(QuoteType::class, $createPdf, ['allow_extra_fields' => true]);
+        // supprime des champs 
+        $formcreatePdf['client']->remove('addressTwo');
+        $formcreatePdf['client']->remove('zipcode2');
+        $formcreatePdf['client']->remove('city2');
+        $formcreatePdf['client']->remove('password');
+        $formcreatePdf->remove('additionnalInformation');
+        $formcreatePdf->handleRequest($request);
+        // récupére les données du champs phonenumber avec lequel j'effectue une recherche par numéro de téléphone afin de vérifier si le client existe ainsi si il existe les champs seront remplis automatiquement 
+        $phonenumber = $request->request->get('phonenumber');
+        // a revoir
+        $createPdf->setType('Devis');
+        $createPdf->setAdditionnalInformation('');
+        // dd($formcreatePdf);
+        // ici la condition qui vérifie que le formulaire est sous mis et valid
+        if ($formcreatePdf->isSubmitted() && $formcreatePdf->isValid()) {
+            // a revoir
+            $createPdf->setTypeBat('Maison');
+            // j'effectue ici un foreach sur chaque groupe de champ lié a serviceDocument car j'ai utilisé le "clonage" de champs avec les prototype
+            foreach ($formcreatePdf['serviceDocuments'] as $value) {
+             // ici j'effectue une instanciation de la classe sericeDocument
+                $serviceDocument = new ServiceDocument();
+                $serviceDocument
+                    ->setPrice($value->get('price')->getData())
+                    ->setQuantity($value->get('quantity')->getData())
+                    ->setUnity($value->get('unity')->getData())
+                    ->setDocument($createPdf);
+                $service = $entityManager->getRepository(Service::class)
+                    ->find($value->get('designation')->getData());
+                $serviceDocument->setService($service);
+                $entityManager->persist($serviceDocument);
+            }
+             // ici j'effectue une instanciation de la classe materialDocument
+            $materialDocument = new MaterialDocument();
+            // j'ajoute les a serviceDocument et materialDocument les données recu par le formulaire
+            $createPdf->addServiceDocument($serviceDocument);
+            $createPdf->addMaterialDocument($materialDocument);
+            // j'effectue ici un foreach sur chaque groupe de champ lié a materialDocument car j'ai utilisé le "clonage" de champs avec les prototype
+            foreach ($formcreatePdf['materialDocuments'] as $value) {
+                $materials = new Materials();
+                $materials->setLibelle($value->get('libelle')->getData())
+                    ->setPrice($value->get('price')->getData())
+                    ->setQuantity($value->get('quantity')->getData())
+                    ->setUnity($value->get('unity')->getData())
+                    ->addMaterialDocument($materialDocument);
+                $materialDocument->setMaterial($materials);
+                $materialDocument->setDocument($createPdf);
+                $entityManager->persist($materials);
+            }
+            // c'est ici que la recherche par numéro de téléphone fait son effet le numéro de téléphone est donc rechercher dans la base de données si il est différent de null le document lui sera alors attribué dans le cas contraire le client sera ajouté 
+            $client = $entityManager->getRepository(Customer::class)
+                ->findBy(['phonenumber' => $phonenumber])[0] ?? null;
+            if ($client !== null) {
+                $createPdf->setClient($client);
+            }
+            $entityManager->persist($createPdf);
+            $entityManager->flush();
+        }
+        // return new JsonResponse(true);
         return $this->render('admin/createdocument.html.twig', [
-            'controller_name' => 'AdminController',
+            'treatment' => $createPdf, 'formcreatePdf' => $formcreatePdf->createView(),
         ]);
     }
 

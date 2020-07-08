@@ -10,7 +10,7 @@
 	<body class="container textdark">
 		{% block content %}
 			<div class="row col-12 mt-5">
-				<div class="col-3 title">
+				<div class="col-3 image title">
 					<h1>GB-Toiture</h1>
 				</div>
 				<div class="col-9 d-flex justify-content-end date" style="display:flex; justity-content: space-end;">
@@ -27,16 +27,16 @@
 					<p>Siret: 803996792600012<br>guillaume61@live.fr</p>
 				</div>
 				<div class="address-client bord col-3 mt-5" style="width: 25%; height: 180px;">
-					<p class="textdark bold">NOM CLIENT</p>
-					<p>1 a rue du bray<br>62330 Guarbecque<br>Téléphone: 0660371281</p>
+					<p class="textdark bold">{{ devis.client.lastname|capitalize ~' '~ devis.client.firstname|capitalize}}</p>
+					<p>{{devis.client.addresOne}}<br>{{devis.client.zipcode ~' '~ devis.client.city|capitalize}}<br>Téléphone: 0660371281</p>
 				</div>
 			</div>
 			<div class="mt-3">
-				<table class="" style="border: 2px solid black;">
+				<table class="bord">
 					<thead class="b-bottom">
-						<td class="width-table1">Devis/Facture</td>
-						<td class=" width-table1" style="border-left: 2px solid black;"></td>
-						<td class=" width-table-title" style="border-left: 2px solid black;"></td>
+						<td class="bord width-table1">Devis/Facture</td>
+						<td class="bord width-table1"></td>
+						<td class="bord width-table-title"></td>
 					</thead>
 				</table>
 			</div>
@@ -55,7 +55,9 @@
 							<td>{{services.quantity}}</td>
 							<td>{{services.unity}}</td>
 							<td>{{services.price}}</td>
-							<td></td>
+							{% set varService1 = services.quantity %}
+							{% set varService2 = services.price %}
+							<td>{{ varService1|number_format * varService2|number_format }}</td>
 						</tbody>
 					{% endfor %}
 					{% for materials in material %}
@@ -64,13 +66,13 @@
 							<td>{{materials.material.quantity}}</td>
 							<td>{{materials.material.unity}}</td>
 							<td>{{materials.material.price}}</td>
-							<td></td>
+							{% set varMaterial1 = materials.material.quantity %}
+							{% set varMaterial2 = materials.material.price %}
+							<td>{{ varMaterial1|number_format(2,'.',',') * varMaterial2|number_format(2,'.',',') }}</td>
 						</tbody>
 					{% endfor %}
 				</table>
 			</div>
 		{% endblock %}
-		{# </body>
-		</html> #}
 	</body>
 </html>

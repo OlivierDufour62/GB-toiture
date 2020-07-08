@@ -1,5 +1,11 @@
 .bord {
-    border: 2px solid black !important;
+    border: 1px solid black !important;
+    border-collapse: collapse;
+}
+
+td{
+    border-left: 1px solid black !important;
+    border-collapse: collapse;
 }
 
 .bold {
