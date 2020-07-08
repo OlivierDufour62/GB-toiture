@@ -38,6 +38,8 @@
     /*-webkit-justify-content: center;
     justify-content: center; */
     position: relative;
+    margin-bottom: 50px;
+    margin-top: 50px;
 }
 
 .address-client{
@@ -48,4 +50,18 @@
 
 .textdark {
     color: #3f3f3f;
+}
+
+.title{
+    position: relative;
+}
+
+.date{
+    position: absolute;
+    top: 0;
+    left: 650px;
+}
+
+#center td{
+    text-align: center;
 }

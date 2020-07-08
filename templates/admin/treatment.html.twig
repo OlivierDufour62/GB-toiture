@@ -17,7 +17,7 @@
 			{% endfor %}
 		</div>
 
-		{{ form_start(formtreatmentqr, {'attr': {'class': 'col-8 col-xl-12 ajaxsendresponse mx-auto mt-5' }})}}
+		{{ form_start(formtreatmentqr, {'attr': {'class': 'col-8 col-xl-12 ajaxgenerate mx-auto mt-5', 'treatmentid': treatment.id}})}}
 		<div class="d-flex col-12">
 			<div class="col-8">
 				<div class="form-row">
@@ -94,7 +94,7 @@
 
 		</div>
 		<div class="d-flex justify-content-end">
-			<button id="" type="submit" class="btn bg264d7efoot text-white mb-3 shadow-none">Enregistrer</button>
+			<button id="generate" type="submit" class="btn bg264d7efoot text-white mb-3 shadow-none">Enregistrer</button>
 		</div>
 		{{ form_end(formtreatmentqr) }}
 	</div>

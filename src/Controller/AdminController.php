@@ -511,6 +511,7 @@ class AdminController extends AbstractController
         $pTreatment->setAdditionnalInformation('');
         // dd($formTreatmentQr);
         if ($formTreatmentQr->isSubmitted() && $formTreatmentQr->isValid()) {
+            // dd($request);
             $pTreatment->setName($formTreatmentQr['client']->get('lastname')->getData());
             $pTreatment->setTypeBat('Maison');
             $materialDocument = new MaterialDocument();
@@ -574,38 +575,26 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/generatepdf", name="admin_generate_pdf")
+     * @Route("/admin/generatepdf/{id}", name="admin_generate_pdf")
      * @return Response
      */
-    public function generatePdf()
+    public function generatePdf($id)
     {
-        // $snappy = new Pdf($_ENV['WKHTMLTOPDF_PATH']);
-        // or you can do it in two steps
+        // on appelle snappy pdf
         $snappy = new Pdf();
+        // ici on appelle la variable d'environnement WKHTMLPDF
         $snappy->setBinary($_ENV['WKHTMLTOPDF_PATH']);
+        // on appelle le css 
         $snappy->setOption('user-style-sheet', 'C:/wamp64/www/GB-toiture/public/assets/css/pdf.css');
         $entityManager = $this->getDoctrine()->getManager();
-        $service = $entityManager->getRepository(Service::class)
-            ->findAll();
-        $html = $this->twig->render('pdf/pdf.html.twig', ['service' => $service]);
+        $devis = $entityManager->getRepository(Document::class)
+            ->find($id);
+        $service = $devis->getServiceDocuments();
+        $materials = $devis->getMaterialDocuments();
+        $html = $this->twig->render('pdf/pdf.html.twig', ['devis' => $devis, 'service' => $service, 'material' => $materials]);
         // dd($snappy->getOutputFromHtml($html));
         $date = new DateTime();
         return new PdfResponse($snappy->getOutputFromHtml($html), 'file'. $date->getTimestamp() . '.pdf');
-        // $response->setContent($this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('orientation' => 'portait')));
-        // dd($response);
-
-        // $response->headers->set('Content-Type', 'application/pdf');
-        // //$response->headers->set('Content-Type: application/pdf', 'application/force-download');
-        // $response->headers->set('Content-disposition', 'filename=1.pdf');
-        // return $response;
-        // $template = $this->renderView('pdf/pdf.html.twig');
-        // $html2pdf = new Html2Pdf('P', 'A4', 'fr');
-        // $html2pdf->pdf->SetDisplayMode('fullpage');
-        // $html2pdf->writeHTML($template);
-
-        // // $template = $html2pdf->writeHTML('pdf/pdf.html.twig');
-        // // $html2pdf->create('P', 'A4', 'fr',true,'UTF-8');
-        // return $html2pdf->output();
     }
 
     /**

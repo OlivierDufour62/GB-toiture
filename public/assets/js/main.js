@@ -271,6 +271,8 @@ $(document).ready(function () {
         });
     });
 
+
+
     $('#search').on('click', function (e) {
         e.preventDefault()
         let phonenumber = $('.searchbar').val()
@@ -496,4 +498,28 @@ $(document).ready(function () {
             });
         });
     });
+
+    // $('#generate').on('click', function (e) {
+    //     e.preventDefault();
+    //     let data = {};
+    //     const id = $('.ajaxgenerate').attr('treatmentid');
+    //     $('.ajaxgenerate')
+    //         .serializeArray()
+    //         .forEach((object) => {
+    //             data[object.name] = object.value
+    //         });
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: `/admin/treatment/${id}`,
+    //         data: data,
+    //         success: function (data) {
+    //             if (data === true) {
+    //                 $(".successsend").removeClass("d-none");
+    //                 setTimeout(function () {
+    //                     $(".successsend").addClass("d-none");
+    //                 }, 1500);
+    //             }
+    //         }
+    //     });
+    // });
 });                                                                                                                      
