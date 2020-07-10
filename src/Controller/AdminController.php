@@ -23,7 +23,6 @@ use App\Service\FileUploaderPdf;
 use DateTime;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
-use Spipu\Html2Pdf\Html2Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -117,7 +116,7 @@ class AdminController extends AbstractController
     public function editCustomer(Request $request, $id)
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $editCustomer = $this->$entityManager->getRepository(Customer::class)
+        $editCustomer = $entityManager->getRepository(Customer::class)
             ->find($id);
         $form = $this->createForm(CustomerType::class, $editCustomer);
         $form->remove('password');
