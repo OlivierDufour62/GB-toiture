@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     images_directory: '%kernel.project_dir%/public/uploads/images'
+    pdf_directory: '%kernel.project_dir%/public/generate'
 
 services:
     # default configuration for services in *this* file
@@ -27,6 +28,10 @@ services:
     App\Service\FileUploader:
         arguments:
             $targetDirectory: '%images_directory%'
+
+    App\Service\FileUploaderPdf:
+        arguments:
+            $targetDirectory2: '%pdf_directory%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

@@ -155,11 +155,6 @@ class ServiceDocument
         return $this;
     }
 
-    public function __toString()
-    {
-        return (string) $this->getService();
-    }
-
     public function getPrice(): ?float
     {
         return $this->price;
@@ -195,4 +190,10 @@ class ServiceDocument
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return (string) $this->getService();
+    }
+
 }

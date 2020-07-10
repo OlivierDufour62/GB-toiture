@@ -19,6 +19,7 @@ use App\Form\ContactType;
 use App\Form\QuoteType;
 use App\Form\ServiceType;
 use App\Service\FileUploader;
+use App\Service\FileUploaderPdf;
 use DateTime;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
@@ -38,12 +39,10 @@ class AdminController extends AbstractController
 {
 
     private $twig;
-    private $pdf;
 
-    public function __construct(Environment $twig, Pdf $pdf)
+    public function __construct(Environment $twig)
     {
         $this->twig = $twig;
-        $this->pdf = $pdf;
     }
 
     /**
@@ -213,11 +212,16 @@ class AdminController extends AbstractController
      */
     public function searchCustomer(Request $request)
     {
+        // cette méthode me sert a recherche par numéro de téléphone si le client existe et récupéré les données de ce client la fonction isXMLHttpRequest vérifie si la requete est de l'ajax 
         if ($request->isXmlHttpRequest() || $request->query->get('phonenumber') !== '') {
+            // je stocke le numéro de téléphone entrée dans une variable a fin d'effectuer le findBy
             $phonenumber = $request->query->get('phonenumber');
+            // j'appelle ici l'entityManager c'est lui gére les entité en utilisant le bundle doctrine
             $entityManager = $this->getDoctrine()->getManager();
+            // ici la recherche
             $customer = $entityManager->getRepository(Customer::class)
                 ->findBy(['phonenumber' => $phonenumber])[0] ?? null;
+            // les données que je souhaites récupérer
             $client = ['id' => $customer->getId(), 'lastname' => $customer->getLastname(), 'firstname' => $customer->getfirstname(), 'addresOne' => $customer->getAddresOne(), 'zipcode' => $customer->getZipcode(), 'city' => $customer->getCity(), 'email' => $customer->getEmail(), 'genre' => $customer->getGenre()];
             return new JsonResponse($client);
         } else {
@@ -555,9 +559,11 @@ class AdminController extends AbstractController
      */
     public function serviceAjax($idcat)
     {
+        // cette méthode sert a récuéperer les services lié a une catégorie tout en les envoyant en json 
         $entityManager = $this->getDoctrine()->getManager();
         $service = $entityManager->getRepository(Service::class)
             ->findBy(['category' => $idcat]);
+        // j'ai utilisé ce principe afin de les récupérer en ajax ici j'ai définis l'objet a laquelle les données que j'ai besoin sont stocké, ensuite le status qui seront envoyé sous forme de tableau et ensuite le groupe de données que j'ai choisis dans mon entité en utilisant les groups avec les annotations 
         return $this->json($service, 200, [], ['groups' => 'service']);
     }
 
@@ -578,7 +584,7 @@ class AdminController extends AbstractController
      * @Route("/admin/generatepdf/{id}", name="admin_generate_pdf")
      * @return Response
      */
-    public function generatePdf($id)
+    public function generatePdf($id, FileUploaderPdf $fileUploader, MailerInterface $mailer)
     {
         // on appelle snappy pdf
         $snappy = new Pdf();
@@ -590,13 +596,41 @@ class AdminController extends AbstractController
         $devis = $entityManager->getRepository(Document::class)
             ->find($id);
         // ici on appelle les collections lié au devis en question afin de les envoyé a la vue et ajouter les lignes au devis
-        $service = $devis->getServiceDocuments();
+        // $service = $devis->getServiceDocuments();
         $materials = $devis->getMaterialDocuments();
+        $serviceDoc[] = $entityManager->getRepository(ServiceDocument::class)
+            ->findBy(['document' => $devis]);
+        $materialDoc[] = $entityManager->getRepository(MaterialDocument::class)
+            ->findBy(['document' => $devis]);
+        // dd($serviceDoc);
+        $servicePrice = [];
+        foreach ($serviceDoc as $servicedoc) {
+            $tmptotal = 0;
+            foreach ($servicedoc as $service) {
+                $tmptotal += $service->getPrice()*$service->getQuantity();
+            }
+            $servicePrice[] = $tmptotal;
+        }
+        $materialPrice = [];
+        foreach ($materialDoc as $materialdoc) {
+            $tmptotalM = 0;
+            foreach ($materialdoc as $material) {
+                $tmptotalM += $material->getMaterial()->getPrice()*$material->getMaterial()->getQuantity();
+            }
+            $materialPrice[] = $tmptotalM;
+        }
+        $totalDocument = $tmptotal + $tmptotalM;
         // ici on envoie une vue twig afin de permettre la génération du pdf 
-        $html = $this->twig->render('pdf/pdf.html.twig', ['devis' => $devis, 'service' => $service, 'material' => $materials]);
+        $html = $this->twig->render('pdf/pdf.html.twig', ['devis' => $devis, 'service' => $serviceDoc, 'material' => $materials, 'totaldocument'=> $totalDocument]);
         // dd($snappy->getOutputFromHtml($html));
         $date = new DateTime();
+    //     $email = (new Email())
+    //     ->from('projetwebafpa@gmail.com')
+    //     ->to('djpillz@hotmail.fr')
+    //     ->attach($pdf);
+    // $mailer->send($email);
         return new PdfResponse($snappy->getOutputFromHtml($html), $devis->getClient()->getLastname() . $date->getTimestamp() . '.pdf');
+        
     }
 
     /**
@@ -628,7 +662,7 @@ class AdminController extends AbstractController
             $createPdf->setTypeBat('Maison');
             // j'effectue ici un foreach sur chaque groupe de champ lié a serviceDocument car j'ai utilisé le "clonage" de champs avec les prototype
             foreach ($formcreatePdf['serviceDocuments'] as $value) {
-             // ici j'effectue une instanciation de la classe sericeDocument
+                // ici j'effectue une instanciation de la classe sericeDocument
                 $serviceDocument = new ServiceDocument();
                 $serviceDocument
                     ->setPrice($value->get('price')->getData())
@@ -640,7 +674,7 @@ class AdminController extends AbstractController
                 $serviceDocument->setService($service);
                 $entityManager->persist($serviceDocument);
             }
-             // ici j'effectue une instanciation de la classe materialDocument
+            // ici j'effectue une instanciation de la classe materialDocument
             $materialDocument = new MaterialDocument();
             // j'ajoute les a serviceDocument et materialDocument les données recu par le formulaire
             $createPdf->addServiceDocument($serviceDocument);
