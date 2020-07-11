@@ -17,12 +17,12 @@
 					<th scope="col">Nom</th>
 					<th scope="col">Type</th>
 					<th scope="col">État</th>
-					<th scope="col">Traiter</th>
+					<th scope="col">Envoyer</th>
 					<th scope="col">Supprimer</th>
 				</tr>
 			</thead>
 			<tbody>
-				{% for doc in document %}
+				{% for doc in document|reverse  %}
 					{% if doc.type == 'Devis' or doc.type == 'Facture' %}
 						<tr>
 							<th scope="row">{{doc.id}}</th>
@@ -31,7 +31,7 @@
 							<td>{{doc.type}}</td>
 							<td>{{doc.client.phonenumber}}</td>
 							<td>
-								<a href="/admin/replymessage/{{doc.id}}" id="{{doc.id}}" class="btn btn264d7e text-white reply sendprovider">Répondre</a>
+								<a href="/admin/generatepdf/{{doc.id}}" id="{{doc.id}}" class="btn btn264d7e text-white reply sendquote">Envoyer</a>
 							</td>
 							<td>
 								<div class="custom-control custom-switch">

@@ -29,11 +29,11 @@ class FileUploaderPdf
             // ... handle exception if something happens during file upload
         }
 
-        return $fileName;
+        return $safeFilename;
     }
 
     public function getTargetDirectory()
     {
-        return $this->targetDirectory;
+        return $this->targetDirectory2;
     }
 }

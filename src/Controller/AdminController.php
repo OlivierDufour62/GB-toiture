@@ -23,6 +23,7 @@ use App\Service\FileUploaderPdf;
 use DateTime;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -546,6 +547,7 @@ class AdminController extends AbstractController
             }
             $entityManager->persist($pTreatment);
             $entityManager->flush();
+            // getid
             return new JsonResponse(true);
         }
         return $this->render('admin/treatment.html.twig', [
@@ -594,42 +596,42 @@ class AdminController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $devis = $entityManager->getRepository(Document::class)
             ->find($id);
-        // ici on appelle les collections lié au devis en question afin de les envoyé a la vue et ajouter les lignes au devis
-        // $service = $devis->getServiceDocuments();
-        $materials = $devis->getMaterialDocuments();
+        // ici on effectue une recherche dans les deux tables avec comme clé "document" qui correspond à l'id du devis (foreign key) en question afin de les envoyé a la vue et ajouter les lignes au devis
         $serviceDoc[] = $entityManager->getRepository(ServiceDocument::class)
             ->findBy(['document' => $devis]);
         $materialDoc[] = $entityManager->getRepository(MaterialDocument::class)
             ->findBy(['document' => $devis]);
         // dd($serviceDoc);
+        // calcul du prix du total des services afin de pouvoir le récupéré et faire le total du document
         $servicePrice = [];
         foreach ($serviceDoc as $servicedoc) {
             $tmptotal = 0;
             foreach ($servicedoc as $service) {
-                $tmptotal += $service->getPrice()*$service->getQuantity();
+                $tmptotal += $service->getPrice() * $service->getQuantity();
             }
             $servicePrice[] = $tmptotal;
         }
+        // calcul du prix du total des matériaux afin de pouvoir le récupéré et faire le total du document
         $materialPrice = [];
         foreach ($materialDoc as $materialdoc) {
             $tmptotalM = 0;
             foreach ($materialdoc as $material) {
-                $tmptotalM += $material->getMaterial()->getPrice()*$material->getMaterial()->getQuantity();
+                $tmptotalM += $material->getMaterial()->getPrice() * $material->getMaterial()->getQuantity();
             }
             $materialPrice[] = $tmptotalM;
         }
+        // ici je crée la variable du total qui vient additionner le total des services + le total des matériaux afin d'envoyer celui ci a la vue
         $totalDocument = $tmptotal + $tmptotalM;
         // ici on envoie une vue twig afin de permettre la génération du pdf 
-        $html = $this->twig->render('pdf/pdf.html.twig', ['devis' => $devis, 'service' => $serviceDoc, 'material' => $materials, 'totaldocument'=> $totalDocument]);
+        $html = $this->twig->render('pdf/pdf.html.twig', ['devis' => $devis, 'service' => $serviceDoc, 'material' => $materialDoc, 'totaldocument' => $totalDocument]);
         // dd($snappy->getOutputFromHtml($html));
-        $date = new DateTime();
-    //     $email = (new Email())
-    //     ->from('projetwebafpa@gmail.com')
-    //     ->to('djpillz@hotmail.fr')
-    //     ->attach($pdf);
-    // $mailer->send($email);
-        return new PdfResponse($snappy->getOutputFromHtml($html), $devis->getClient()->getLastname() . $date->getTimestamp() . '.pdf');
-        
+        $pdf = $snappy->getOutputFromHtml($html);
+        $email = (new TemplatedEmail())
+            ->from('projetwebafpa@gmail.com')
+            ->to('djpillz@hotmail.fr')
+            ->attach($pdf, sprintf($devis->getClient()->getLastname(). ' ' . date('d-m-Y') . '.pdf'));
+        $mailer->send($email);
+        return new PdfResponse($snappy->getOutputFromHtml($html), $devis->getClient()->getLastname() . ' ' . date('d-m-Y') . '.pdf');
     }
 
     /**
@@ -698,6 +700,7 @@ class AdminController extends AbstractController
             }
             $entityManager->persist($createPdf);
             $entityManager->flush();
+
         }
         // return new JsonResponse(true);
         return $this->render('admin/createdocument.html.twig', [

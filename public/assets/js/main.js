@@ -550,4 +550,44 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('#generate').on('click', function (e) {
+        e.preventDefault();
+        // on reattribu les données du formulaires dans data afin de les envoyer dans le corps de la requête ajax
+        let data = {};
+        // ici on récupère l'id de la demande de devis afin de pouvoir la mettre dans la route 
+        const id = $('.ajaxgenerate').attr('treatmentid');
+        // ici on parcours les données 
+        $('.ajaxgenerate')
+            .serializeArray()
+            .forEach((object) => {
+                data[object.name] = object.value
+            });
+            // ajax commence ici 
+        $.ajax({
+            // on définie la méthode du formulaire ici en post car c'est plus sécurisé pour transmettre des données
+            type: 'POST',
+            // la route du controller visé 
+            url: `/admin/createdocument`,
+            // les données du form
+            data: data,
+            // et enfin le succés 
+            success: function (data) {
+                if (data) {
+                    $(".successsend").removeClass("d-none");
+                    setTimeout(function () {
+                        $(".successsend").addClass("d-none");
+                    }, 1500);
+                }
+            }
+        });
+    });
+
+    $('#sendquote').on('click', function (e) {
+        e.preventDefault();
+        const id = $('#sendquote').attr('id')
+        $.ajax({
+            url: `/admin/generatepdf/${id}`,
+        }).done();
+    });
 });                                                                                                                      

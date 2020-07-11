@@ -61,7 +61,7 @@
 							<td>{{ totalS }}</td>
 						</tbody>
 					{% endfor %}
-					{% for materials in material %}
+					{% for materials in material[0] %}
 						<tbody id="center">
 							<td>{{materials.material.libelle}}</td>
 							<td>{{materials.material.quantity}}</td>
