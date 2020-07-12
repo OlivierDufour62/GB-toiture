@@ -551,14 +551,14 @@ $(document).ready(function () {
         });
     });
 
-    $('#generate').on('click', function (e) {
+    $('#create').on('click', function (e) {
         e.preventDefault();
         // on reattribu les données du formulaires dans data afin de les envoyer dans le corps de la requête ajax
         let data = {};
         // ici on récupère l'id de la demande de devis afin de pouvoir la mettre dans la route 
-        const id = $('.ajaxgenerate').attr('treatmentid');
+        const id2 = $('#sendquote').attr('id')
         // ici on parcours les données 
-        $('.ajaxgenerate')
+        $('.ajaxcreate')
             .serializeArray()
             .forEach((object) => {
                 data[object.name] = object.value
@@ -579,15 +579,15 @@ $(document).ready(function () {
                         $(".successsend").addClass("d-none");
                     }, 1500);
                 }
+                $.ajax({
+                    url: `/admin/generatepdf/`+data.id,
+                }).done();
             }
         });
     });
 
     $('#sendquote').on('click', function (e) {
         e.preventDefault();
-        const id = $('#sendquote').attr('id')
-        $.ajax({
-            url: `/admin/generatepdf/${id}`,
-        }).done();
+        
     });
 });                                                                                                                      

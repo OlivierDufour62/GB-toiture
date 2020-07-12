@@ -195,6 +195,11 @@ class AdminController extends AbstractController
                 $customer = $entityManager->getRepository(Customer::class)
                     ->findBy(['phonenumber' => $phonenumber])[0] ?? null;
                 if ($customer !== null) {
+                    $tmpClient = $construction->getCustomer();
+                    $customer->setLastName($tmpClient->getLastname());
+                    $customer->setFirstName($tmpClient->getFirstname());
+                    $customer->setPhoneNumber($tmpClient->getPhoneNumber());
+                    $customer->setGenre($tmpClient->getGenre());
                     $construction->setCustomer($customer);
                 }
                 $entityManager->persist($construction);
@@ -221,6 +226,14 @@ class AdminController extends AbstractController
             // ici la recherche
             $customer = $entityManager->getRepository(Customer::class)
                 ->findBy(['phonenumber' => $phonenumber])[0] ?? null;
+            if (!$customer) {
+                $customer = new Customer();
+                $customer->setEmail($phonenumber)
+                    ->setFirstname('')
+                    ->setLastname('')
+                    ->setPhoneNumber('')
+                    ->setGenre('');
+            }
             // les données que je souhaites récupérer
             $client = ['id' => $customer->getId(), 'lastname' => $customer->getLastname(), 'firstname' => $customer->getfirstname(), 'addresOne' => $customer->getAddresOne(), 'zipcode' => $customer->getZipcode(), 'city' => $customer->getCity(), 'email' => $customer->getEmail(), 'genre' => $customer->getGenre()];
             return new JsonResponse($client);
@@ -547,7 +560,6 @@ class AdminController extends AbstractController
             }
             $entityManager->persist($pTreatment);
             $entityManager->flush();
-            // getid
             return new JsonResponse(true);
         }
         return $this->render('admin/treatment.html.twig', [
@@ -585,7 +597,7 @@ class AdminController extends AbstractController
      * @Route("/admin/generatepdf/{id}", name="admin_generate_pdf")
      * @return Response
      */
-    public function generatePdf($id, FileUploaderPdf $fileUploader, MailerInterface $mailer)
+    public function generatePdf($id, MailerInterface $mailer)
     {
         // on appelle snappy pdf
         $snappy = new Pdf();
@@ -628,10 +640,11 @@ class AdminController extends AbstractController
         $pdf = $snappy->getOutputFromHtml($html);
         $email = (new TemplatedEmail())
             ->from('projetwebafpa@gmail.com')
-            ->to('djpillz@hotmail.fr')
-            ->attach($pdf, sprintf($devis->getClient()->getLastname(). ' ' . date('d-m-Y') . '.pdf'));
+            ->to($devis->getClient()->getEmail())
+            ->attach($pdf, sprintf($devis->getId() . '.pdf'));
         $mailer->send($email);
-        return new PdfResponse($snappy->getOutputFromHtml($html), $devis->getClient()->getLastname() . ' ' . date('d-m-Y') . '.pdf');
+        file_put_contents('C:/wamp64/www/GB-Toiture/public/generate/' . sprintf($devis->getId() . '.pdf'), $pdf);
+        return new Response();
     }
 
     /**
@@ -695,14 +708,20 @@ class AdminController extends AbstractController
             // c'est ici que la recherche par numéro de téléphone fait son effet le numéro de téléphone est donc rechercher dans la base de données si il est différent de null le document lui sera alors attribué dans le cas contraire le client sera ajouté 
             $client = $entityManager->getRepository(Customer::class)
                 ->findBy(['phonenumber' => $phonenumber])[0] ?? null;
+            //verifier code car enregistre plusieurs fois le meme client 
             if ($client !== null) {
+                // $createPdf->setClient($client);
+                $tmpClient = $createPdf->getClient();
+                $client->setLastName($tmpClient->getLastname());
+                $client->setFirstName($tmpClient->getFirstname());
+                $client->setPhoneNumber($tmpClient->getPhoneNumber());
+                $client->setGenre($tmpClient->getGenre());
                 $createPdf->setClient($client);
             }
             $entityManager->persist($createPdf);
             $entityManager->flush();
-
+            return new JsonResponse(['id' => $createPdf->getId()]);
         }
-        // return new JsonResponse(true);
         return $this->render('admin/createdocument.html.twig', [
             'treatment' => $createPdf, 'formcreatePdf' => $formcreatePdf->createView(),
         ]);
