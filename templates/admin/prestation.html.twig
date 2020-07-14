@@ -1,4 +1,3 @@
-
 {% extends 'admin/base.html.twig' %}
 
 {% block title %}Prestation
@@ -25,22 +24,24 @@
 			</thead>
 			<tbody>
 				{% for categories in category %}
-					<tr>
-						<th scope="row">{{categories.id}}</th>
-						<th scope="row">{{categories.name|capitalize}}</th>
-						<td>
-							<a href="/admin/editcategory/{{categories.id}}" class="editcat">
-								<i class="ri-arrow-right-line text-white"></i>
-							</a>
-						</td>
-						<td>
-							<div class="custom-control custom-switch">
-								<input type="checkbox" class="custom-control-input categoryswitches" categoryswitches="{{categories.id}}" id="customSwitch{{categories.id}}" {% if categories.isActive %} checked {% endif %}>
-								<label class="custom-control-label" for="customSwitch{{categories.id}}"></label>
-							</div>
-						</td>
-					</tr>
+					{% if categories.isActive == true %}
 
+						<tr>
+							<th scope="row">{{categories.id}}</th>
+							<th scope="row">{{categories.name|capitalize}}</th>
+							<td>
+								<a href="/admin/editcategory/{{categories.id}}" class="editcat">
+									<i class="ri-arrow-right-line text-white"></i>
+								</a>
+							</td>
+							<td>
+								<div class="custom-control custom-switch">
+									<input type="checkbox" class="custom-control-input categoryswitches" categoryswitches="{{categories.id}}" id="customSwitch{{categories.id}}" {% if categories.isActive %} checked {% endif %}>
+									<label class="custom-control-label" for="customSwitch{{categories.id}}"></label>
+								</div>
+							</td>
+						</tr>
+					{% endif %}
 				{% endfor %}
 			</tbody>
 		</table>
@@ -71,23 +72,25 @@
 			</thead>
 			<tbody>
 				{% for services in allService %}
-					<tr>
-						<th scope="row">{{services.id}}</th>
-						<th scope="row">{{services.category.name|capitalize}}</th>
-						<td>{{services.name|capitalize}}</td>
-						<td>{{services.rate}}</td>
-						<td>
-							<a href="/admin/editservice/{{services.id}}" class=" editcat">
-								<i class="ri-arrow-right-line text-white"></i>
-							</a>
-						</td>
-						<td>
-							<div class="custom-control custom-switch">
-								<input type="checkbox" class="custom-control-input serviceswitches" serviceswitches="{{services.id}}" id="serviceSwitches{{services.id}}" {% if services.isActive %} checked {% endif %}>
-								<label class="custom-control-label" for="serviceSwitches{{services.id}}"></label>
-							</div>
-						</td>
-					</tr>
+					{% if services.isActive == true %}
+						<tr>
+							<th scope="row">{{services.id}}</th>
+							<th scope="row">{{services.category.name|capitalize}}</th>
+							<td>{{services.name|capitalize}}</td>
+							<td>{{services.rate}}</td>
+							<td>
+								<a href="/admin/editservice/{{services.id}}" class=" editcat">
+									<i class="ri-arrow-right-line text-white"></i>
+								</a>
+							</td>
+							<td>
+								<div class="custom-control custom-switch">
+									<input type="checkbox" class="custom-control-input serviceswitches" serviceswitches="{{services.id}}" id="serviceSwitches{{services.id}}" {% if services.isActive %} checked {% endif %}>
+									<label class="custom-control-label" for="serviceSwitches{{services.id}}"></label>
+								</div>
+							</td>
+						</tr>
+					{% endif %}
 				{% endfor %}
 			</tbody>
 		</table>

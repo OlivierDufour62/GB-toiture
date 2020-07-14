@@ -22,7 +22,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% for contact in contact %}
+				{% for contact in contact|reverse %}
+					{% if contact.isActive == true %}
 					<tr>
 						<th scope="row">{{contact.id}}</th>
 						<td>{{contact.lastname|capitalize}}</td>
@@ -39,27 +40,8 @@
 							</div>
 						</td>
 					</tr>
+					{% endif %}
 				{% endfor %}
-				{# <div class="d-none response col-10 dialog-absolute">
-						<div id="dialog-perso" class="col-12" title="Répondre">
-							<div>
-								<p>
-								coucou
-								</p>
-							</div>
-							{{ form_start(form, {'attr': {'class': 'ajaxsendresponse'}})}}
-							<div class="form-group">
-								{{ form_widget(form.object, {'attr': {'class': 'form-control shadow-none' }})}}
-							</div>
-							<div class="form-group">
-								{{ form_widget(form.message, {'attr': {'class': 'form-control resize shadow-none','placeholder': 'Votre message', 'rows':'10', 'cols':'29'}})}}
-							</div>
-							<div>
-								<button type="submit" class="btn btn264d7e text-white my-2 my-sm-0 ml-3">Envoyer</button>
-							</div>
-							{{ form_end(form) }}
-						</div>
-					</div> #}
 			</tbody>
 		</table>
 	</div>

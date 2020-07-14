@@ -24,8 +24,9 @@
 			</thead>
 			<tbody>
 				{% for pictures in picture %}
+				{# {% if customers.isActive == true %} #}
 					{# {% set picturesID = pictures.id %} #}
-					{% if pictures.constructionSite != null %}
+					{% if pictures.constructionSite != null and pictures.isActive == true %}
 						<tr>
 							<th scope="row">{{pictures.id}}</th>
 							<td>{{pictures.constructionSite.id}}</td>
@@ -62,6 +63,6 @@
 		</table>
 	</div>
 	<div class="d-flex justify-content-end col-12 col-lg-12 col-xl-10 p-0 m-0 mx-auto">
-		<a class="btn text-white btn264d7e" href="/admin/createdocument">Créer un document</a>
+		<a class="btn text-white btn264d7e" href="/admin/addconstruction">Ajouter une image</a>
 	</div>
 {% endblock %}

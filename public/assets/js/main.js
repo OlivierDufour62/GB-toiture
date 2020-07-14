@@ -1,7 +1,7 @@
 $(document).ready(function () {
-    $(`.mobilemenu`).click(function () {
-        $(`.mm`).toggle(`fold`, 1500);
-    });
+    // $(`.mobilemenu`).click(function () {
+    //     $(`.mm`).toggle(`fold`, 1500);
+    // });
 
     $(`.mobilefoot`).click(function () {
         $(this).parent().parent().children('.footmobile').toggle('slow');
@@ -37,6 +37,7 @@ $(document).ready(function () {
     $("#header-admin .hamburger").click(function () {
         // récupére la position de l'élément ciblé 
         var originalPosition = $('#menu')[0].getBoundingClientRect();
+        console.log(originalPosition)
         // récupére le height de l'élément ciblé 
         var headerHeight = $('#header-admin').outerHeight();
         // ajoute a #menu des propriété css
@@ -94,7 +95,65 @@ $(document).ready(function () {
         }); 
     })
 
-
+    $("#header-public .hamburger").click(function () {
+        // récupére la position de l'élément ciblé 
+        var originalPositionPublic = $('#menu-public')[0].getBoundingClientRect();
+        // récupére le height de l'élément ciblé 
+        var headerHeightPublic = $('#header-public').outerHeight();
+        // ajoute a #menu-public des propriété css
+        $('#menu-public').data({
+            originalPositionPublic: originalPositionPublic,
+            maxWidth: $('#menu-public').css('max-width')
+        }).css({
+            position: 'fixed',
+            top: originalPositionPublic.top,
+            left: originalPositionPublic.left
+        });
+        $('#header-admin').css({
+            height: headerHeightPublic
+        });
+        gsap.to('#menu-public', {
+            duration: .6,
+            left: 0,
+            maxWidth: 'none',
+            right: 0,
+            top: 0
+        });
+        $('#menu-public nav').height(0).css({
+            overflow: 'hidden',
+        });
+        gsap.to(`#menu-public nav`, {
+            duration: .6,
+            display: 'block',
+            height: $(window).height() - $('#menu-public>img').height()
+        });
+        gsap.to('#menu-public > i', {
+            opacity: 1,
+            duration: 1.2
+        });
+    });
+    // fermeture du menu 
+    $(`#menu-public > i`).click(function () {
+        var originalPositionPublic = $('#menu-public').data('originalPositionPublic');
+        console.log(originalPositionPublic)
+        gsap.to('#menu-public > i', {
+            opacity: 0,
+            duration: .6
+        });
+        gsap.to(`#menu-public nav`, {
+            height: 0,
+            duration: .5
+        });
+        gsap.to('#menu-public', {
+            duration: .2,
+            left: originalPositionPublic.left,
+            right: 20,
+            top: originalPositionPublic.top,
+            onComplete: function () {
+                $('#menu-public').css('max-width', $('#menu-public').data('maxWidth'));
+            }
+        }); 
+    })
 
     $('.addcat').click(function () {
         $('.div-none').toggle(`fold`, 1500);

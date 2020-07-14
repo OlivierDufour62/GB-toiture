@@ -12,7 +12,7 @@
     font-size: 50px;
 }
 
-#subtitle{
+.title-italic{
     font-style: italic !important;
 }
 
@@ -32,17 +32,27 @@
     height: 150px;
 }
 
-.menu-absolute {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-}
-
 .bord {
     border: none !important;
 }
 
 /* header */
+
+#header-public {
+    padding-top: 35px;
+    padding-bottom: 35px;
+
+    .hamburger {
+        display: none;
+        div {
+            background-color: #d7d7d7;
+            height: 4px;
+            margin-top: 10px;
+            border-radius: 2px;
+            width: 50px;
+        }
+    }
+}
 
 .textdark {
     color: #3f3f3f;
@@ -52,7 +62,7 @@
     height: 5px;
     width: 50px;
     border-radius: 30%;
-    background-color: black;
+    background-color: #d7d7d7;
 }
 
 .fontsize {
@@ -168,9 +178,7 @@ a {
     background-color: #f4f4f4;
 }
 
-.opa {
-    opacity: 0.7;
-}
+
 
 .zindex {
     z-index: 800;
@@ -252,6 +260,28 @@ i {
     background-color: #264d7e;
 }
 
+#menu-public {
+    background-color: #d7d7d7;
+    color: #3f3f3f;
+    border-radius: 3px;
+    nav {
+        margin-top: 10px;
+    }
+
+    > i {
+        opacity: 0;
+        display: block;
+        position: absolute;
+        left: calc(100% - 30px - 30px);
+        top: 20px;
+        padding: 10px;
+
+        ::before {
+            font-size: 30px;
+        }
+    }
+}
+
 #menu {
     background-color: #d7d7d7;
     color: #3f3f3f;
@@ -289,6 +319,29 @@ i {
     #menu nav {
         display: none;
     }
+
+    #menu-public nav {
+        display: none;
+    }
+
+    #menu-public img {
+        max-width: 230px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+
+    #menu-public,
+    #header-public .hamburger {
+        flex: 0 1 auto;
+    }
+
+    #header-public {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
     #header-admin {
         display: flex;
         justify-content: space-between;
@@ -298,6 +351,11 @@ i {
         display: block;
         padding: 30px;
     }
+    #header-public .hamburger {
+        display: block;
+        padding: 30px;
+    }
+
     #menu,
     #header-admin .hamburger {
         flex: 0 1 auto;
@@ -376,5 +434,9 @@ i {
     }
     .m-button {
         margin-left: 10px !important;
+    }
+    
+    .opa {
+        opacity: 0.7;
     }
 }
