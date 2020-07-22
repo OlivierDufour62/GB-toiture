@@ -12,7 +12,7 @@
 		<link href="https://cdn.jsdelivr.net/npm/remixicon@2.4.0/fonts/remixicon.css" rel="stylesheet">
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		<link href="https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap" rel="stylesheet">
-		<link rel="stylesheet" href="{{ asset('build/app.css')}}">
+		{{ encore_entry_link_tags('app') }}
 		{# {{ asset('build/app.css')}} #}
 		<title>
 			{% block title %}{% endblock %}
@@ -49,6 +49,6 @@
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
 				<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
-				<script src="/assets/js/main.js"></script>
+				{{ encore_entry_script_tags('app') }}
 			</body>
 		</html>

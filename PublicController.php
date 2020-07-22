@@ -94,6 +94,8 @@ class PublicController extends AbstractController
             foreach ($imagelist as $image) {
                 $mimeType = $image->getMimeType();
                 if ($mimeType !== 'image/jpeg' && $mimeType !==  'image/png' && $mimeType !== 'image/tiff' && $mimeType !==  'image/webp' && $mimeType !== 'image/jpg') {
+                    $this->addFlash('alerte', 'Veuillez choisir des images valides.');
+                    // return $this->redirectToRoute('admin_add_image');
                 }
                 $imageFileName = $fileUploader->upload($image);
                 $img = new Image();

@@ -28,10 +28,6 @@
     width: 285px;
 }
 
-.height-size-header {
-    height: 150px;
-}
-
 .bord {
     border: none !important;
 }
@@ -45,7 +41,7 @@
     .hamburger {
         display: none;
         div {
-            background-color: #d7d7d7;
+            background-color: #3f3f3f;
             height: 4px;
             margin-top: 10px;
             border-radius: 2px;
@@ -147,24 +143,6 @@ a {
     color: #264d7e;
 }
 
-.pos-absolute {
-    position: absolute;
-    top: 70px;
-    left: 129px;
-}
-
-.pos-absolute-titlespec {
-    position: absolute;
-    top: 70px;
-    left: 73px;
-}
-
-.pos-absolute6 {
-    position: absolute;
-    top: 310px;
-    left: 97px;
-}
-
 .bold {
     font-weight: bold;
     font-size: 1.5em;
@@ -177,8 +155,6 @@ a {
 .bgF4F4F4 {
     background-color: #f4f4f4;
 }
-
-
 
 .zindex {
     z-index: 800;
@@ -261,7 +237,7 @@ i {
 }
 
 #menu-public {
-    background-color: #d7d7d7;
+    background-color: #fafafa;
     color: #3f3f3f;
     border-radius: 3px;
     nav {
@@ -305,41 +281,33 @@ i {
     }
 }
 
-@keyframes prestationleave {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-}
+
+
 
 /* mobile*/
-@media screen and (max-width: 960px) {
-    #menu nav {
-        display: none;
-    }
 
+@media screen and (max-width: 960px) {
     #menu-public nav {
         display: none;
     }
-
     #menu-public img {
         max-width: 230px;
         margin-left: auto;
         margin-right: auto;
         display: block;
     }
-
     #menu-public,
     #header-public .hamburger {
         flex: 0 1 auto;
     }
-
     #header-public {
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+    #header-public .hamburger {
+        display: block;
+        padding: 30px;
     }
 
     #header-admin {
@@ -351,59 +319,79 @@ i {
         display: block;
         padding: 30px;
     }
-    #header-public .hamburger {
-        display: block;
-        padding: 30px;
+    #menu nav {
+        display: none;
     }
 
     #menu,
     #header-admin .hamburger {
         flex: 0 1 auto;
     }
-    .footmobile {
-        display: none;
-    }
-    .text {
-        color: white !important;
-    }
-    .bg264d7e {
-        background-color: #264d7e;
-    }
-    .titlesizemobile {
-        font-size: 1.2em;
-    }
-    .subtitlemobile {
-        font-size: 1em;
-    }
-    .fontsizemobile {
-        font-size: 0.8em;
-    }
-    .w100 {
-        width: 100%;
-    }
-    .h2sizemobile {
-        font-size: 2em;
-        color: #264d7e;
-    }
-    .galery-mobile {
-        display: flex !important;
-        flex-direction: column-reverse !important;
-    }
-    .d-flex-button {
-        display: flex !important;
-        justify-content: end !important;
-    }
-    .m-button {
-        margin-top: 15px !important;
-    }
+
     #menu img {
         max-width: 230px;
         margin-left: auto;
         margin-right: auto;
         display: block;
     }
+
+    .footmobile {
+        display: none;
+    }
+
+    .text {
+        color: white !important;
+    }
+
+    .height-picCarroussel{
+        height: 400px;
+    }
+    .bg264d7e {
+        background-color: #264d7e;
+    }
+
+    .titlesizemobile {
+        font-size: 1.2em !important;
+    }
+
+    .subtitlemobile {
+        font-size: 1em;
+    }
+    
+    .fontsizemobile {
+        font-size: 0.9em;
+    }
+
+    .w100 {
+        width: 100%;
+    }
+
+    .h2sizemobile {
+        font-size: 2em;
+        color: #264d7e;
+    }
+
+    .galery-mobile {
+        display: flex !important;
+        flex-direction: column-reverse !important;
+    }
+
+    .d-flex-button {
+        display: flex !important;
+        justify-content: end !important;
+    }
+
+    .m-button {
+        margin-top: 15px !important;
+    }
+    
+
+    .flex-mobile{
+        flex-direction: column;
+    }
 }
-/* pc */
+
+/* desktop */
 @media screen and (min-width: 961px) {
     #menu {
         top: 30px;
@@ -420,11 +408,14 @@ i {
 }
 
 @media screen and (min-width: 721px) {
-    .border264d7efixe {
-        border: solid 3px #264d7e;
+    #menu-public li{
+        border: solid 3px transparent;
     }
-    .border264d7e {
-        border: solid 3px #264d7e;
+    #menu-public .selected {
+        border-color: #264d7e;
+    }
+    #menu-public li:hover{
+        border-color: #264d7e;
     }
 }
 

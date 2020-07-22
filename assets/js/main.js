@@ -7,21 +7,12 @@ $(document).ready(function () {
         $(this).parent().parent().children('.footmobile').toggle('slow');
     });
 
-    $(`.hov`).hover(function () {
-        $(this).addClass(`border264d7e`);
-    }, function () {
-        $(this).removeClass(`border264d7e`);
-    });
-
-
-    let path = window.location.pathname.split('8000');
-    $('.cc').each(function () {
-        $(this).children().removeClass('border....')
-        $('.cc').each(function () {
-            if ($(this).attr('href') == path[path.length - 1]) {
-                $(this).children().addClass('border264d7efixe');
-            }
-        });
+    let path = window.location.pathname;
+    $('#menu-public a').each(function () {
+        let href = $(this).attr('href');
+        if(href.indexOf(path) != -1){
+            $(this).parent().addClass('selected')
+        }
     });
 
     $(".rb").click(function () {
@@ -109,7 +100,7 @@ $(document).ready(function () {
             top: originalPositionPublic.top,
             left: originalPositionPublic.left
         });
-        $('#header-admin').css({
+        $('#header-public').css({
             height: headerHeightPublic
         });
         gsap.to('#menu-public', {
@@ -536,8 +527,8 @@ $(document).ready(function () {
         var indexSD = $collectionHolderSD.data('index');
         var newFormSD = prototypeSD;
         newFormSD = newFormSD.replace(/__name__/g, indexSD);
-        $collectionHolderSD.data('index', indexSD + 1).addClass('col-12', 'dflex');
-        var $newFormLiSD = $('<li></li>').append(newFormSD).children('div').addClass('dflex noeud').children().addClass('col-6 col-lg-2 col-xl-2 m-0 p-0').parent().append('<br>');
+        $collectionHolderSD.data('index', indexSD + 1).addClass('col-12 dflex');
+        var $newFormLiSD = $('<li></li>').append(newFormSD).children('div').addClass('dflex flex-mobile noeud').children().addClass('col-6 col-lg-2 col-xl-2 m-0 p-0').parent().append('<br>');
         $newLinkLiSD.before($newFormLiSD);
     }
 
@@ -606,6 +597,9 @@ $(document).ready(function () {
                         $(".successsend").addClass("d-none");
                     }, 1500);
                 }
+                $.ajax({
+                    url: `/admin/generatepdf/`+data.id,
+                }).done();
             }
         });
     });

@@ -507,29 +507,33 @@ class AdminController extends AbstractController
     public function treatmentQr(Request $request, $id)
     {
         $entityManager = $this->getDoctrine()->getManager();
+        // ici je recherche l'entité pour procédé aux traitement je le recherche par l'id
         $treatment = $entityManager->getRepository(Document::class)
             ->find($id);
+        // on instancie l'entité document
         $pTreatment = new Document();
-        // $pTreatment->setCategory($treatment->getCategory());
         $pTreatment->setClient($treatment->getClient());
         $imageTreatment = $treatment->getImages();
+         // crée me formulaire QuoteType qui correspond à celui que j'ai choisis pour créer les documents (facture ou devis), le 'allow_extra_fields' définie a true indique qu'un champ sera rempli d'une autre façon que celle de symfony pour ma part j'ai choisis d'envoyé un tableau a json a une méthode ajax
         $formTreatmentQr = $this->createForm(QuoteType::class, $treatment, ['allow_extra_fields' => true]);
-        // $formService = $this->createForm(ServiceCatType::class);
+        // supprime des champs
         $formTreatmentQr['client']->remove('addressTwo');
         $formTreatmentQr['client']->remove('zipcode2');
         $formTreatmentQr['client']->remove('city2');
-        $formTreatmentQr['client']->remove('phonenumber');
         $formTreatmentQr['client']->remove('password');
         $formTreatmentQr->handleRequest($request);
         $pTreatment->setType('Devis');
         $pTreatment->setAdditionnalInformation('');
         // dd($formTreatmentQr);
+        // ici la condition qui vérifie que le formulaire est soumis et valide
         if ($formTreatmentQr->isSubmitted() && $formTreatmentQr->isValid()) {
             // dd($request);
             $pTreatment->setName($formTreatmentQr['client']->get('lastname')->getData());
             $pTreatment->setTypeBat('Maison');
             $materialDocument = new MaterialDocument();
+            // j'effectue ici un foreach sur chaque groupe de champ lié a serviceDocument car j'ai utilisé le "clonage" de champs avec les prototype
             foreach ($formTreatmentQr['serviceDocuments'] as $value) {
+                // ici j'effectue une instanciation de la classe sericeDocument
                 $serviceDocument = new ServiceDocument();
                 // dd($value->get('designation')->getData());
                 $serviceDocument
@@ -545,6 +549,7 @@ class AdminController extends AbstractController
             $pTreatment->addServiceDocument($serviceDocument);
             $pTreatment->addMaterialDocument($materialDocument);
             foreach ($formTreatmentQr['materialDocuments'] as $value) {
+                // ici j'effectue une instanciation de la classe materialDocument
                 $materials = new Materials();
                 $materials->setLibelle($value->get('libelle')->getData())
                     ->setPrice($value->get('price')->getData())
@@ -654,7 +659,7 @@ class AdminController extends AbstractController
         $createPdf = new Document();
         // crée me formulaire QuoteType qui correspond à celui que j'ai choisis pour créer les documents (facture ou devis), le 'allow_extra_fields' définie a true indique qu'on champ sera remplie d'une autre façon que celle de symfony pour ma part j'ai choisis d'envoyé un tableau a json a une méthode ajax
         $formcreatePdf = $this->createForm(QuoteType::class, $createPdf, ['allow_extra_fields' => true]);
-        // supprime des champs 
+        // supprime des champs
         $formcreatePdf['client']->remove('addressTwo');
         $formcreatePdf['client']->remove('zipcode2');
         $formcreatePdf['client']->remove('city2');
@@ -667,7 +672,7 @@ class AdminController extends AbstractController
         $createPdf->setType('Devis');
         $createPdf->setAdditionnalInformation('');
         // dd($formcreatePdf);
-        // ici la condition qui vérifie que le formulaire est sous mis et valid
+        // ici la condition qui vérifie que le formulaire est soumis et valide
         if ($formcreatePdf->isSubmitted() && $formcreatePdf->isValid()) {
             // a revoir
             $createPdf->setTypeBat('Maison');
