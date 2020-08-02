@@ -54,6 +54,13 @@
 		<div class="form-group">
 				{{ form_widget(form.message, {'attr': {'class': 'form-control resize shadow-none','placeholder': 'Votre message', 'rows':'10'}})}}
 		</div>
+		<div id="display-condition" class="form-row">
+			<input type="checkbox" id="condition" name="condition">
+			<label for="">J'accepte la conservation de mes données personnelles selon la politique de conservation des données</label>
+		</div>
+		<div id="form-error">
+			
+		</div>
 		<div class="mx-auto d-flex justify-content-center">
 			<button type="submit" class="btn bg264d7efoot text-white mb-3 shadow-none">Envoyer</button>
 		</div>

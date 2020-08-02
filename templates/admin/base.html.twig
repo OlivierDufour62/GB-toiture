@@ -21,19 +21,20 @@
 
 	<body id="admin">
 
-		<header	id="header-admin" class="container-fluid sticky-top bg264d7efoot">
+		<header
+			id="header-admin" class="container-fluid sticky-top bg264d7efoot">
 			{# hamb #}
-			<div class="hamburger">
-				<div></div>
-				<div></div>
-				<div></div>
-			</div>
-			{# fin hamb #}
-			<div class="col-lg-12 d-lg-flex align-items-center justify-content-center d-none">
-				<h1 class="text-white text-center"> {% block h1 %}{% endblock %}
-					</h1>
+			{% if is_granted('ROLE_ADMIN') %}
+				<div class="hamburger">
+					<div></div>
+					<div></div>
+					<div></div>
 				</div>
-				{% if is_granted('ROLE_ADMIN') %}
+				{# fin hamb #}
+				<div class="col-lg-12 d-lg-flex align-items-center justify-content-center d-none">
+					<h1 class="text-white text-center"> {% block h1 %}{% endblock %}
+						</h1>
+					</div>
 					{% include './admin/partial/menu.html.twig' %}
 				{% endif %}
 			</header>

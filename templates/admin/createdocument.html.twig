@@ -9,16 +9,16 @@
 
 	<div class="col-12 col-lg-12 col-xl-10 p-0 m-0 mt-5 mx-auto">
 
-		{{ form_start(formcreatePdf, {'attr': {'class': 'col-8 col-xl-12 ajaxcreate mx-auto mt-5'}})}}
-		<div class="d-flex col-12">
-			<div class="col-8">
+		{{ form_start(formcreatePdf, {'attr': {'class': 'col-12 col-xl-12 ajaxcreate mx-auto mt-5'}})}}
+		<div class="d-lg-flex col-12">
+			<div class="col-12 col-lg-8">
 				<div class="form-row">
 					<div
-						class="form-group col-6 col-lg-6">{# {{ form_widget(formcreatePdf.name, {'attr': {'class': 'form-control shadow-none','placeholder': 'Prénom'}})}} #}
+						class="form-group col-12 col-lg-6">{# {{ form_widget(formcreatePdf.name, {'attr': {'class': 'form-control shadow-none','placeholder': 'Prénom'}})}} #}
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-group col-6 col-lg-6">
+					<div class="form-group col-12 col-lg-6">
 						{{ form_widget(formcreatePdf.name, {'attr': {'class': 'form-control shadow-none','placeholder': 'Nom du devis'}})}}
 					</div>
 				</div>
@@ -44,13 +44,13 @@
 				</fieldset>
 			</div>
 
-			<div class="col-6 col-lg-4 col-xl-4">
+			<div class="col-12 col-lg-4 col-xl-4 mt-4">
 				<div class="form-row">
-					<div class="form-group col-12 col-lg-9">
+					<div class="form-group col-12 col-lg-8">
 						<input class="form-control col-12 w100 mr-sm-2 mt-lg-4 searchbar" name="phonenumber" type="text" placeholder="Recherche par téléphone">
 					</div>
 					<div class="form-group d-flex justify-content-end col-12 col-lg-3 d-flex justify-content-end">
-						<a href="#" id="search" class="btn mt-lg-4 col-6 bg264d7efoot text-white my-lg-2 my-sm-0 ml-3 col-lg-5">Valider</a>
+						<a href="#" id="search" class="btn mt-lg-4 bg264d7efoot text-white my-lg-2 my-sm-0 ml-3 ">Valider</a>
 					</div>
 				</div>
 				<div class="form-group">
@@ -59,18 +59,18 @@
 					{% endfor %}
 				</div>
 				<div class="form-row">
-					<div class="form-group col-6 col-lg-6">
+					<div class="form-group col-12 col-lg-6">
 						{{ form_widget(formcreatePdf.client.lastname, {'attr': {'class': 'form-control shadow-none','placeholder': 'Nom'}})}}
 					</div>
-					<div class="form-group col-6 col-lg-6">
+					<div class="form-group col-12 col-lg-6">
 						{{ form_widget(formcreatePdf.client.firstname, {'attr': {'class': 'form-control shadow-none','placeholder': 'Prénom'}})}}
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-group col-6 col-lg-6">
+					<div class="form-group col-12 col-lg-6">
 						{{ form_widget(formcreatePdf.client.email, {'attr': {'class': 'form-control shadow-none','placeholder': 'Email'}})}}
 					</div>
-					<div class="form-group col-6 col-lg-6">
+					<div class="form-group col-12 col-lg-6">
 						{{ form_widget(formcreatePdf.client.phonenumber, {'attr': {'class': 'form-control shadow-none','placeholder': 'Email'}})}}
 					</div>
 				</div>
@@ -78,10 +78,10 @@
 					{{ form_widget(formcreatePdf.client.addresOne, {'attr': {'class': 'form-control shadow-none','placeholder': 'Adresse'}})}}
 				</div>
 				<div class="form-row">
-					<div class="form-group col-lg-4">
+					<div class="form-group col-6 col-lg-4">
 						{{ form_widget(formcreatePdf.client.zipcode, {'attr': {'class': 'form-control shadow-none','placeholder': 'Code postal'}})}}
 					</div>
-					<div class="form-group col-lg-8">
+					<div class="form-group col-6 col-lg-8">
 						{{ form_widget(formcreatePdf.client.city, {'attr': {'class': 'form-control shadow-none','placeholder': 'Ville'}})}}
 					</div>
 				</div>

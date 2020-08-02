@@ -53,8 +53,8 @@ class AdminController extends AbstractController
         // get the login error if there is one
         // $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
-        // $lastUsername = $authenticationUtils->getLastUsername();
-        return $this->render('admin/login.html.twig');
+        $lastUsername = $authenticationUtils->getLastUsername();
+        return $this->render('admin/login.html.twig', ['last_username' => $lastUsername]);
     }
 
     /**
@@ -514,7 +514,8 @@ class AdminController extends AbstractController
         $pTreatment = new Document();
         $pTreatment->setClient($treatment->getClient());
         $imageTreatment = $treatment->getImages();
-         // crée me formulaire QuoteType qui correspond à celui que j'ai choisis pour créer les documents (facture ou devis), le 'allow_extra_fields' définie a true indique qu'un champ sera rempli d'une autre façon que celle de symfony pour ma part j'ai choisis d'envoyé un tableau a json a une méthode ajax
+         // crée me formulaire QuoteType qui correspond à celui que j'ai choisis pour créer les documents (facture ou devis), le 'allow_extra_fields' définie a true indique qu'un champ sera 
+         // rempli d'une autre façon que celle de symfony pour ma part j'ai choisis d'envoyé un tableau a json a une méthode ajax
         $formTreatmentQr = $this->createForm(QuoteType::class, $treatment, ['allow_extra_fields' => true]);
         // supprime des champs
         $formTreatmentQr['client']->remove('addressTwo');
@@ -548,6 +549,7 @@ class AdminController extends AbstractController
             }
             $pTreatment->addServiceDocument($serviceDocument);
             $pTreatment->addMaterialDocument($materialDocument);
+            // j'effectue ici un foreach sur chaque groupe de champ lié a materialDocument car j'ai utilisé le "clonage" de champs avec les prototype
             foreach ($formTreatmentQr['materialDocuments'] as $value) {
                 // ici j'effectue une instanciation de la classe materialDocument
                 $materials = new Materials();
@@ -562,7 +564,7 @@ class AdminController extends AbstractController
             }
             $entityManager->persist($pTreatment);
             $entityManager->flush();
-            return new JsonResponse(true);
+            return new JsonResponse(['id' => $pTreatment->getId()]);
         }
         return $this->render('admin/treatment.html.twig', [
             'treatment' => $treatment, 'formtreatmentqr' => $formTreatmentQr->createView(), 'imagetreatment' => $imageTreatment
@@ -722,6 +724,7 @@ class AdminController extends AbstractController
             }
             $entityManager->persist($createPdf);
             $entityManager->flush();
+            // dd(['id' => $createPdf->getId()]);
             return new JsonResponse(['id' => $createPdf->getId()]);
         }
         return $this->render('admin/createdocument.html.twig', [

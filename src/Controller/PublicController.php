@@ -19,15 +19,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class PublicController extends AbstractController
 {
 
+    
     /**
      * @Route("/", name="index")
      */
     public function index()
     {
+        //$this->checkHttps();
         $entityManager = $this->getDoctrine()->getManager();
         $imageCaroussel = $entityManager->getRepository(Image::class)
             ->findBy(['isCarroussel' => true]);
-            
         return $this->render('public/index.html.twig', [
             'imageCaroussel' => $imageCaroussel,
         ]);
@@ -68,6 +69,7 @@ class PublicController extends AbstractController
      */
     public function devis(Request $request, FileUploader $fileUploader)
     {
+        $this->checkHttps();
         $quoteRequest = new Document();
         $formQuoteRequest = $this->createForm(DocumentType::class, $quoteRequest);
         $formQuoteRequest['client']->remove('password');
@@ -106,10 +108,14 @@ class PublicController extends AbstractController
                 if ($customer !== null) {
                     $quoteRequest->setClient($customer);
                 }
-                $entityManager->persist($quoteRequest);
-                $entityManager->flush();
+                if (isset($_POST['condition']) !== true) {
+                    return new JsonResponse(['error' => 'Veuillez cocher la case']);
+                } else {
+                    $entityManager->persist($quoteRequest);
+                    $entityManager->flush();
+                }
+                return new JsonResponse(true);
             }
-            return new JsonResponse(true);
         }
         return $this->render('public/devis.html.twig', [
             'formQr' => $formQuoteRequest->createView(),
@@ -121,16 +127,29 @@ class PublicController extends AbstractController
      */
     public function contact(Request $request)
     {
+        //$this->checkHttps();
         $entityManager = $this->getDoctrine()->getManager();
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($contact);
-            $entityManager->flush();
+            if (isset($_POST['condition']) !== true) {
+                return new JsonResponse(['error' => 'Veuillez cocher la case']);
+            } else {
+                $entityManager->persist($contact);
+                $entityManager->flush();
+            }
         }
         return $this->render('public/contact.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+    
+    public function checkHttps()
+    {
+        if (!isset($_SERVER['HTTPS'])) {
+            header('Location: https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+            exit;
+        }
     }
 }

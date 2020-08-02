@@ -39,9 +39,10 @@ class DocumentType extends AbstractType
             ->add('category', EntityType::class, [
                 'class' => 'App:Category',
                 'choice_label' => 'name',
-                'expanded' => true,
                 'multiple' => false,
-                'mapped' => false
+                'mapped' => false,
+                'label' => false,
+                'placeholder' => 'Choisissez une catégorie'
             ]);
         $formModifier = function (FormInterface $form, Category $categories = null) {
             $services = null === $categories ? [] : $categories->getServices();
@@ -50,8 +51,9 @@ class DocumentType extends AbstractType
                 'choice_label' => 'name',
                 'choices' => $services,
                 'mapped' => false,
-                'expanded' => true,
                 'multiple' => false,
+                'placeholder' => 'Choisissez un service'
+
             ]);
         };
         $builder->addEventListener(

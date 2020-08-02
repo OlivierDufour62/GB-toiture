@@ -7,9 +7,7 @@
 	<div class="col-6 col-lg-2 mx-auto text-center mt-3 mb-3">
 		<h1 class="color264d7e titlesizemobile ">Devis</h1>
 	</div>
-	<div
-		class="col-12 col-lg-6 mx-auto">
-		{# <form> #}
+	<div class="col-12 col-lg-6 mx-auto">
 		{{ form_start(formQr, {'attr': {'class':'ajaxsenddevis'}})}}
 		<fieldset class="border p-2 mb-2">
 			<legend class="titlesizemobile color264d7e">Vos coordonnées</legend>
@@ -59,14 +57,16 @@
 		</fieldset>
 		<fieldset class="border p-2 mb-2">
 			<legend class="titlesizemobile color264d7e">Information du chantier</legend>
-			<div class="form-check form-check-inline">
-				{% for categories in formQr.category %}
-					{{ form_row(categories, {'attr': {'class':'coucou categories rb','id': 'categories'}}) }}
-				{% endfor %}
-			</div>
-			<div class="form-row mt-2 div-none div-hide 4">
-				<div class="">
-					{{ form_widget(formQr.service, {'attr': {'class':'service','id': 'service'}}) }}
+			<div class="d-flex">
+				<div class="form-check form-check-inline">
+					{# {% for categories in formQr.category %} #}
+						{{ form_row(formQr.category, {'attr': {'class':'col-12 d-flex coucou categories rb'}}) }}
+					{# {% endfor %} #}
+				</div>
+				<div class="form-row div-none ml-2">
+					<div class="">
+						{{ form_widget(formQr.service, {'attr': {'class':'col-12 service'}}) }}
+					</div>
 				</div>
 			</div>
 		</fieldset>
@@ -74,18 +74,6 @@
 			<legend class="titlesizemobile color264d7e">Photo concernant votre demande</legend>
 			<div class="form-row mt-2">
 				{{ form_widget(formQr.images, {'attr': {'class': 'form-control-file shadow-none'}})}}
-				{# <div class="form-group col-lg-4">
-													<label for="photo">Photo 1</label>
-													<input type="file" class="form-control-file shadow-none" id="photo" name="photo">
-												</div>
-												<div class="form-group col-lg-4">
-													<label for="photo">Photo 2</label>
-													<input type="file" class="form-control-file shadow-none" id="photo1" name="photo">
-												</div>
-												<div class="form-group col-lg-4">
-													<label for="photo">Photo 3 (pignon)</label>
-													<input type="file" class="form-control-file shadow-none" id="photo3" name="photo">
-												</div> #}
 			</div>
 		</fieldset>
 		<div class="form-group">
@@ -93,7 +81,13 @@
 				Veuillez nous donner quelques détails concernant votre maison par exemple le nombre d'étage, quelle partie à entretenir, création ou remplacement de vos fenêtre de toit, etc.
 			</p>
 			{{ form_widget(formQr.additionnalInformation, {'attr': {'class': 'form-control resize shadow-none','rows':"5", 'placeholder':"Information complémentaire"}})}}
-			{# <textarea class="form-control shadow-none" id="details" rows="5" placeholder="Information complémentaire"></textarea> #}
+		</div>
+		<div id="display-condition">
+			<input type="checkbox" id="condition" name="condition">
+			<label for="">J'accepte la conservation de mes données personnelles selon la politique de conservation des données</label>
+		</div>
+		<div id="form-error">
+			
 		</div>
 		<div class="mx-auto d-flex justify-content-center">
 			<button id="senddevis" type="submit" class="btn bg264d7efoot text-white mb-3">Envoyer</button>

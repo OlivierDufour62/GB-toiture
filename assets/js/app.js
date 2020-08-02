@@ -8,6 +8,7 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import '../css/main.scss';
 import 'core-js/es/array';
+import { setTimeout } from 'core-js';
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 // import $ from 'jquery';
@@ -26,141 +27,100 @@ $(document).ready(function () {
     let path = window.location.pathname;
     $('#menu-public a').each(function () {
         let href = $(this).attr('href');
-        if(href.indexOf(path) != -1){
+        if (path == '/' && href == '/' || path != '/' && href.indexOf(path) != -1) {
             $(this).parent().addClass('selected')
         }
     });
 
-    $(".rb").click(function () {
-        var div = $("." + this.value);
-        $('.div-hide').hide('slow');
-        div.show("slow");
+    $('#prestations .prestation').on('click', function(){
+        var elem = $(this).addClass('clicked');
+        setTimeout(function(){
+            elem.removeClass('clicked')
+        }, 5000)
+    });
+
+    $(".rb").one('change', function () {
+        $(this).parent().parent().siblings('.div-none').removeClass('div-none');
     });
 
     $('.rb').click(function () {
         $('.service').parent().parent().addClass(this.value)
     })
 
-    $("#header-admin .hamburger").click(function () {
+
+    var headerAdmin = $('#header-admin');
+    var headerPublic = $('#header-public');
+    var header = headerAdmin.add(headerPublic).filter(':visible');
+    var menuAdmin = $('#menu');
+    var menuPublic = $('#menu-public');
+    var menu = menuAdmin.add(menuPublic).filter(':visible');
+    header.find('.hamburger').click(function () {
         // récupére la position de l'élément ciblé 
-        var originalPosition = $('#menu')[0].getBoundingClientRect();
-        console.log(originalPosition)
+        var originalPosition = menu[0].getBoundingClientRect();
         // récupére le height de l'élément ciblé 
-        var headerHeight = $('#header-admin').outerHeight();
-        // ajoute a #menu des propriété css
-        $('#menu').data({
+        var headerHeight = header.outerHeight();
+        // console.log(originalPosition,'--',headerHeight);
+        menu.data({
+            // ici je stocke les données récupérées 
             originalPosition: originalPosition,
-            maxWidth: $('#menu').css('max-width')
+            maxWidth: menu.css('max-width')
         }).css({
+            // ajoute a la variable menu des propriété css
             position: 'fixed',
             top: originalPosition.top,
             left: originalPosition.left
         });
-        $('#header-admin').css({
+        header.css({
             height: headerHeight
         });
-        gsap.to('#menu', {
+        // ici c'est l'animation
+        gsap.to(menu, {
+            //durée d'ouverture du menu
             duration: .6,
+            // position a gauche, droite, haut a 0 pour que le menu occupe la totalité de l'écran
             left: 0,
             maxWidth: 'none',
             right: 0,
             top: 0
         });
-        $('#menu nav').height(0).css({
+        //ajoute la propriété overflow a la nav
+        menu.find('nav').height(0).css({
             overflow: 'hidden',
         });
-        gsap.to(`#menu nav`, {
+        gsap.to(menu.find('nav'), {
+            // durée d'affichage de la nav
             duration: .6,
             display: 'block',
-            height: $(window).height() - $('#menu>img').height()
+            height: $(window).height() -  menu.children('img').height()
         });
-        gsap.to('#menu > i', {
+        gsap.to(menu.children('i'), {
+            //ici pour la croix de fermeture du menu
             opacity: 1,
             duration: 1.2
         });
     });
     // fermeture du menu 
-    $(`#menu > i`).click(function () {
-        var originalPosition = $('#menu').data('originalPosition');
+    menu.children('i').click(function () {
+        var originalPosition = menu.data('originalPosition');
         console.log(originalPosition)
-        gsap.to('#menu > i', {
+        gsap.to(this, {
             opacity: 0,
             duration: .6
         });
-        gsap.to(`#menu nav`, {
+        gsap.to(menu.find('nav'), {
             height: 0,
             duration: .5
         });
-        gsap.to('#menu', {
+        gsap.to(menu, {
             duration: .2,
             left: originalPosition.left,
             right: 20,
             top: originalPosition.top,
             onComplete: function () {
-                $('#menu').css('max-width', $('#menu').data('maxWidth'));
+                menu.css('max-width', menu.data('maxWidth'));
             }
-        }); 
-    })
-
-    $("#header-public .hamburger").click(function () {
-        // récupére la position de l'élément ciblé 
-        var originalPositionPublic = $('#menu-public')[0].getBoundingClientRect();
-        // récupére le height de l'élément ciblé 
-        var headerHeightPublic = $('#header-public').outerHeight();
-        // ajoute a #menu-public des propriété css
-        $('#menu-public').data({
-            originalPositionPublic: originalPositionPublic,
-            maxWidth: $('#menu-public').css('max-width')
-        }).css({
-            position: 'fixed',
-            top: originalPositionPublic.top,
-            left: originalPositionPublic.left
-        });
-        $('#header-public').css({
-            height: headerHeightPublic
-        });
-        gsap.to('#menu-public', {
-            duration: .6,
-            left: 0,
-            maxWidth: 'none',
-            right: 0,
-            top: 0
-        });
-        $('#menu-public nav').height(0).css({
-            overflow: 'hidden',
-        });
-        gsap.to(`#menu-public nav`, {
-            duration: .6,
-            display: 'block',
-            height: $(window).height() - $('#menu-public>img').height()
-        });
-        gsap.to('#menu-public > i', {
-            opacity: 1,
-            duration: 1.2
         });
     });
-    // fermeture du menu 
-    $(`#menu-public > i`).click(function () {
-        var originalPositionPublic = $('#menu-public').data('originalPositionPublic');
-        console.log(originalPositionPublic)
-        gsap.to('#menu-public > i', {
-            opacity: 0,
-            duration: .6
-        });
-        gsap.to(`#menu-public nav`, {
-            height: 0,
-            duration: .5
-        });
-        gsap.to('#menu-public', {
-            duration: .2,
-            left: originalPositionPublic.left,
-            right: 20,
-            top: originalPositionPublic.top,
-            onComplete: function () {
-                $('#menu-public').css('max-width', $('#menu-public').data('maxWidth'));
-            }
-        }); 
-    })
 
     $('.addcat').click(function () {
         $('.div-none').toggle(`fold`, 1500);
@@ -356,7 +316,7 @@ $(document).ready(function () {
             }
         });
     });
-    
+
     $('#search').on('click', function (e) {
         e.preventDefault()
         let phonenumber = $('.searchbar').val()
@@ -464,7 +424,9 @@ $(document).ready(function () {
     $('#senddevis').on('click', function (e) {
         e.preventDefault();
         let data2 = new FormData($('.ajaxsenddevis')[0]);
-        // console.log(data2)
+        console.log(data2.values())
+        // console.log($('#condition'))
+        $('#form-error').hide();
         $.ajax({
             type: 'POST',
             url: `/devis`,
@@ -472,17 +434,16 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: function (data) {
+                if (data.error) {
+                    $('#form-error').html(data.error).show()
+                    return;
+                }
                 $('input').val('');
                 $('textarea').val('');
-                $(".successsend").removeClass("d-none");
-                setTimeout(function () {
-                    $(".successsend").addClass("d-none");
-                }, 1500);
-            },
-            error: function (err) {
-                console.log(err);
+                alert('Votre demande a bien été envoyée');
             }
-        });
+        },
+        );
     });
 
     $(".flip1").click(function () {
@@ -523,57 +484,59 @@ $(document).ready(function () {
         // increase the index with one for the next item
         $collectionHolder.data('index', index + 1).addClass('col-12', 'dflex');
         // Display the form in the page in an li, before the "Add a tag" link li
-        var $newFormLi = $('<li></li>').append(newForm).children('div').addClass('dflex').children().addClass('col-6 col-lg-3 col-xl-3 m-0 p-0');
+        var $newFormLi = $('<li></li>').append(newForm).children('div').addClass('dflex w100').children().addClass('col-lg-3 col-xl-3 m-0 p-0');
         $newLinkLi.before($newFormLi);
     }
-
+    // création d'un variable vide
     var $collectionHolderSD;
+    // variable contenant un bouton
     var $addTagButtonSD = $('<button id="presta" class="btn text-white btn264d7e mt-3 bpresta">Ajouter une prestation</button>');
+    // variable contenant des balises li
     var $newLinkLiSD = $('<li class="col-12 d-flex justify-content-end p-0 m-0 bpresta"></li>').append($addTagButtonSD);
-
+    // ici on ajouter des données à la variable $collectionHolderSD on lui d'ajouter des classes a l'ul contenant la classe tag
     $collectionHolderSD = $('ul.tag').addClass('list-unstyled p-0 m-0');
+    // ici on lui de lui ajouter ce que contient la variable $newLinkLiSD
     $collectionHolderSD.append($newLinkLiSD);
     $collectionHolderSD.data('index', $collectionHolderSD.find('input').length);
+    // ici on lui dit que quand on clique sur le bouton on lui les deux variables $collectionHolderSD, $newLinkLiSD
     $addTagButtonSD.click(function (e) {
         addTagForm($collectionHolderSD, $newLinkLiSD);
     });
-
+    // ici la fonction permettant d'ajouter les champs et les cloner en indentant le l'indice de 1
     function addTagForm($collectionHolderSD, $newLinkLiSD) {
         var prototypeSD = $collectionHolderSD.data('prototype');
         var indexSD = $collectionHolderSD.data('index');
         var newFormSD = prototypeSD;
         newFormSD = newFormSD.replace(/__name__/g, indexSD);
         $collectionHolderSD.data('index', indexSD + 1).addClass('col-12 dflex');
-        var $newFormLiSD = $('<li></li>').append(newFormSD).children('div').addClass('dflex flex-mobile noeud').children().addClass('col-6 col-lg-2 col-xl-2 m-0 p-0').parent().append('<br>');
+        var $newFormLiSD = $('<li></li>').append(newFormSD).children('div').addClass('dflex flex-mobile noeud w100').children().addClass('col-lg-2 col-xl-2 m-0 p-0').parent().append('<br>');
         $newLinkLiSD.before($newFormLiSD);
     }
 
+    // ici on indique que au clique du bouton #presta quelque chose doit se faire 
     $('#presta').click(function () {
+        // variable contenant tout les selecte finissant par catégorie
         var category = $('select[name*="categorie"]');
+        // ici on indique qu'il doit se passé quelque chose au changement du select
         category.change(function () {
+            // ici je crée une variable pour ciblé le select appartenant au meme groupe que celui des catégorie
             var service = $(this).parent().parent().find('select[name*="designation"]');
-            console.log(service)
+            // console.log(service)
+            // je crée uns constante contenant l'id de la catégorie afin de l'a passé a la route je l'a récupére avec la value du select catégorie
             const idcat = $(this).val();
-            console.log(idcat)
+            // on reattribu les données du formulaires dans data afin de les envoyer dans le corps de la requête ajax
             let data1 = {};
+            // ajax commence ici 
             $.ajax({
+                // la route du controller visé  on retrouve ici la constante
                 url: `/admin/service/${idcat}`,
+                // on définie la méthode du formulaire ici en get car c'est plus sécurisé pour récupérer des données
                 type: 'GET',
+                // les données du form
                 data: data1,
+                //ici je precise que se sera du JSON qu'on recevra
                 dataType: 'json',
                 success: function (html) {
-                    // service.html('')
-                    // $(html).each(function (index, e) {
-                    //     console.log(html)
-                    //     service.append('<option value='+e.id+'>' + e.name + '</option>');
-                    // });
-                    // //évite de réécrire le dom trop fréquemment de facon moins optimisé 
-                    // var buffer = [];
-                    // $(html).each(function (index, e) {
-                    //     buffer.push('<option value='+e.id+'>' + e.name + '</option>');
-                    // });
-                    // service.html(buffer.join(''));
-
                     //évite de réécrire le dom trop fréquemment de facon optimisé 
                     var fragment = document.createDocumentFragment();
                     $(html).each(function (index, e) {
@@ -597,7 +560,8 @@ $(document).ready(function () {
             .forEach((object) => {
                 data[object.name] = object.value
             });
-            // ajax commence ici 
+        // ajax commence ici 
+        console.log(data)
         $.ajax({
             // on définie la méthode du formulaire ici en post car c'est plus sécurisé pour transmettre des données
             type: 'POST',
@@ -612,10 +576,10 @@ $(document).ready(function () {
                     setTimeout(function () {
                         $(".successsend").addClass("d-none");
                     }, 1500);
+                    $.ajax({
+                        url: `/admin/generatepdf/` + data.id,
+                    }).done();
                 }
-                $.ajax({
-                    url: `/admin/generatepdf/`+data.id,
-                }).done();
             }
         });
     });
@@ -632,7 +596,7 @@ $(document).ready(function () {
             .forEach((object) => {
                 data[object.name] = object.value
             });
-            // ajax commence ici 
+        // ajax commence ici 
         $.ajax({
             // on définie la méthode du formulaire ici en post car c'est plus sécurisé pour transmettre des données
             type: 'POST',
@@ -642,6 +606,7 @@ $(document).ready(function () {
             data: data,
             // et enfin le succés 
             success: function (data) {
+                console.log(data.id)
                 if (data) {
                     $(".successsend").removeClass("d-none");
                     setTimeout(function () {
@@ -649,7 +614,7 @@ $(document).ready(function () {
                     }, 1500);
                 }
                 $.ajax({
-                    url: `/admin/generatepdf/`+data.id,
+                    url: `/admin/generatepdf/` + data.id,
                 }).done();
             }
         });
@@ -657,6 +622,6 @@ $(document).ready(function () {
 
     $('#sendquote').on('click', function (e) {
         e.preventDefault();
-        
+
     });
 });                                                                                                                      
